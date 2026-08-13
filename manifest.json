@@ -1,0 +1,10 @@
+{
+  "id": "braincore-lifeos",
+  "name": "BrainCore LifeOS",
+  "version": "3.2.5",
+  "minAppVersion": "1.5.0",
+  "description": "Obsidian 知识库侧边栏控制台 · 7 大模块 · 商业版需激活",
+  "author": "囍樂",
+  "authorUrl": "https://xhslink.com/m/3uOoUHv2rI1",
+  "isDesktopOnly": false
+}
