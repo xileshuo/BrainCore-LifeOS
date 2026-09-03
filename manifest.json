@@ -1,0 +1,10 @@
+{
+  "id": "braincore-lifeos",
+  "name": "BrainCore LifeOS",
+  "version": "4.0.4",
+  "minAppVersion": "1.5.0",
+  "description": "Obsidian 知识库的「核心呼吸机」，它由 7 大模块组成，涵盖了时间感知、极速收集、工作流转、习惯养成与知识内化。一切信息从这里输入，最终也会在这里沉淀。",
+  "author": "囍樂",
+  "authorUrl": "https://xhslink.com/m/3uOoUHv2rI1",
+  "isDesktopOnly": false
+}
