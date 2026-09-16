@@ -1,79 +1,7 @@
 # BrainCore LifeOS
 
-> **Paid · 48-hour trial · ¥49.9 permanent unlock**  
-> **付费 · 48 小时试用 · ¥49.9 永久激活**
-
-## English
-
-### Overview
-
-BrainCore LifeOS is a **paid** LifeOS sidebar console for Obsidian vaults.
-It brings capture, tasks, weekly work, habits, Moments notes, daily quotes, weather, time progress, and vault stats into one sidebar control panel.
-The goal is a daily operating surface for your knowledge base: open the console, capture quickly, push tasks, and review progress without hunting through folders.
-
-### Pricing
-
-| Item | Details |
-| --- | --- |
-| Install | Free from Community Plugins (when listed), BRAT, or GitHub Releases |
-| Trial | Start a **48-hour full trial** inside the plugin |
-| Unlock | **¥49.9** one-time payment, permanent activation per device fingerprint |
-| Purchase | After the trial, contact the author on **Xiaohongshu**, send your device fingerprint, then paste the activation code |
-
-Mobile and desktop sharing the same vault need one activation per device.
-Obsidian does not process payments for this plugin.
-
-### Install
-
-1. Prefer Community Plugins: Settings → Community plugins → Browse → search **BrainCore LifeOS** → Install → Enable
-2. Or install with **BRAT** using this repository:
-
-```text
-https://github.com/xileshuo/BrainCore-LifeOS
-```
-
-3. Or download [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) and place `main.js` and `manifest.json` in `.obsidian/plugins/braincore-lifeos/`
-4. Click the cloud ribbon icon, then start the 48-hour trial
-5. After the trial, unlock with an activation code from Xiaohongshu
-
-### Features
-
-- Sidebar console: capture, tasks, weekly work, habit check-ins, and stats
-- Moments: quick notes, filters, share images, and yearly reports
-- Daily quotes, weather, and year / month / week / day progress
-- Weekly Work templates with unfinished-task carryover
-- Optional Dataview for richer statistics (DataviewJS recommended)
-
-### Quick start
-
-1. **Morning:** open the cloud icon → check greeting / progress / quote → scan tasks
-2. **Daytime:** capture ideas as they appear; push work from the task overview
-3. **Evening:** complete habit check-ins; archive finished items when needed
-4. **Weekly:** review the current Work note and plan the next week
-
-Capture categories include Work, Life, Moments, essays, clippings, materials, and drafts.
-Use `Cmd/Ctrl + Enter` to send. Empty content will not submit silently.
-Moments notes are stored as yearly Markdown files under `读&写/Moments/YYYY.md`.
-Images go to `Boxes/图片`; the Moments year file only stores references.
-
-### Notes
-
-- Dataview is optional. Capture, tasks, habits, and Moments work without it.
-- Do not delete core folders such as Work, Boxes, or 读&写.
-- Full documentation is also available inside the plugin under Usage Guide.
-
-### Links
-
-- Author profile: https://github.com/xileshuo
-- Repository: https://github.com/xileshuo/BrainCore-LifeOS
-- Buy / support: Xiaohongshu (see the Chinese section below for the order link)
-
-This repository hosts the community distribution build and documentation.
-It does not include the full private source tree.
-
----
-
-## 中文
+> **付费 · 48 小时试用 · ¥49.9 永久激活**  
+> **Paid · 48-hour trial · ¥49.9 permanent unlock**
 
 侧边栏控制台：捕捉、待办、周工作、习惯、Moments、统计与知识内化。
 
@@ -261,3 +189,73 @@ https://github.com/xileshuo/BrainCore-LifeOS
 - 控制台：跨日同步刷新习惯「今日」高亮与问候/日期条，不必重开插件或重启 Obsidian
 
 </details>
+
+---
+
+## English
+
+### Overview
+
+BrainCore LifeOS is a **paid** LifeOS sidebar console for Obsidian vaults.
+It brings capture, tasks, weekly work, habits, Moments notes, daily quotes, weather, time progress, and vault stats into one sidebar control panel.
+The goal is a daily operating surface for your knowledge base: open the console, capture quickly, push tasks, and review progress without hunting through folders.
+
+### Pricing
+
+| Item | Details |
+| --- | --- |
+| Install | Free from Community Plugins (when listed), BRAT, or GitHub Releases |
+| Trial | Start a **48-hour full trial** inside the plugin |
+| Unlock | **¥49.9** one-time payment, permanent activation per device fingerprint |
+| Purchase | After the trial, contact the author on **Xiaohongshu**, send your device fingerprint, then paste the activation code |
+
+Mobile and desktop sharing the same vault need one activation per device.
+Obsidian does not process payments for this plugin.
+
+### Install
+
+1. Prefer Community Plugins: Settings → Community plugins → Browse → search **BrainCore LifeOS** → Install → Enable
+2. Or install with **BRAT** using this repository:
+
+```text
+https://github.com/xileshuo/BrainCore-LifeOS
+```
+
+3. Or download [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) and place `main.js` and `manifest.json` in `.obsidian/plugins/braincore-lifeos/`
+4. Click the cloud ribbon icon, then start the 48-hour trial
+5. After the trial, unlock with an activation code from Xiaohongshu
+
+### Features
+
+- Sidebar console: capture, tasks, weekly work, habit check-ins, and stats
+- Moments: quick notes, filters, share images, and yearly reports
+- Daily quotes, weather, and year / month / week / day progress
+- Weekly Work templates with unfinished-task carryover
+- Optional Dataview for richer statistics (DataviewJS recommended)
+
+### Quick start
+
+1. **Morning:** open the cloud icon → check greeting / progress / quote → scan tasks
+2. **Daytime:** capture ideas as they appear; push work from the task overview
+3. **Evening:** complete habit check-ins; archive finished items when needed
+4. **Weekly:** review the current Work note and plan the next week
+
+Capture categories include Work, Life, Moments, essays, clippings, materials, and drafts.
+Use `Cmd/Ctrl + Enter` to send. Empty content will not submit silently.
+Moments notes are stored as yearly Markdown files under `读&写/Moments/YYYY.md`.
+Images go to `Boxes/图片`; the Moments year file only stores references.
+
+### Notes
+
+- Dataview is optional. Capture, tasks, habits, and Moments work without it.
+- Do not delete core folders such as Work, Boxes, or 读&写.
+- Full documentation is also available inside the plugin under Usage Guide.
+
+### Links
+
+- Author profile: https://github.com/xileshuo
+- Repository: https://github.com/xileshuo/BrainCore-LifeOS
+- Buy / support: Xiaohongshu (see the Chinese section above for the order link)
+
+This repository hosts the community distribution build and documentation.
+It does not include the full private source tree.
