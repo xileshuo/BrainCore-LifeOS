@@ -1,10 +1,14 @@
 # BrainCore LifeOS
 
+> **Paid · 48-hour trial · ¥49.9 permanent unlock**
+>
 > **付费 · 48 小时试用 · ¥49.9 永久激活**
+
+BrainCore LifeOS is a paid LifeOS sidebar console for capture, tasks, weekly work, habits, Moments, and knowledge review.
 
 侧边栏控制台：捕捉、待办、周工作、习惯、Moments、统计与知识内化。
 
-**English overview:** A paid LifeOS sidebar console — capture, tasks, weekly work, habits, Moments, and knowledge review. Free install · **48-hour trial** · **¥49.9** permanent unlock (Xiaohongshu).
+See [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) · label **Paid** (free trial included).
 
 版本与更新见 [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) · 标签 **Paid**（含免费试用）
 
@@ -195,14 +199,51 @@ https://github.com/xileshuo/BrainCore-LifeOS
 ## English
 
 BrainCore LifeOS is a **paid** LifeOS sidebar console for Obsidian vaults.
+It brings capture, tasks, weekly work, habits, Moments notes, daily quotes, weather, time progress, and vault stats into one sidebar control panel.
 
-Install free from Community Plugins (recommended), BRAT, or GitHub Releases.
-Start a **48-hour full trial** inside the plugin. After the trial, unlock permanent use for **¥49.9** (one-time, per device fingerprint) via **Xiaohongshu**, then paste the activation code.
+### Pricing
 
-Features include fast capture, tasks, weekly work, habits, Moments notes, quotes, weather, and vault stats. Dataview is optional for richer dashboards.
+- **Install:** free from Community Plugins (when listed), BRAT, or GitHub Releases
+- **Trial:** start a **48-hour full trial** inside the plugin
+- **Unlock:** **¥49.9** one-time payment, permanent activation per device fingerprint
+- **Buy:** after the trial, contact the author on **Xiaohongshu**, send your device fingerprint, then paste the activation code
+
+Mobile and desktop sharing the same vault need one activation per device.
+
+### Install
+
+1. Prefer Community Plugins: Settings → Community plugins → Browse → search **BrainCore LifeOS** → Install → Enable
+2. Or install with **BRAT** using this repository:
+
+```text
+https://github.com/xileshuo/BrainCore-LifeOS
+```
+
+3. Or download [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) and place `main.js` and `manifest.json` in `.obsidian/plugins/braincore-lifeos/`
+4. Click the cloud ribbon icon, then start the 48-hour trial
+
+### Features
+
+- Sidebar console: capture, tasks, weekly work, habit check-ins, and stats
+- Moments: quick notes, filters, share images, and yearly reports (stored under `读&写/Moments/YYYY.md`)
+- Daily quotes, weather, and year / month / week / day progress
+- Optional Dataview for richer statistics (DataviewJS recommended)
+
+### Quick start
+
+1. **Morning:** open the cloud icon → check greeting / progress / quote → scan tasks
+2. **Daytime:** capture ideas as they appear; push work from the task overview
+3. **Evening:** complete habit check-ins; archive finished items when needed
+4. **Weekly:** review the current Work note and plan the next week
+
+Capture categories include Work, Life, Moments, essays, clippings, materials, and drafts.
+Use `Cmd/Ctrl + Enter` to send. Empty content will not submit silently.
+
+### Links
 
 - Author profile: https://github.com/xileshuo
 - Repository: https://github.com/xileshuo/BrainCore-LifeOS
-- Buy / support: Xiaohongshu (see Chinese section above)
+- Buy / support: Xiaohongshu (see the Chinese section above for the order link)
 
-This repository hosts the community distribution build and documentation. It does not include the full private source tree.
+This repository hosts the community distribution build and documentation.
+It does not include the full private source tree.
