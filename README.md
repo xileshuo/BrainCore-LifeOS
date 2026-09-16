@@ -1,8 +1,13 @@
 # BrainCore LifeOS
+
 > **付费 · 48 小时试用 · ¥99.9 永久激活**
+
 侧边栏控制台：捕捉、待办、周工作、习惯、Moments、统计与知识内化。
+
 **English overview:** A paid LifeOS sidebar console — capture, tasks, weekly work, habits, Moments, and knowledge review. Free install · **48-hour trial** · **¥99.9** permanent unlock (Xiaohongshu).
+
 版本与更新见 [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) · 标签 **Paid**（含免费试用）
+
 ## 界面预览
 
 **控制台** — 捕捉、待办、周工作与习惯一屏看清
@@ -16,23 +21,33 @@
 **捕捉** — 快速收集想法与待办
 
 ![捕捉](https://raw.githubusercontent.com/xileshuo/BrainCore-LifeOS/main/media/capture.jpg)
+
 ## 定价与购买
+
 | 项目 | 说明 |
 | --- | --- |
 | **试用** | 插件内开启后 48 小时全功能 |
 | **付费** | ¥99.9 一次付费，按设备指纹永久激活 |
 | **购买** | 小红书联系作者下单 → 复制设备指纹 → 粘贴激活码 |
+
 作者：[github.com/xileshuo](https://github.com/xileshuo) · 小红书：[下单入口](https://xhslink.com/m/3uOoUHv2rI1)
+
 ## 安装与上手
+
 1. 设置 → 第三方插件 → 浏览 → 搜索 **BrainCore LifeOS** → 安装并启用
 2. 点侧栏云图标，开启 48 小时试用
 3. 试用满意后：复制指纹 → 小红书下单 → 粘贴激活码
+
 ### 其他安装方式
+
 **BRAT**：添加仓库
+
 ```text
 https://github.com/xileshuo/BrainCore-LifeOS
 ```
+
 **手动**：下载 [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) 的 `main.js`、`manifest.json` 到 `.obsidian/plugins/braincore-lifeos/`
+
 ## 使用说明（精简）
 
 完整说明可在启用后打开插件内「使用说明」；下面是社区页够用的上手版。
@@ -94,6 +109,7 @@ https://github.com/xileshuo/BrainCore-LifeOS
 - **Dataview** 可选：没有也能用捕捉 / 待办 / 习惯 / Moments；装了统计更完整（建议开 DataviewJS）
 - 不要随意删核心目录（Work、读&写、Boxes 等）或改插件文件夹名
 - 手机与电脑共用同一库时：两端各用本机指纹各激活一次
+
 ## 更新日志
 
 ### 4.1.1（当前）
@@ -176,13 +192,20 @@ https://github.com/xileshuo/BrainCore-LifeOS
 - 清理无用的 momentsTrashDefaultV4 / is-fab-settling 死字段与死样式路径
 
 </details>
+
 ---
+
 ## English
+
 BrainCore LifeOS is a **paid** LifeOS sidebar console for Obsidian vaults.
+
 Install free from Community Plugins (recommended), BRAT, or GitHub Releases.
 Start a **48-hour full trial** inside the plugin. After the trial, unlock permanent use for **¥99.9** (one-time, per device fingerprint) via **Xiaohongshu**, then paste the activation code.
+
 Features include fast capture, tasks, weekly work, habits, Moments notes, quotes, weather, and vault stats. Dataview is optional for richer dashboards.
+
 - Author profile: https://github.com/xileshuo
 - Repository: https://github.com/xileshuo/BrainCore-LifeOS
 - Buy / support: Xiaohongshu (see Chinese section above)
+
 This repository hosts the community distribution build and documentation. It does not include the full private source tree.
