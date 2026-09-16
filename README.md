@@ -112,10 +112,18 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.2（当前）
+### 4.1.3（当前）
+
+- Moments：无旧 Ideas/碎碎念 可迁时静默完成，不再每次启动弹「Folder already exists」
+- Moments：建目录兼容已存在文件夹；失败提示改为最多每周一次
+
+<details>
+<summary>4.1.2</summary>
 
 - 定价更正：永久激活为 ¥49.9（试用满意后小红书联系作者下单）
 - 社区介绍：补入精简使用说明；三张界面图全部展开；更新日志保留近 10 个版本（当前展开、其余折叠）
+
+</details>
 
 <details>
 <summary>4.1.1</summary>
@@ -179,14 +187,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 <summary>4.0.4</summary>
 
 - 授权：激活码改为 licenseKeys 数组保存，手机/电脑各自激活后互不覆盖（兼容旧 licenseKey）
-
-</details>
-
-<details>
-<summary>4.0.3</summary>
-
-- 关于：所有作品改为纵向排列
-- 套件：设置折叠区块去掉箭头，点标题仍可展开 / 收起（与 PlainLedger / 纪念日对齐）
 
 </details>
 
