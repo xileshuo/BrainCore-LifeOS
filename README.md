@@ -1,10 +1,10 @@
 # BrainCore LifeOS
 
-> **付费 · 48 小时试用 · ¥99.9 永久激活**
+> **付费 · 48 小时试用 · ¥49.9 永久激活**
 
 侧边栏控制台：捕捉、待办、周工作、习惯、Moments、统计与知识内化。
 
-**English overview:** A paid LifeOS sidebar console — capture, tasks, weekly work, habits, Moments, and knowledge review. Free install · **48-hour trial** · **¥99.9** permanent unlock (Xiaohongshu).
+**English overview:** A paid LifeOS sidebar console — capture, tasks, weekly work, habits, Moments, and knowledge review. Free install · **48-hour trial** · **¥49.9** permanent unlock (Xiaohongshu).
 
 版本与更新见 [Latest Release](https://github.com/xileshuo/BrainCore-LifeOS/releases/latest) · 标签 **Paid**（含免费试用）
 
@@ -27,7 +27,7 @@
 | 项目 | 说明 |
 | --- | --- |
 | **试用** | 插件内开启后 48 小时全功能 |
-| **付费** | ¥99.9 一次付费，按设备指纹永久激活 |
+| **付费** | ¥49.9 一次付费，按设备指纹永久激活 |
 | **购买** | 小红书联系作者下单 → 复制设备指纹 → 粘贴激活码 |
 
 作者：[github.com/xileshuo](https://github.com/xileshuo) · 小红书：[下单入口](https://xhslink.com/m/3uOoUHv2rI1)
@@ -112,10 +112,18 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.1（当前）
+### 4.1.2（当前）
+
+- 定价更正：永久激活为 ¥49.9（试用满意后小红书联系作者下单）
+- 社区介绍：补入精简使用说明；三张界面图全部展开；更新日志保留近 10 个版本（当前展开、其余折叠）
+
+<details>
+<summary>4.1.1</summary>
 
 - 社区介绍：置顶三张界面预览图，中文排版收紧；英文说明加长以便目录检测
 - 发布：同步仓库根与 Release 的 manifest，避免版本不一致警告
+
+</details>
 
 <details>
 <summary>4.1.0</summary>
@@ -182,17 +190,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 </details>
 
-<details>
-<summary>4.0.2</summary>
-
-- 手机捕捉：键盘态不再锁死 228/300 高度，随键盘 inset 收缩，分类与发送不再被挡
-- Moments：FAB 展开不再与键盘测量互相覆盖；常驻输入抬到 Obsidian 底栏之上（约 72px+safe）
-- 手机：bc-mobile-force-top 仅作用于捕捉弹窗；关闭时始终清掉 body class，避免漏到其他弹层
-- 套件顶距统一固定 41px spacer；关闭钮 44×44、不透明；分类键与排序触控 ≥44
-- 清理无用的 momentsTrashDefaultV4 / is-fab-settling 死字段与死样式路径
-
-</details>
-
 ---
 
 ## English
@@ -200,7 +197,7 @@ https://github.com/xileshuo/BrainCore-LifeOS
 BrainCore LifeOS is a **paid** LifeOS sidebar console for Obsidian vaults.
 
 Install free from Community Plugins (recommended), BRAT, or GitHub Releases.
-Start a **48-hour full trial** inside the plugin. After the trial, unlock permanent use for **¥99.9** (one-time, per device fingerprint) via **Xiaohongshu**, then paste the activation code.
+Start a **48-hour full trial** inside the plugin. After the trial, unlock permanent use for **¥49.9** (one-time, per device fingerprint) via **Xiaohongshu**, then paste the activation code.
 
 Features include fast capture, tasks, weekly work, habits, Moments notes, quotes, weather, and vault stats. Dataview is optional for richer dashboards.
 
