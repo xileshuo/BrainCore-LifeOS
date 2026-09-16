@@ -10,15 +10,15 @@
 
 **控制台**
 
-![控制台](https://raw.githubusercontent.com/xileshuo/BrainCore-LifeOS/main/media/console.png)
+![控制台](https://raw.githubusercontent.com/xileshuo/BrainCore-LifeOS/main/media/dashboard.jpg)
+
+**Moments**
+
+![Moments](https://raw.githubusercontent.com/xileshuo/BrainCore-LifeOS/main/media/moments.jpg)
 
 **捕捉**
 
-![捕捉](https://raw.githubusercontent.com/xileshuo/BrainCore-LifeOS/main/media/capture.png)
-
-**流转**
-
-![流转](https://raw.githubusercontent.com/xileshuo/BrainCore-LifeOS/main/media/flow.png)
+![捕捉](https://raw.githubusercontent.com/xileshuo/BrainCore-LifeOS/main/media/capture.jpg)
 
 ## 定价
 
