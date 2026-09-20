@@ -1,0 +1,10 @@
+{
+  "id": "braincore-lifeos",
+  "name": "BrainCore LifeOS",
+  "version": "4.1.7",
+  "minAppVersion": "1.5.0",
+  "description": "LifeOS sidebar console for time awareness, fast capture, workflows, habits, and knowledge review.",
+  "author": "囍樂",
+  "authorUrl": "https://github.com/xileshuo",
+  "isDesktopOnly": false
+}
