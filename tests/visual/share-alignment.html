@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BrainCore Moments 分享统一左轴回归</title>
+  <link rel="stylesheet" href="../../src/moments-memoria/styles.css">
+  <link rel="stylesheet" href="../../src/moments-memoria/share-contract.css">
+  <style>
+    *{box-sizing:border-box}body{margin:0;padding:28px;background:#e8e4de;color:#27231f;font-family:system-ui,-apple-system,"PingFang SC",sans-serif}h1{width:900px;margin:0 auto 18px;font-size:22px}.stack{display:grid;gap:22px}.memos-share-card{--share-muted:#6f685e;--share-bar-bg:#fff;width:900px;min-height:520px;margin:auto;display:flex;flex-direction:column;background:var(--paper);color:var(--ink)}.memos-share-card-body{flex:1;box-sizing:border-box;background:var(--paper)}.memos-share-card-content{width:100%}.memos-share-entry{box-sizing:border-box}.bc-fit-block{font:18px/1.72 "Songti SC",serif}.bc-fit-line{display:block}.memos-share-leica{display:flex;justify-content:space-between;align-items:center;min-height:90px}.memos-share-leica-title{font:700 21px/1.2 Georgia,serif}.memos-share-profile{display:flex;align-items:center;gap:10px}.avatar{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#f2d6b3,#9dc4b5)}.name{font-weight:750}.datetime{font-size:11px}.share-style-mint{--paper:#edf4e8;--ink:#173a27}.share-style-kraft{--paper:#f2e4c8;--ink:#3d2f1e}.axis{position:fixed;left:calc(50% - 340px);top:0;bottom:0;border-left:1px dashed #df5252;pointer-events:none}.result{width:900px;margin:0 auto 12px;padding:8px 12px;background:#fff;border-radius:8px;font:600 13px/1.4 ui-monospace,monospace}.result.is-pass{color:#176a3d}.result.is-fail{color:#b3261e}
+  </style>
+</head>
+<body>
+  <h1>Moments 分享统一左轴 · 900px 画布 / 110px 起点</h1>
+  <div class="result" id="result">测量中…</div>
+  <div class="axis" aria-hidden="true"></div>
+  <main class="stack">
+    <article class="memos-share-card share-style-mint is-text-only">
+      <div class="memos-share-card-body"><section class="memos-share-entry"><div class="memos-share-card-content bc-fit-copy"><div class="bc-fit-block" data-axis><span class="bc-fit-line">Happy birthday to myself</span><span class="bc-fit-line">嗯，祝我生日快乐</span><span class="bc-fit-line">毕业四年兜兜转转，回到原地……</span><span class="bc-fit-line is-prose">一个人在西藏把日子过得肆意，理想主义者拿理想和现实博弈，来回几番，败下阵来。</span></div></div></section></div>
+      <footer class="memos-share-leica"><div class="memos-share-leica-title">Just do it</div><div class="memos-share-profile"><div class="avatar"></div><div><div class="name">囍樂</div><div class="datetime">2026.08.24 · 20:30</div></div></div></footer>
+    </article>
+    <article class="memos-share-card share-style-kraft is-multi-share">
+      <div class="memos-share-card-body">
+        <section class="memos-share-entry"><time class="memos-share-entry-date" data-axis>2025.12.17 · 15:53</time><div class="memos-share-card-content"><p data-axis>不可说<br>出门的时候<br>电梯停在了一楼<br>几个小时后回家</p></div></section>
+        <section class="memos-share-entry"><time class="memos-share-entry-date" data-axis>2025.07.18 · 08:34</time><div class="memos-share-card-content"><p data-axis>Happy birthday to myself<br>嗯，祝我生日快乐<br>毕业四年兜兜转转，回到原地……</p></div></section>
+        <section class="memos-share-entry"><time class="memos-share-entry-date" data-axis>2025.07.18 · 08:34</time><div class="memos-share-card-content"><p data-axis>一场急雨<br>把小城泡湿了<br>袅袅雾气<br>像是在泡一杯茶</p></div></section>
+      </div>
+      <footer class="memos-share-leica"><div class="memos-share-leica-title">Just do it</div><div class="memos-share-profile"><div class="avatar"></div><div><div class="name">囍樂</div><div class="datetime">2026.08.24 · 20:30</div></div></div></footer>
+    </article>
+  </main>
+  <script>
+    requestAnimationFrame(()=>{const nodes=[...document.querySelectorAll('[data-axis]')];const cards=[...document.querySelectorAll('.memos-share-card')];const offsets=nodes.map(node=>Math.round(node.getBoundingClientRect().left-cards.find(card=>card.contains(node)).getBoundingClientRect().left));const entries=[...document.querySelectorAll('.is-multi-share .memos-share-entry')];const widths=entries.map(entry=>Math.round(entry.getBoundingClientRect().width));const dates=[...document.querySelectorAll('.is-multi-share .memos-share-entry-date')];const datesUnframed=dates.every(date=>{const style=getComputedStyle(date);return style.borderTopStyle==='none'&&style.borderRightStyle==='none'&&style.borderBottomStyle==='none'&&style.borderLeftStyle==='none'&&parseFloat(style.borderTopWidth)===0&&style.boxShadow==='none'&&style.outlineStyle==='none'});const pass=offsets.every(value=>Math.abs(value-110)<=1)&&widths.every(value=>value===680)&&datesUnframed;const result=document.querySelector('#result');result.textContent=`${pass?'PASS':'FAIL'} · 左轴：${offsets.join(', ')} px · 记录宽度：${widths.join(', ')} px · 日期无框：${datesUnframed?'是':'否'}`;result.classList.add(pass?'is-pass':'is-fail');document.documentElement.dataset.alignment=pass?'pass':'fail'});
+  </script>
+</body>
+</html>
