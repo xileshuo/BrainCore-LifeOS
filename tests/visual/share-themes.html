@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN" data-host="light" data-content="text">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BrainCore Moments 分享主题视觉回归</title>
+  <link rel="stylesheet" href="../../src/moments-memoria/styles.css">
+  <link rel="stylesheet" href="../../src/moments-memoria/share-contract.css">
+  <style>
+    *{box-sizing:border-box} body{margin:0;padding:28px;background:#f3efe9;color:#27231f;font-family:system-ui,-apple-system,"PingFang SC",sans-serif} html[data-host="dark"] body{background:#171719;color:#eee}
+    h1{max-width:1180px;margin:0 auto 22px;font-size:22px}.gallery{max-width:1180px;margin:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.case{display:grid;gap:8px}.case>strong{font-size:13px;color:#777}html[data-host="dark"] .case>strong{color:#aaa}
+    .memos-share-card{--share-muted:#74706b;--share-bar-bg:#fff;width:100%;min-height:430px;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);overflow:hidden}.memos-share-card-body{flex:1;display:flex;padding:42px 50px;background:var(--paper)}.memos-share-entry{display:flex;flex:1;width:100%}.memos-share-card-content{display:grid;place-items:center;width:100%;min-height:0}.bc-fit-block{font:18px/1.72 "Songti SC",serif;text-align:left}.bc-fit-line{display:block;white-space:pre}.memos-share-leica{display:flex;justify-content:space-between;align-items:center;min-height:90px}.memos-share-leica-title{font:700 21px/1.2 Georgia,serif}.memos-share-profile{display:flex;align-items:center;gap:10px}.memos-share-leica-avatar{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#f2d6b3,#9dc4b5)}.memos-share-leica-name{font-weight:750}.memos-share-leica-datetime{font-size:11px}.visual-photo{display:none;width:100%;height:170px;margin-bottom:22px;background:linear-gradient(125deg,#f5b342 0 31%,#69b7d5 45% 72%,#3f7258);border-radius:2px}.memos-share-card-content.has-image{display:flex;flex-direction:column;justify-content:center;align-items:stretch}.memos-share-card-content.has-image .bc-fit-block{margin:auto}
+    .share-style-paper{--paper:#fbfaf7;--ink:#191919}.share-style-kraft{--paper:#f2e4c8;--ink:#3d2f1e}.share-style-mint{--paper:#edf4e8;--ink:#173a27}.share-style-peach{--paper:#fde8e1;--ink:#3d1f18}.share-style-sky{--paper:#e0f2fe;--ink:#0c2a3e}.share-style-lavender{--paper:#eee7fa;--ink:#2a1a3e}.share-style-midnight{--paper:#1a2238;--ink:#eef1fa}.share-style-charcoal{--paper:#151515;--ink:#f2efe9}
+    html[data-content="image"] .visual-photo{display:block}html[data-content="image"] .memos-share-card{min-height:540px}
+    @media(max-width:680px){body{padding:14px}.gallery{grid-template-columns:1fr;gap:16px}.memos-share-card-body{padding:30px 28px}.memos-share-leica{padding:20px 26px!important}}
+  </style>
+</head>
+<body>
+  <h1>Moments 八主题 · <span id="mode"></span></h1>
+  <main class="gallery" id="gallery"></main>
+  <script>
+    const themes=[['paper','纸张白'],['kraft','牛皮纸'],['mint','薄荷绿'],['peach','蜜桃粉'],['sky','晴空蓝'],['lavender','薰衣草'],['midnight','午夜蓝'],['charcoal','木炭黑']];
+    const prose=['孤独是你长久的朋友','爱只会偶尔来敲门','我们应当与孤独同生','弹琴 看书 买菜','……'];
+    const mode=new URLSearchParams(location.search).get('mode')||'light-text';
+    const [host,content]=mode.split('-');document.documentElement.dataset.host=host;document.documentElement.dataset.content=content;document.querySelector('#mode').textContent=mode;
+    const gallery=document.querySelector('#gallery');
+    for(const [id,label] of themes){const wrap=document.createElement('section');wrap.className='case';const title=document.createElement('strong');title.textContent=label;wrap.append(title);const card=document.createElement('article');card.className=`memos-share-card share-style-${id} is-text-only`;card.innerHTML=`<div class="memos-share-card-body"><section class="memos-share-entry"><div class="memos-share-card-content bc-fit-copy ${content==='image'?'has-image':''}"><div class="visual-photo"></div><div class="bc-fit-block">${prose.map(line=>`<span class="bc-fit-line">${line}</span>`).join('')}</div></div></section></div><footer class="memos-share-leica"><div class="memos-share-leica-title">Just do it</div><div class="memos-share-profile"><div class="memos-share-leica-avatar"></div><div><div class="memos-share-leica-name">囍樂</div><div class="memos-share-leica-datetime">2026.08.24 · 20:30</div></div></div></footer>`;wrap.append(card);gallery.append(wrap)}
+  </script>
+</body>
+</html>

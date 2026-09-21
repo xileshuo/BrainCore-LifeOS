@@ -1,0 +1,57 @@
+/* LifeOS sidebar inset — shared PlainLedger / 纪念日 / BrainCore (build-injected) */
+.lifeos-sidebar-inset {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--lifeos-sidebar-inset, 10px) var(--lifeos-sidebar-inset, 10px) 0;
+}
+.lifeos-sidebar-inset > .plg-page-split,
+.lifeos-sidebar-inset > .jnr-card-list,
+.lifeos-sidebar-inset .jnr-card-list {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 28px;
+  box-sizing: border-box;
+}
+.lifeos-sidebar-inset > .jnr-card-list,
+.lifeos-sidebar-inset .jnr-dashboard-content {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.lifeos-sidebar-inset .jnr-dashboard-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.lifeos-sidebar-inset .jnr-dashboard-content > .jnr-card-list,
+.lifeos-sidebar-inset .jnr-dashboard-content > .jnr-timeline,
+.lifeos-sidebar-inset .jnr-dashboard-content > .jnr-calendar-view {
+  overflow: visible;
+  flex: 0 0 auto;
+  padding-bottom: 0;
+}
+.lifeos-sidebar-inset > .jnr-card-list::-webkit-scrollbar,
+.lifeos-sidebar-inset .jnr-dashboard-content::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.sb-container.lifeos-sidebar-inset {
+  padding: var(--lifeos-sidebar-inset, 10px) var(--lifeos-sidebar-inset, 10px) 28px;
+}
+.lifeos-sidebar-inset button,
+.lifeos-sidebar-inset .clickable-icon,
+.lifeos-sidebar-inset .lifeos-act-nav-btn,
+.lifeos-sidebar-inset .lifeos-act-nav-row button {
+  transition: background-color 150ms ease, color 150ms ease, opacity 150ms ease, border-color 150ms ease;
+}
