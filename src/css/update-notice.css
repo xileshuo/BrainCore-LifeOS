@@ -1,15 +1,18 @@
 .modal-container.bc-update-modal-host,
 .modal-bg.bc-update-modal-bg {
-  z-index: 1000100 !important;
+  z-index: 1000100;
 }
 .bc-update-modal.modal {
   width: min(680px, calc(100vw - 32px));
   max-width: 680px;
-  max-height: calc(100vh - 40px);
   max-height: calc(100dvh - 40px);
-  margin: 0 auto !important;
+  margin: 0 auto;
 }
-.bc-update-modal .modal-close-button { top: 8px; right: 8px; z-index: 2; }
+.bc-update-modal .modal-close-button {
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
 .bc-update-modal .modal-content {
   padding: 0;
   overflow: hidden;
@@ -17,7 +20,6 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  max-height: calc(100vh - 40px);
   max-height: calc(100dvh - 40px);
 }
 .bc-update-wrap {
@@ -25,7 +27,6 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
-  max-height: calc(100vh - 40px);
   max-height: calc(100dvh - 40px);
 }
 .bc-update-hero {
@@ -59,7 +60,7 @@
   font-size: 14px;
   line-height: 1.6;
   color: var(--text-muted);
-  text-indent: 2em;
+  padding-left: 2em;
 }
 .bc-update-body {
   flex: 1 1 auto;
@@ -73,10 +74,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.bc-update-body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .bc-update-version {
   border: 1px solid var(--background-modifier-border);
   border-radius: 12px;
@@ -129,7 +128,11 @@
 .bc-update-version.is-open .bc-update-version-body {
   display: block;
 }
-.bc-update-list { list-style: none; margin: 0; padding: 8px 0; }
+.bc-update-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
 .bc-update-item {
   display: flex;
   gap: 12px;
@@ -141,7 +144,9 @@
   color: var(--text-normal);
   word-break: break-word;
 }
-.bc-update-item:first-child { border-top: none; }
+.bc-update-item:first-child {
+  border-top: none;
+}
 .bc-update-num {
   flex: 0 0 22px;
   height: 22px;
@@ -184,35 +189,54 @@
   color: var(--lifeos-on-accent, #fff);
   box-shadow: 0 6px 18px color-mix(in srgb, var(--lifeos-accent, #b48246) 22%, transparent);
 }
-.bc-update-btn:hover { filter: brightness(1.05); }
+.bc-update-btn:hover {
+  filter: brightness(1.05);
+}
 @media (max-width: 768px) {
   .modal-container.bc-update-modal-host {
-    align-items: center;
-    padding: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px));
-    box-sizing: border-box;
-  }
+  align-items: center;
+  padding: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+}
   .bc-update-modal.modal {
-    width: calc(100vw - 16px);
-    height: auto;
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px);
-  }
+  width: calc(100vw - 16px);
+  height: auto;
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px);
+}
   .bc-update-modal .modal-close-button {
-    top: 8px !important;
-    right: 8px !important;
-    width: 36px;
-    height: 36px;
-  }
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+}
   .bc-update-modal .modal-content,
   .bc-update-wrap {
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px);
-  }
-  .bc-update-hero { padding: 20px 16px 14px; }
-  .bc-update-title { font-size: 20px; }
-  .bc-update-subtitle { font-size: 13px; }
-  .bc-update-body { padding: 12px var(--lifeos-sidebar-inset, 10px) 6px; }
-  .bc-update-item { font-size: 13px; padding: 9px 12px; }
-  .bc-update-foot { padding: 12px 14px max(14px, env(safe-area-inset-bottom, 14px)); }
-  .bc-update-btn { width: 100%; text-align: center; padding: 12px 16px; }
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px);
+}
+  .bc-update-hero {
+  padding: 20px 16px 14px;
+}
+  .bc-update-title {
+  font-size: 20px;
+}
+  .bc-update-subtitle {
+  font-size: 13px;
+}
+  .bc-update-body {
+  padding: 12px var(--lifeos-sidebar-inset, 10px) 6px;
+}
+  .bc-update-item {
+  font-size: 13px;
+  padding: 9px 12px;
+}
+  .bc-update-foot {
+  padding: 12px 14px max(14px, env(safe-area-inset-bottom, 14px));
+}
+  .bc-update-btn {
+  width: 100%;
+  text-align: center;
+  padding: 12px 16px;
+}
 }
 .bc-update-howto .bc-update-version-head {
   cursor: default;
@@ -221,7 +245,9 @@
 .bc-update-howto .bc-update-version-head:hover {
   background: var(--lifeos-accent-soft);
 }
-.bc-update-full-log { margin: 10px 0 0; }
+.bc-update-full-log {
+  margin: 10px 0 0;
+}
 .bc-update-full-log summary {
   cursor: pointer;
   color: var(--text-muted);

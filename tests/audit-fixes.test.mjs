@@ -107,8 +107,8 @@ test("mobile Moments sort button is circular and FAB composer fills search-to-ke
   assert.match(view, /measureKeyboardInset/);
   assert.match(view, /--bc-kb-inset/);
   assert.match(view, /focused && !layoutAlreadyShrunk \? 18 : 0/);
-  assert.match(view, /bottom: auto !important|composer-bottom", "auto"/);
-  assert.match(css, /bottom: auto !important/);
+  assert.match(view, /bottom: auto|composer-bottom", "auto"/);
+  assert.match(css, /bottom:\s*auto;/);
   assert.match(css, /--memoria-composer-height/);
   assert.match(view, /this\.inputEl\?\.focus\(\{ preventScroll: true \}\)/);
   assert.equal(view.includes("is-fab-settling"), false);

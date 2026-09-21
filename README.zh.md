@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.11 · 48 小时试用**
+当前公开版本：**4.1.12 · 48 小时试用**
 
 ## 界面预览
 
@@ -29,6 +29,16 @@
 | **购买** | 小红书联系作者下单 → 复制设备指纹 → 粘贴激活码 |
 
 作者：[github.com/xileshuo](https://github.com/xileshuo) · 小红书：[下单入口](https://xhslink.com/m/3uOoUHv2rI1)
+
+## LifeOS 三插件互跳
+
+同一作者的 LifeOS 系列，可在社区插件里互相打开，或前往 GitHub：
+
+| 插件 | 社区插件（已上架后） | GitHub |
+| --- | --- | --- |
+| **BrainCore LifeOS** | [打开插件页](obsidian://show-plugin?id=braincore-lifeos) · 搜索 `BrainCore LifeOS` | [BrainCore LifeOS](https://github.com/xileshuo/BrainCore-LifeOS) |
+| **PlainLedger** | [打开插件页](obsidian://show-plugin?id=plain-ledger) · 搜索 `PlainLedger` | [PlainLedger](https://github.com/xileshuo/plain-ledger-obsidian) |
+| **jinianri** | [打开插件页](obsidian://show-plugin?id=jinianri) · 搜索 `jinianri` | [jinianri](https://github.com/xileshuo/jinianri) |
 
 ## 安装与上手
 
@@ -110,10 +120,18 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.11（当前）
+### 4.1.12（当前）
+
+- 社区 CSS lint：去掉 !important / :has / text-indent / scrollbar / system-ui 等审核警告，版式规则保持原选择器
+- 文档：公开 README 恢复中文说明（英文 Installation 仍在文首）
+
+<details>
+<summary>4.1.11</summary>
 
 - 社区 Scorecard：修复 styles.css / src/css 抽取时混入 JS（Unknown word），CSS 恢复纯样式供社区 lint
 - 文档：公开 README 保持英文短说明；中文长说明移至 README.zh.md
+
+</details>
 
 <details>
 <summary>4.1.10</summary>
@@ -189,13 +207,5 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 </details>
 
-<details>
-<summary>4.1.1</summary>
-
-- 社区介绍：置顶三张界面预览图，中文排版收紧；英文说明加长以便目录检测
-- 发布：同步仓库根与 Release 的 manifest，避免版本不一致警告
-
-</details>
-
-英文短说明见 [README.md](./README.md)。
+上方英文部分供社区审核；本段为完整中文说明。
 

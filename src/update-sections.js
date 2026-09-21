@@ -507,6 +507,10 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.12": [
+        "社区 CSS lint：去掉 !important / :has / text-indent / scrollbar / system-ui 等审核警告，版式规则保持原选择器",
+        "文档：公开 README 恢复中文说明（英文 Installation 仍在文首）",
+    ],
     "4.1.11": [
         "社区 Scorecard：修复 styles.css / src/css 抽取时混入 JS（Unknown word），CSS 恢复纯样式供社区 lint",
         "文档：公开 README 保持英文短说明；中文长说明移至 README.zh.md",
@@ -643,6 +647,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.12": [
+        "社区审核：清掉 CSS lint 警告（!important、:has、旧浏览器不认的属性），界面规则不变。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.11": [
         "社区审核：修好 styles.css 里误混入的 JS，目录 CSS lint 可通过。",
         "升级后会弹出这次更新；完整变更可在下方展开。",
@@ -745,6 +753,10 @@ const PLUGIN_CHANGELOG_HIGHLIGHTS = {
     ],
 };
 const PLUGIN_UPDATE_HOWTO = {
+    "4.1.12": [
+        "社区 Scorecard：CSS lint 警告已按 4.1.7 的视觉规则改写成审核接受的写法。",
+        "升级后首次打开会展示一次 v4.1.12 更新说明；之后可在设置 → 关于里随时重看。",
+    ],
     "4.1.11": [
         "社区 Scorecard：重新跑 CSS lint / 构建校验即可；本版已清掉 styles.css 中的 JS 污染。",
         "升级后首次打开会展示一次 v4.1.11 更新说明；之后可在设置 → 关于里随时重看。",

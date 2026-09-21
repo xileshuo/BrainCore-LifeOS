@@ -78,16 +78,20 @@ function appendFlow(container: HTMLElement, lines: CopyLine[]): void {
   flushProse();
 }
 
+function proseMark(lines: CopyLine[]): string {
+  return lines.some((line) => line.prose) ? " is-prose" : "";
+}
+
 function columnElement(lines: CopyLine[]): HTMLElement {
   const column = document.createElement("div");
-  column.className = "bc-fit-column";
+  column.className = "bc-fit-column" + proseMark(lines);
   appendFlow(column, lines);
   return column;
 }
 
 function renderSingle(slot: HTMLElement, lines: CopyLine[], stage: CopyStage): void {
   slot.replaceChildren(); slot.dataset.fitStage = stage;
-  const block = document.createElement("div"); block.className = "bc-fit-block bc-fit-single";
+  const block = document.createElement("div"); block.className = "bc-fit-block bc-fit-single" + proseMark(lines);
   appendFlow(block, lines); slot.appendChild(block);
 }
 

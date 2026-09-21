@@ -105,12 +105,12 @@ const momentsCssRaw = [
   read("src/moments-memoria/share-contract.css"),
 ].join("\n");
 const momentsCssExtra = `
-.workspace-leaf-content[data-type="braincore-moments-view"] .view-content{padding:0!important;overflow:hidden;display:flex;flex-direction:column}
-.workspace-leaf-content[data-type="braincore-moments-year-view"] .view-content{padding:44px 36px 64px!important;overflow-y:auto!important;overflow-x:hidden!important;display:block!important}
-.workspace-leaf-content[data-type="braincore-moments-stats-view"] .view-content{padding:48px 56px 64px!important;overflow-y:auto!important;overflow-x:hidden!important;display:block!important}
-@media(max-width:520px){.workspace-leaf-content[data-type="braincore-moments-stats-view"] .view-content{padding:24px 16px 48px!important}}
+.workspace-leaf-content[data-type="braincore-moments-view"] .view-content{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.workspace-leaf-content[data-type="braincore-moments-year-view"] .view-content{padding:44px 36px 64px;overflow-y:auto;overflow-x:hidden;display:block}
+.workspace-leaf-content[data-type="braincore-moments-stats-view"] .view-content{padding:48px 56px 64px;overflow-y:auto;overflow-x:hidden;display:block}
+@media(max-width:520px){.workspace-leaf-content[data-type="braincore-moments-stats-view"] .view-content{padding:24px 16px 48px}}
 .memoria-list-meta-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.memoria-sort-btn,.memoria-quick-filter{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;min-width:36px;min-height:36px;padding:0!important;border-radius:50%;box-sizing:border-box}
+.memoria-sort-btn,.memoria-quick-filter{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;min-width:36px;min-height:36px;padding:0;border-radius:50%;box-sizing:border-box}
 `;
 const momentsCssForStyles = momentsCssRaw + momentsCssExtra;
 // Keep a tiny stub so older bridges that reference BCM_MOMENTS_CSS still parse;

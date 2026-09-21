@@ -44,7 +44,7 @@
   font-size: 11px;
   line-height: 1.55;
   color: var(--text-muted);
-  text-indent: 2em;
+  padding-left: 2em;
 }
 .lifeos-act-trial-btn {
   width: 100%;
@@ -53,8 +53,8 @@
   padding: 9px 12px;
   font-size: 13px;
   font-weight: 700;
-  background: var(--lifeos-accent, var(--interactive-accent)) !important;
-  color: var(--lifeos-on-accent, #fff) !important;
+  background: var(--lifeos-accent, var(--interactive-accent));
+  color: var(--lifeos-on-accent, #fff);
   cursor: pointer;
 }
 .lifeos-act-row {
@@ -75,7 +75,7 @@
   color: var(--text-normal);
 }
 .lifeos-act-input.lifeos-act-fp {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: SFMono-Regular, Menlo, monospace;
   font-weight: 700;
   color: var(--lifeos-accent, var(--text-accent));
   border-style: dashed;
@@ -97,9 +97,9 @@
   color: var(--text-normal);
 }
 .lifeos-act-btn-primary {
-  background: var(--lifeos-accent, var(--interactive-accent)) !important;
-  color: var(--lifeos-on-accent, #fff) !important;
-  border: none !important;
+  background: var(--lifeos-accent, var(--interactive-accent));
+  color: var(--lifeos-on-accent, #fff);
+  border: none;
 }
 .lifeos-act-nav {
   display: flex;
@@ -140,7 +140,7 @@
 }
 .modal-container.lifeos-update-modal-host,
 .modal-bg.lifeos-update-modal-bg {
-  z-index: 1000100 !important;
+  z-index: 1000100;
 }
 .lifeos-act-msg {
   min-height: 16px;
@@ -152,7 +152,13 @@
   color: var(--text-error, #c44);
 }
 
-.lifeos-settings-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 0; padding-bottom: 20px; }
+.lifeos-settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 0;
+  padding-bottom: 20px;
+}
 .lifeos-settings-block {
   margin: 0;
   padding: 14px 16px;
@@ -176,8 +182,12 @@
   line-height: 1.5;
   color: var(--text-muted);
 }
-.lifeos-settings-block .lifeos-act-row { margin-bottom: 8px; }
-.lifeos-settings-block .lifeos-act-row:last-of-type { margin-bottom: 0; }
+.lifeos-settings-block .lifeos-act-row {
+  margin-bottom: 8px;
+}
+.lifeos-settings-block .lifeos-act-row:last-of-type {
+  margin-bottom: 0;
+}
 .lifeos-license-status {
   margin: 8px 0 0;
   font-size: 12px;
@@ -190,7 +200,9 @@
   line-height: 1.5;
   color: var(--lifeos-accent, var(--text-accent));
 }
-.lifeos-about-panel.lifeos-settings-grid { padding-bottom: 20px; }
+.lifeos-about-panel.lifeos-settings-grid {
+  padding-bottom: 20px;
+}
 .lifeos-about-link-row {
   display: flex;
   align-items: center;
@@ -199,16 +211,84 @@
   padding: 9px 0;
   border-bottom: 1px solid var(--background-modifier-border);
 }
-.lifeos-about-link-row:last-child { border-bottom: none; padding-bottom: 0; }
-.lifeos-about-link-row span { font-size: 14px; font-weight: 500; color: var(--text-normal); }
-.lifeos-about-link-row button { flex-shrink: 0; padding: 0 14px; font-size: 12px; border-radius: 8px; min-height: 28px; height: 28px; line-height: 28px; box-sizing: border-box; }
-.lifeos-about-meta { margin: 0 0 6px; font-size: 12px; line-height: 1.5; color: var(--text-muted); }
-.lifeos-about-retired { margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.6; color: var(--text-muted); }
-.lifeos-about-meta:last-child { margin-bottom: 0; }
-.lifeos-about-works { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
-.lifeos-about-work-name { margin: 0 0 2px; font-size: 14px; font-weight: 600; color: var(--text-normal); }
-.lifeos-about-work-intro { margin: 0 0 2px; font-size: 12px; line-height: 1.5; color: var(--text-muted); }
-.lifeos-about-work-price { margin: 0 0 2px; font-size: 12px; line-height: 1.5; font-weight: 600; color: var(--text-accent, var(--interactive-accent)); }
-.lifeos-about-work-philosophy { margin: 0; font-size: 12px; line-height: 1.5; color: var(--text-muted); }
-.lifeos-about-home-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; margin: 6px 0 0; font-size: 12px; color: var(--text-muted); }
-.lifeos-about-home-link { color: var(--lifeos-accent, var(--text-accent)); text-decoration: underline; word-break: break-all; cursor: pointer; }
+.lifeos-about-link-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.lifeos-about-link-row span {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-normal);
+}
+.lifeos-about-link-row button {
+  flex-shrink: 0;
+  padding: 0 14px;
+  font-size: 12px;
+  border-radius: 8px;
+  min-height: 28px;
+  height: 28px;
+  line-height: 28px;
+  box-sizing: border-box;
+}
+.lifeos-about-meta {
+  margin: 0 0 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.lifeos-about-retired {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.lifeos-about-meta:last-child {
+  margin-bottom: 0;
+}
+.lifeos-about-works {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+.lifeos-about-work-name {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+.lifeos-about-work-intro {
+  margin: 0 0 2px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.lifeos-about-work-price {
+  margin: 0 0 2px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--text-accent, var(--interactive-accent));
+}
+.lifeos-about-work-philosophy {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.lifeos-about-home-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.lifeos-about-home-link {
+  color: var(--lifeos-accent, var(--text-accent));
+  text-decoration: underline;
+  word-break: break-all;
+  cursor: pointer;
+}

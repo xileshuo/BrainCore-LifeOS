@@ -34,8 +34,8 @@ if (!main.includes("var BCMomentsCore")) failures.push("main.js 缺少 Moments �
 if (main.includes('"3.8.13": [')) failures.push("main.js 仍包含高于当前版本的旧 Moments 日志");
 if (main.includes("setName('闪念（旧）')")) failures.push("main.js 仍暴露已废弃的闪念路径设置");
 if (!(stylesCss.includes("单图分享唯一排版契约") || main.includes("单图分享唯一排版契约"))) failures.push("styles.css/main.js 缺少单图分享排版规则");
-if (!(stylesCss.includes("backdrop-filter:none !important") && stylesCss.includes("background:#111 !important") && stylesCss.includes("background:#fff !important"))
-  && !(main.includes("backdrop-filter:none !important") && main.includes("background:#111 !important") && main.includes("background:#fff !important"))) {
+if (!(stylesCss.includes("backdrop-filter:none") && stylesCss.includes("background:#111") && stylesCss.includes("background:#fff"))
+  && !(main.includes("backdrop-filter:none") && main.includes("background:#111") && main.includes("background:#fff"))) {
   failures.push("styles.css/main.js 缺少单图分享纯黑/纯白水印契约");
 }
 if (main.includes("Moments · 导出作品") || main.includes("moments-reader-sheet")) failures.push("main.js 仍包含已移除的作品导出/阅读/画册代码");

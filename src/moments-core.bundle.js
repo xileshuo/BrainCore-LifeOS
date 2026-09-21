@@ -4535,9 +4535,12 @@ function appendFlow(container, lines) {
   });
   flushProse();
 }
+function proseMark(lines) {
+  return lines.some((line) => line.prose) ? " is-prose" : "";
+}
 function columnElement(lines) {
   const column = document.createElement("div");
-  column.className = "bc-fit-column";
+  column.className = "bc-fit-column" + proseMark(lines);
   appendFlow(column, lines);
   return column;
 }
@@ -4545,7 +4548,7 @@ function renderSingle(slot, lines, stage) {
   slot.replaceChildren();
   slot.dataset.fitStage = stage;
   const block = document.createElement("div");
-  block.className = "bc-fit-block bc-fit-single";
+  block.className = "bc-fit-block bc-fit-single" + proseMark(lines);
   appendFlow(block, lines);
   slot.appendChild(block);
 }

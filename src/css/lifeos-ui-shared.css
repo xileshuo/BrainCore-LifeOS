@@ -44,7 +44,6 @@
 .lifeos-overlay-panel,
 .plg-overlay-panel {
   width: min(520px, calc(100vw - 24px));
-  max-height: min(860px, calc(100vh - 32px));
   max-height: min(860px, calc(100dvh - 32px));
   border-radius: 16px;
   overflow: hidden;
@@ -52,7 +51,9 @@
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
 }
 .lifeos-overlay-panel.wide,
-.plg-overlay-panel.wide { width: min(680px, calc(100vw - 24px)); }
+.plg-overlay-panel.wide {
+  width: min(680px, calc(100vw - 24px));
+}
 .lifeos-overlay-head,
 .plg-overlay-head {
   display: flex;
@@ -60,7 +61,8 @@
   justify-content: space-between;
   gap: 12px;
   padding: 14px 16px;
-  border-bottom: none; /* 沉浸：标题与内容用间距区分，不用分割线 */
+  border-bottom: none;
+  /* 沉浸：标题与内容用间距区分，不用分割线 */;
 }
 .lifeos-overlay-head h2,
 .plg-overlay-head h2 {
@@ -96,44 +98,54 @@
 @media (max-width: 700px) {
   .lifeos-overlay,
   .plg-overlay {
-    align-items: center;
-    padding: max(10px, env(safe-area-inset-top, 0px)) 12px max(12px, env(safe-area-inset-bottom, 0px));
-    box-sizing: border-box;
-  }
+  align-items: center;
+  padding: max(10px, env(safe-area-inset-top, 0px)) 12px max(12px, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+}
   .lifeos-overlay-panel,
   .plg-overlay-panel {
-    width: min(520px, calc(100vw - 24px));
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 20px);
-    margin: 0 auto;
-  }
+  width: min(520px, calc(100vw - 24px));
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 20px);
+  margin: 0 auto;
+}
   .lifeos-overlay-close,
   .plg-overlay-close {
-    top: 8px;
-    right: 8px;
-    width: var(--lifeos-hit-target);
-    height: var(--lifeos-hit-target);
-  }
-  .lifeos-act-input { font-size:16px !important; min-height:44px; }
-  .lifeos-act-btn, .lifeos-act-nav-btn, .lifeos-empty-cta { min-height:44px; font-size:14px; }
+  top: 8px;
+  right: 8px;
+  width: var(--lifeos-hit-target);
+  height: var(--lifeos-hit-target);
+}
+  .lifeos-act-input {
+  font-size:16px;
+  min-height:44px;
+}
+  .lifeos-act-btn, .lifeos-act-nav-btn, .lifeos-empty-cta {
+  min-height:44px;
+  font-size:14px;
+}
   .lifeos-about-link-row button,
-  .lifeos-about-work-actions button { min-height:28px; height:28px; font-size:12px; }
+  .lifeos-about-work-actions button {
+  min-height:28px;
+  height:28px;
+  font-size:12px;
+}
   .modal-container.bc-update-modal-host,
   .modal-container.lifeos-update-modal-host {
-    align-items: center !important;
-    justify-content: center !important;
-    padding: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px)) !important;
-    box-sizing: border-box !important;
-  }
+  align-items: center;
+  justify-content: center;
+  padding: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+}
   .lifeos-modal.modal,
   .bc-update-modal.modal {
-    height: auto;
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px);
-  }
+  height: auto;
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px);
+}
   .lifeos-modal .modal-close-button,
   .bc-update-modal .modal-close-button {
-    top: 8px !important;
-    right: 8px !important;
-  }
+  top: 8px;
+  right: 8px;
+}
 }
 .lifeos-mobile-top-spacer,
 .plg-mobile-top-spacer,
@@ -152,7 +164,6 @@
 .plg-trial-modal.modal {
   width: min(680px, calc(100vw - 32px));
   max-width: 680px;
-  max-height: calc(100vh - 40px);
   max-height: calc(100dvh - 40px);
 }
 .lifeos-modal .modal-content,
@@ -168,9 +179,9 @@
 .bc-update-btn {
   border-radius: 10px;
   font-weight: 700;
-  background: var(--lifeos-accent) !important;
-  color: var(--lifeos-on-accent, #fff) !important;
-  border: none !important;
+  background: var(--lifeos-accent);
+  color: var(--lifeos-on-accent, #fff);
+  border: none;
 }
 .lifeos-philosophy-intro,
 .plg-update-subtitle,
@@ -179,13 +190,13 @@
 .jnr-update-subtitle,
 .bc-update-subtitle,
 .bc-settings-intro {
-  text-indent: 2em;
+  padding-left: 2em;
 }
 .lifeos-error,
 .plg-activation-status.error,
 .jnr-activation-status.error,
 .bc-activation-status.error {
-  color: var(--lifeos-error) !important;
+  color: var(--lifeos-error);
 }
 .plg-activation-preview,
 .jnr-activation-preview,
@@ -234,7 +245,7 @@
   border-radius: 10px;
   font-size: 12px;
   line-height: 1.45;
-  text-indent: 2em;
+  padding-left: 2em;
   background: var(--lifeos-accent-soft);
   border: 1px solid var(--lifeos-accent-border);
   color: var(--text-normal);
@@ -259,8 +270,17 @@
   border: 1px dashed var(--background-modifier-border);
   background: var(--background-secondary);
 }
-.lifeos-empty-icon { font-size: 28px; line-height: 1; opacity: 0.85; }
-.lifeos-empty-msg { margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-muted); }
+.lifeos-empty-icon {
+  font-size: 28px;
+  line-height: 1;
+  opacity: 0.85;
+}
+.lifeos-empty-msg {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
 .lifeos-empty-cta {
   margin-top: 4px;
   border: none;
@@ -269,8 +289,8 @@
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  background: var(--lifeos-accent, var(--interactive-accent)) !important;
-  color: var(--lifeos-on-accent, #fff) !important;
+  background: var(--lifeos-accent, var(--interactive-accent));
+  color: var(--lifeos-on-accent, #fff);
 }
 .lifeos-first-run-card {
   margin: 0 0 10px;
@@ -279,9 +299,23 @@
   border: 1px solid var(--lifeos-accent-border);
   background: var(--lifeos-accent-soft);
 }
-.lifeos-first-run-title { margin: 0 0 8px; font-size: 13px; font-weight: 800; color: var(--text-normal); }
-.lifeos-first-run-list { margin: 0 0 10px; padding-left: 1.2em; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
-.lifeos-first-run-actions { display: flex; gap: 8px; }
+.lifeos-first-run-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-normal);
+}
+.lifeos-first-run-list {
+  margin: 0 0 10px;
+  padding-left: 1.2em;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+.lifeos-first-run-actions {
+  display: flex;
+  gap: 8px;
+}
 .lifeos-first-run-actions button {
   flex: 1;
   border-radius: 10px;
@@ -294,32 +328,32 @@
   color: var(--text-normal);
 }
 .lifeos-first-run-actions button.lifeos-first-run-primary {
-  background: var(--lifeos-accent, var(--interactive-accent)) !important;
-  color: var(--lifeos-on-accent, #fff) !important;
-  border: none !important;
+  background: var(--lifeos-accent, var(--interactive-accent));
+  color: var(--lifeos-on-accent, #fff);
+  border: none;
 }
 @media (min-width: 520px) {
   .lifeos-first-run-card {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 20px;
-    padding: 14px 16px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  padding: 14px 16px;
+}
   .lifeos-first-run-title {
-    flex: 1 1 100%;
-    margin: 0;
-  }
+  flex: 1 1 100%;
+  margin: 0;
+}
   .lifeos-first-run-list {
-    flex: 1 1 240px;
-    margin: 0;
-    min-width: 0;
-  }
+  flex: 1 1 240px;
+  margin: 0;
+  min-width: 0;
+}
   .lifeos-first-run-actions {
-    flex: 0 0 auto;
-    margin-left: auto;
-    white-space: nowrap;
-  }
+  flex: 0 0 auto;
+  margin-left: auto;
+  white-space: nowrap;
+}
 }
 .lifeos-suite-badge {
   margin: 0 0 10px;
@@ -344,7 +378,7 @@
 .bc-tag-suggest-new {
   border-left: 3px solid var(--lifeos-accent, var(--text-accent));
   background: var(--lifeos-accent-soft);
-  padding-left: 8px !important;
+  padding-left: 8px;
   border-radius: 6px;
 }
 .bc-tag-suggest-new .suggestion-title {
@@ -443,7 +477,10 @@
   line-height: 1;
   box-sizing: border-box;
 }
-.lifeos-about-work-actions button.is-self { opacity: 0.55; cursor: default; }
+.lifeos-about-work-actions button.is-self {
+  opacity: 0.55;
+  cursor: default;
+}
 .lifeos-mobile-topbar-unified {
   display: flex;
   align-items: center;
@@ -493,18 +530,18 @@
   .bc-capsule-pulse,
   .bc-capsule-send-btn,
   .bc-capsule-send-btn:active {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-  }
+  animation: none;
+  transition: none;
+  transform: none;
+}
   .bc-capsule-pulse {
-    box-shadow: none !important;
-  }
+  box-shadow: none;
+}
   :root {
-    --lifeos-motion-fast: 1ms;
-    --lifeos-motion-med: 1ms;
-    --lifeos-motion-expand: 1ms;
-  }
+  --lifeos-motion-fast: 1ms;
+  --lifeos-motion-med: 1ms;
+  --lifeos-motion-expand: 1ms;
+}
   .memos-share-generation-progress progress,
   .memos-share-style-button,
   .memos-share-card,
@@ -517,7 +554,7 @@
   .memoria-root button.memoria-submit-btn,
   .memoria-list,
   .memoria-memo-card {
-    animation: none !important;
-    transition: none !important;
-  }
+  animation: none;
+  transition: none;
+}
 }

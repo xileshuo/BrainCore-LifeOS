@@ -24,8 +24,6 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
 .lifeos-sidebar-inset .jnr-dashboard-content {
   flex: 1;
@@ -39,12 +37,6 @@
   overflow: visible;
   flex: 0 0 auto;
   padding-bottom: 0;
-}
-.lifeos-sidebar-inset > .jnr-card-list::-webkit-scrollbar,
-.lifeos-sidebar-inset .jnr-dashboard-content::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
 }
 .sb-container.lifeos-sidebar-inset {
   padding: var(--lifeos-sidebar-inset, 10px) var(--lifeos-sidebar-inset, 10px) 28px;

@@ -69,10 +69,10 @@ test("density remains presentation metadata only", () => {
 });
 
 test("single-image share uses plain black or white watermark bars", () => {
-  assert.match(contractCss, /\.memos-share-leica[\s\S]*background:#fff !important/);
-  assert.match(contractCss, /backdrop-filter:none !important/);
+  assert.match(contractCss, /\.memos-share-leica[\s\S]*background:#fff/);
+  assert.match(contractCss, /backdrop-filter:none/);
   assert.match(contractCss, /\.memos-share-card\.share-style-paper \.memos-share-leica/);
-  assert.match(contractCss, /background:#111 !important/);
+  assert.match(contractCss, /background:#111/);
   assert.match(contractCss, /\.memos-share-style-list,[\s\S]*\.memos-share-actions[\s\S]*720px/);
 });
 
@@ -88,10 +88,10 @@ test("share modal is compact and scrolls without a visible scrollbar", () => {
   assert.match(contractCss, /max-width:752px/);
   assert.match(contractCss, /memos-share-scroll/);
   assert.match(contractCss, /flex:0 1 auto/);
-  assert.match(contractCss, /height:fit-content !important/);
-  assert.match(contractCss, /overflow-y:auto !important/);
-  assert.match(contractCss, /scrollbar-width:none !important/);
-  assert.match(contractCss, /memos-share-preview-wrap[\s\S]*padding:0 !important/);
+  assert.match(contractCss, /height:fit-content/);
+  assert.match(contractCss, /overflow-y:auto/);
+  assert.doesNotMatch(contractCss, /scrollbar-width:/);
+  assert.match(contractCss, /memos-share-preview-wrap[\s\S]*padding:0/);
   assert.match(contractCss, /env\(safe-area-inset-top/);
   assert.match(contractCss, /memos-share-lightbox-frame/);
   assert.match(contractCss, /memos-share-lightbox-actions/);
@@ -117,17 +117,17 @@ test("copy failure requires an explicit retry or save choice", () => {
 });
 
 test("multi-share dates are unframed and content stays in one flow", () => {
-  assert.match(contractCss, /is-multi-share \.memos-share-entry-date[\s\S]*border:none!important[\s\S]*border-width:0!important[\s\S]*text-align:left!important/);
-  assert.match(contractCss, /memos-share-entry-date::before[\s\S]*memos-share-entry-date::after[\s\S]*content:none!important/);
-  assert.match(contractCss, /is-multi-share \.memos-share-card-content[\s\S]*columns:auto!important/);
-  assert.match(contractCss, /share-style-paper \.memos-share-card-body[\s\S]*border-right:0!important/);
+  assert.match(contractCss, /is-multi-share \.memos-share-entry-date[\s\S]*border:none[\s\S]*border-width:0[\s\S]*text-align:left/);
+  assert.match(contractCss, /memos-share-entry-date::before[\s\S]*memos-share-entry-date::after[\s\S]*content:none/);
+  assert.match(contractCss, /is-multi-share \.memos-share-card-content[\s\S]*columns:auto/);
+  assert.match(contractCss, /share-style-paper \.memos-share-card-body[\s\S]*border-right:0/);
 });
 
 test("all share content uses one left axis instead of horizontal centering", () => {
   assert.match(contractCss, /--share-content-width:680px/);
   assert.match(contractCss, /--share-content-gutter:48px/);
-  assert.match(contractCss, /place-items:\s*center start !important/);
-  assert.match(contractCss, /is-text-only \.bc-fit-block[\s\S]*margin-left:0!important[\s\S]*margin-right:0!important/);
-  assert.match(contractCss, /is-multi-share \.memos-share-entry[\s\S]*width:var\(--share-content-width\)!important[\s\S]*min-width:var\(--share-content-width\)!important/);
-  assert.match(contractCss, /is-multi-share \.memos-share-card-content > \*[\s\S]*margin-left:0!important/);
+  assert.match(contractCss, /place-items:\s*center start/);
+  assert.match(contractCss, /is-text-only \.bc-fit-block[\s\S]*margin-left:0[\s\S]*margin-right:0/);
+  assert.match(contractCss, /is-multi-share \.memos-share-entry[\s\S]*width:var\(--share-content-width\)[\s\S]*min-width:var\(--share-content-width\)/);
+  assert.match(contractCss, /is-multi-share \.memos-share-card-content > \*[\s\S]*margin-left:0/);
 });
