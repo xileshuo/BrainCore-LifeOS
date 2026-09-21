@@ -111,9 +111,16 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.8（当前）
+### 4.1.9（当前）
+
+- 修复：Moments CSS 多余 `}`（社区 Scorecard Unexpected }）；公开仓补齐 docs/templates 等构建依赖，避免 Scorecard Build verification / readFile 失败
+
+<details>
+<summary>4.1.8</summary>
 
 - 关于：所有作品互相介绍售价（PlainLedger ¥39.9 / 纪念日 ¥29.9 / BrainCore ¥49.9），未安装可跳转 GitHub
+
+</details>
 
 <details>
 <summary>4.1.7</summary>
@@ -186,15 +193,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 - 社区审核：authorUrl 改为 GitHub 个人主页（不可指向本插件仓库）
 - 文档：公开 README 加强英文概览，避免中文使用说明淹没英文检测
-
-</details>
-
-<details>
-<summary>4.0.8</summary>
-
-- 社区审核：manifest 描述去 Obsidian 词并补句末标点；authorUrl 改为可访问的 GitHub 仓库
-- 文档：README 补英文安装/使用说明；定价 ¥99.9 永久激活（试用满意后小红书联系下单）
-- 许可：仓库 LICENSE 改为可识别的 MIT，并保留试用后需激活的商业说明
 
 </details>
 

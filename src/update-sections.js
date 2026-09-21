@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.9": [
+        "修复：Moments CSS 多余 `}`（社区 Scorecard Unexpected }）；公开仓补齐 docs/templates 等构建依赖，避免 Scorecard Build verification / readFile 失败",
+    ],
     "4.1.8": [
         "关于：所有作品互相介绍售价（PlainLedger ¥39.9 / 纪念日 ¥29.9 / BrainCore ¥49.9），未安装可跳转 GitHub",
     ],
@@ -631,6 +634,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.9": [
+        "修复 Moments 样式多余括号，并补齐公开仓构建所需文档模板，方便社区审核通过。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.8": [
         "关于页可互相了解 PlainLedger / 纪念日 / BrainCore，并跳转 GitHub。",
         "升级后会弹出这次更新；完整变更可在下方展开。",
@@ -721,6 +728,10 @@ const PLUGIN_CHANGELOG_HIGHLIGHTS = {
     ],
 };
 const PLUGIN_UPDATE_HOWTO = {
+    "4.1.9": [
+        "社区 Scorecard：重新跑构建校验即可；本版已修 CSS 括号并补齐公开仓 docs 模板。",
+        "升级后首次打开会展示一次 v4.1.9 更新说明；之后可在设置 → 关于里随时重看。",
+    ],
     "4.1.8": [
         "设置 → 关于 → 所有作品：已安装可打开设置，未安装点「去了解」进 GitHub。",
         "升级后首次打开会展示一次 v4.1.8 更新说明；之后可在设置 → 关于里随时重看。",
