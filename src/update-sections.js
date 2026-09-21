@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.13": [
+        "公开 README：中文在前、英文在后（市场介绍优先中文）",
+    ],
     "4.1.12": [
         "社区 CSS lint：去掉 !important / :has / text-indent / scrollbar / system-ui 等审核警告，版式规则保持原选择器",
         "文档：公开 README 恢复中文说明（英文 Installation 仍在文首）",
@@ -647,6 +650,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.13": [
+        "公开说明改为中文在前、英文在后。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.12": [
         "社区审核：清掉 CSS lint 警告（!important、:has、旧浏览器不认的属性），界面规则不变。",
         "升级后会弹出这次更新；完整变更可在下方展开。",
@@ -753,6 +760,10 @@ const PLUGIN_CHANGELOG_HIGHLIGHTS = {
     ],
 };
 const PLUGIN_UPDATE_HOWTO = {
+    "4.1.13": [
+        "市场介绍：中文在前；英文 Installation / Usage 仍保留在文末供社区审核。",
+        "升级后首次打开会展示一次 v4.1.13 更新说明；之后可在设置 → 关于里随时重看。",
+    ],
     "4.1.12": [
         "社区 Scorecard：CSS lint 警告已按 4.1.7 的视觉规则改写成审核接受的写法。",
         "升级后首次打开会展示一次 v4.1.12 更新说明；之后可在设置 → 关于里随时重看。",
