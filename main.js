@@ -936,6 +936,10 @@ const PLUGIN_CHANGELOG_HIGHLIGHTS = {
     ],
 };
 const PLUGIN_UPDATE_HOWTO = {
+    "4.1.13": [
+        "市场介绍：中文在前；英文 Installation / Usage 仍保留在文末供社区审核。",
+        "升级后首次打开会展示一次 v4.1.13 更新说明；之后可在设置 → 关于里随时重看。",
+    ],
     "4.1.12": [
         "社区 Scorecard：CSS lint 警告已按 4.1.7 的视觉规则改写成审核接受的写法。",
         "升级后首次打开会展示一次 v4.1.12 更新说明；之后可在设置 → 关于里随时重看。",
