@@ -1,0 +1,6 @@
+Memoria (https://github.com/i-iooi-i/obsidian-memoria)
+Copyright (c) Memoria contributors
+Licensed under the MIT License.
+
+BrainCore Moments adapts Memoria’s view/store/parser logic into this plugin
+(default storage folder: Moments/). See LICENSE in this directory.

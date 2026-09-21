@@ -1,0 +1,490 @@
+/* 单图分享唯一排版契约：保留整行自适应；水印只使用纯黑/纯白信息条。 */
+/* ---------- single-share atomic-line fitting engine ---------- */
+.bc-fit-copy {
+  --bc-copy-normal: 18px;
+  --bc-copy-small: 13px;
+  --bc-copy-leading: 1.62;
+  --bc-copy-leading-small: 1.5;
+  display: grid !important;
+  /* 只做垂直居中；横向始终贴统一内容左轴。 */
+  place-items: center start !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  text-align: left !important;
+  white-space: normal !important;
+}
+.bc-fit-block { width: fit-content; max-width: 100%; height: fit-content; max-height: 100%; box-sizing: border-box; margin:0 !important; padding:0 !important; border:0 !important; outline:0 !important; box-shadow:none !important; background:transparent !important; }
+.bc-fit-line {
+  display: block;
+  width: max-content;
+  max-width: none;
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  line-height: var(--bc-copy-leading);
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+  background:transparent !important;
+}
+.bc-fit-line.is-blank { min-height: 1em; }
+.bc-fit-line.is-prose {
+  width: min(42em, 100%);
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  text-align: left;
+}
+.bc-fit-single:not(:has(.bc-fit-line.is-prose)) { width:min(var(--bc-poem-measure,32em),100%); }
+.bc-fit-single:has(.bc-fit-line.is-prose) { width:min(42em,100%); }
+.bc-fit-column:has(.bc-fit-line.is-prose) { width:28em; max-width:100%; }
+.bc-fit-column .bc-fit-line.is-prose { width:100%; }
+.bc-fit-copy[data-fit-stage="single-normal"] .bc-fit-block,
+.bc-fit-copy[data-fit-stage="columns-normal"] .bc-fit-block { font-size: var(--bc-copy-normal) !important; line-height: var(--bc-copy-leading); }
+.bc-fit-copy[data-fit-stage="single-small"] .bc-fit-block,
+.bc-fit-copy[data-fit-stage="columns-small"] .bc-fit-block,
+.bc-fit-copy[data-fit-stage="truncated"] .bc-fit-block { font-size: var(--bc-copy-small) !important; line-height: var(--bc-copy-leading-small); }
+.bc-fit-columns { display: grid; grid-template-columns: max-content max-content; justify-content: start; align-items: center; column-gap: var(--bc-copy-column-gap, 44px); }
+.bc-fit-column { display: flex; flex-direction: column; justify-content: center; min-width: 0; margin:0 !important; padding:0 !important; border:0 !important; outline:0 !important; box-shadow:none !important; background:transparent !important; }
+
+.memos-share-leica,
+.memos-share-card.share-style-midnight .memos-share-leica,
+.memos-share-card.share-style-charcoal .memos-share-leica,
+.memos-share-card.share-style-kraft .memos-share-leica,
+.memos-share-card.share-style-mint .memos-share-leica,
+.memos-share-card.share-style-peach .memos-share-leica,
+.memos-share-card.share-style-sky .memos-share-leica,
+.memos-share-card.share-style-lavender .memos-share-leica {
+  position:relative !important;
+  overflow:hidden;
+  background:#fff !important;
+  color:#111 !important;
+  border-top:1px solid rgba(17,17,17,.10) !important;
+  box-shadow:none !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+.memos-share-leica-title,
+.memos-share-leica-name { color:#111 !important; }
+.memos-share-leica-datetime { color:#737373 !important; }
+
+/* 纸张白用黑色信息条制造明确撞色；其余七种主题统一白色信息条。 */
+.memos-share-card.share-style-paper .memos-share-leica {
+  background:#111 !important;
+  color:#fff !important;
+  border-top-color:rgba(255,255,255,.18) !important;
+  box-shadow:none !important;
+}
+.memos-share-card.share-style-paper .memos-share-leica-title,
+.memos-share-card.share-style-paper .memos-share-leica-name { color:#fff !important; }
+.memos-share-card.share-style-paper .memos-share-leica-datetime { color:rgba(255,255,255,.68) !important; }
+
+/* 整个工作区按原宽度缩小约 20%，去掉预览外围装饰性留白。 */
+.modal.memos-share-modal {
+  width:min(92vw,752px) !important;
+  max-width:752px !important;
+  height:fit-content !important;
+  min-height:0 !important;
+  max-height:min(90vh, calc(100dvh - 24px)) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  flex:0 0 auto !important;
+  align-self:center !important;
+  overflow:hidden !important;
+}
+.modal.memos-share-modal .modal-close-button {
+  top:6px !important;
+  right:6px !important;
+  z-index:6;
+  width:32px !important;
+  height:32px !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+  opacity:.55;
+}
+.modal.memos-share-modal .modal-content {
+  display:flex !important;
+  flex-direction:column !important;
+  flex:0 1 auto !important;
+  min-height:0 !important;
+  width:100%;
+  max-height:none !important;
+  padding:16px 8px 16px !important;
+  overflow:hidden !important;
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+}
+.modal.memos-share-modal .modal-content::-webkit-scrollbar,
+.modal.memos-share-modal .memos-share-scroll::-webkit-scrollbar,
+.modal.memos-share-modal .memos-share-preview-wrap::-webkit-scrollbar { display:none !important; width:0 !important; height:0 !important; }
+.modal.memos-share-modal .memos-share-scroll {
+  flex:0 1 auto;
+  min-height:0;
+  overflow-x:hidden;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  touch-action:pan-y;
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+}
+.modal.memos-share-modal .memos-share-preview-wrap {
+  padding:0 !important;
+  background:transparent !important;
+  overflow-x:hidden !important;
+  overflow-y:visible !important;
+  scrollbar-gutter:auto !important;
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+  cursor: zoom-in;
+}
+.modal.memos-share-modal .memos-share-style-list,
+.modal.memos-share-modal .memos-share-actions {
+  width:min(100%,720px) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.modal.memos-share-modal .memos-share-style-list {
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:8px !important;
+  margin-top:8px !important;
+}
+.modal.memos-share-modal .memos-share-title-row {
+  width:min(100%,720px)!important;
+  margin:8px auto 0!important;
+}
+.modal.memos-share-modal .memos-share-style-button {
+  min-height:32px;
+  padding:5px 7px !important;
+}
+.modal.memos-share-modal .memos-share-generation-progress,
+.modal.memos-share-modal .memos-share-actions {
+  flex:0 0 auto;
+}
+.modal.memos-share-modal .memos-share-actions {
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:8px !important;
+  margin-top:8px !important;
+  margin-bottom:0 !important;
+}
+.modal.memos-share-modal .memos-share-action { min-height:34px; padding:5px 10px !important; }
+
+@media(max-width:700px) {
+  body.memos-share-modal-open .modal-container,
+  body.bc-mobile-force-top.memos-share-modal-open .modal-container {
+    align-items:center !important;
+    justify-content:center !important;
+    padding-top:max(8px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom:max(8px, env(safe-area-inset-bottom, 0px)) !important;
+    padding-left:8px !important;
+    padding-right:8px !important;
+    box-sizing:border-box !important;
+  }
+  .modal.memos-share-modal {
+    width:calc(100vw - 16px) !important;
+    max-width:none !important;
+    height:fit-content !important;
+    min-height:0 !important;
+    flex:0 0 auto !important;
+    max-height:calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px) !important;
+    max-height:calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 16px) !important;
+    border-radius:16px !important;
+    margin:0 auto !important;
+    align-self:center !important;
+  }
+  body.memos-share-modal-open .modal.memos-share-modal .modal-close-button,
+  body.bc-mobile-force-top.memos-share-modal-open .modal.memos-share-modal .modal-close-button {
+    top:6px !important;
+    right:6px !important;
+    width:32px !important;
+    height:32px !important;
+    transform:none !important;
+    opacity:.55 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+  }
+  .modal.memos-share-modal .modal-content {
+    padding:16px 10px 16px !important;
+  }
+  .modal.memos-share-modal .memos-share-preview-wrap {
+    touch-action:pan-y;
+  }
+  .modal.memos-share-modal .memos-share-actions {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+    margin-top:8px !important;
+    margin-bottom:0 !important;
+    padding:6px 0 2px !important;
+    background:var(--background-primary);
+  }
+  .modal.memos-share-modal .memos-share-action {
+    min-height:44px;
+    font-size:13px;
+  }
+  .modal.memos-share-modal .memos-share-style-button {
+    min-height:36px;
+  }
+  .memos-multi-share-picker-search {
+    font-size:16px;
+    min-height:44px;
+  }
+  .memos-multi-share-picker-list {
+    max-height:calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 220px);
+  }
+  .memos-multi-share-picker-footer {
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  .memos-multi-share-picker-header-actions button,
+  .memos-multi-share-picker-footer button,
+  .memos-multi-share-load-more {
+    min-height:44px;
+  }
+}
+
+/* 主题名称保持不变，仅替换纸张/版式语言。 */
+.memos-share-card.share-style-paper .memos-share-card-body {
+  background:#fbfaf7 !important;
+  background-image:none !important;
+  font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  padding:64px var(--share-content-gutter) !important;
+}
+.memos-share-card.share-style-paper .memos-share-entry { max-width:680px;margin-inline:auto; }
+.memos-share-card.share-style-paper .memos-share-card-content { font-size:24px;line-height:1.72;letter-spacing:0; }
+.memos-share-card.share-style-paper .memos-share-card-content::before { content:none; }
+.memos-share-card.share-style-kraft .memos-share-card-body {
+  background-color:#f2e4c8 !important;
+  background-image:linear-gradient(90deg,transparent 0,transparent 68px,rgba(157,68,51,.16) 69px,rgba(157,68,51,.16) 70px,transparent 71px),repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(91,62,28,.10) 40px) !important;
+  font-family:"Kaiti SC","STKaiti","KaiTi","楷体",serif;
+  padding:58px var(--share-content-gutter) !important;
+}
+.memos-share-card.share-style-kraft .memos-share-card-content { font-size:27px;line-height:1.78;letter-spacing:.065em;transform:rotate(-.25deg);transform-origin:center; }
+.memos-share-card.share-style-kraft .memos-share-card-content strong { text-decoration:underline;text-decoration-color:rgba(145,57,42,.42);text-decoration-thickness:3px;text-underline-offset:5px; }
+.memos-share-card.share-style-kraft .memos-share-entry { position:relative; }
+.memos-share-card.share-style-kraft .memos-share-entry::before { content:none; }
+.memos-share-card.share-style-mint .memos-share-card-body {
+  position:relative;
+  background-color:#edf4e8 !important;
+  background-image:radial-gradient(circle at 13% 13%,rgba(255,255,255,.82),transparent 31%),linear-gradient(145deg,rgba(255,255,255,.20),transparent 48%) !important;
+  font-family:"Songti SC","STSong","Noto Serif CJK SC",serif;
+  padding:66px var(--share-content-gutter) !important;
+}
+.memos-share-card.share-style-mint .memos-share-card-body::before { content:none; }
+.memos-share-card.share-style-mint .memos-share-card-body::after { content:none; }
+.memos-share-card.share-style-mint .memos-share-entry { max-width:650px;margin-inline:auto;border:0!important;outline:0!important;box-shadow:none!important; }
+.memos-share-card.share-style-mint .memos-share-card-content { font-size:25px;line-height:1.92;letter-spacing:.055em; }
+.memos-share-card.share-style-mint .memos-share-card-content::after { content:none; }
+
+/* 成品不套框：正文与水印共同组成一张连续画布。 */
+.memos-share-card,
+.memos-share-card-body,
+.memos-share-entry,
+.memos-share-card-content,
+.memos-share-preview,
+.memos-share-preview-inner,
+.memos-share-export-surface { border:0!important;outline:0!important;box-shadow:none!important; }
+.memos-share-preview,
+.memos-share-preview-inner { overflow:visible!important;scrollbar-width:none!important;-ms-overflow-style:none!important;scrollbar-gutter:auto!important; }
+.memos-share-preview::-webkit-scrollbar,
+.memos-share-preview-inner::-webkit-scrollbar { display:none!important;width:0!important;height:0!important; }
+.memos-share-card {
+  --share-content-width:680px;
+  --share-content-gutter:48px;
+  background:var(--share-bar-bg)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:clip!important;
+}
+.memos-share-card .memos-share-card-body { padding-left:var(--share-content-gutter)!important;padding-right:var(--share-content-gutter)!important; }
+.memos-share-card:not(.is-multi-share) .memos-share-entry {
+  width:min(var(--share-content-width),100%)!important;
+  max-width:var(--share-content-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.memos-share-card-body,
+.memos-share-card-content,
+.memos-share-entry {
+  scrollbar-width:none!important;
+  -ms-overflow-style:none!important;
+  scrollbar-gutter:auto!important;
+  border-right:0!important;
+}
+.memos-share-card-body::-webkit-scrollbar,
+.memos-share-card-content::-webkit-scrollbar,
+.memos-share-entry::-webkit-scrollbar {
+  display:none!important;
+  width:0!important;
+  height:0!important;
+}
+.memos-share-card.share-style-paper,
+.memos-share-card.share-style-paper .memos-share-card-body,
+.memos-share-card.share-style-paper .memos-share-card-content {
+  border-right:0!important;
+  box-shadow:none!important;
+}
+.memos-share-card::before,.memos-share-card::after,
+.memos-share-card-body::before,.memos-share-card-body::after { box-shadow:none!important;outline:0!important; }
+.memos-share-leica {
+  position:relative!important;
+  left:0!important;
+  width:100%!important;
+  align-self:stretch!important;
+  margin-top:auto!important;
+  margin-right:0!important;
+  margin-bottom:0!important;
+  margin-left:0!important;
+  padding:28px 48px!important;
+  border:0!important;
+}
+.memos-share-card.share-style-charcoal .memos-share-card-body {
+  position:relative;
+  background:#151515 !important;
+  background-image:radial-gradient(circle at 82% 8%,rgba(255,255,255,.075),transparent 28%),linear-gradient(145deg,rgba(255,255,255,.025),transparent 42%) !important;
+  padding:72px var(--share-content-gutter) !important;
+}
+.memos-share-card.share-style-charcoal .memos-share-card-body::before { content:none; }
+.memos-share-card.share-style-charcoal .memos-share-entry { max-width:680px;margin-inline:auto;border:0!important;padding-left:0; }
+.memos-share-card.share-style-charcoal .memos-share-card-content { font-size:25px;line-height:1.82;letter-spacing:.025em;color:#f2efe9; }
+.memos-share-card.share-style-charcoal .memos-share-card-content strong { color:#fff;font-weight:750; }
+
+/* 共性排版：正文共用 110px 左轴；只在垂直方向居中，右边自然随内容结束。 */
+.memos-share-card.is-text-only .memos-share-card-body { display:flex!important;flex-direction:column;min-height:0; }
+.memos-share-card.is-text-only:not(.is-multi-share) .memos-share-entry { display:flex!important;flex:1 1 auto;min-height:0; }
+.memos-share-card.is-text-only:not(.is-multi-share) .memos-share-card-content { flex:1 1 auto;width:100%;height:auto;min-height:0;text-align:left!important; }
+.memos-share-card.is-text-only .bc-fit-block { margin-block:auto!important;margin-left:0!important;margin-right:0!important;text-align:left!important; }
+
+/* 预览图片灯箱：卡片居中，按钮贴在图下，关闭钮不压图。 */
+.memos-share-lightbox {
+  position:fixed;inset:0;z-index:100000;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  padding:max(12px, env(safe-area-inset-top, 0px)) 12px max(12px, env(safe-area-inset-bottom, 0px));
+  box-sizing:border-box;
+  overflow:auto;scrollbar-width:none;-ms-overflow-style:none;
+  background:rgba(12,12,14,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  cursor:zoom-out;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+}
+.memos-share-lightbox::-webkit-scrollbar { display:none;width:0;height:0; }
+.memos-share-lightbox-frame {
+  position:relative;
+  display:flex;flex-direction:column;align-items:stretch;
+  width:min(900px, calc(100vw - 24px));
+  max-width:100%;
+  margin:auto 0;
+  padding-top:36px;
+  cursor:default;
+}
+.memos-share-lightbox > img,
+.memos-share-lightbox-stage { display:block;width:100%;height:auto;margin:0 auto;box-shadow:0 28px 80px rgba(0,0,0,.42);cursor:default; }
+.memos-share-lightbox-stage { overflow:hidden; flex:0 0 auto; }
+.memos-share-lightbox-card { width:900px; transform-origin:top left; }
+.memos-share-lightbox-close {
+  position:absolute;
+  top:0;
+  right:0;
+  z-index:3;width:32px;height:32px;border:0;border-radius:8px;
+  background:transparent!important;color:#fff!important;font-size:26px;line-height:1;
+  box-shadow:none!important;cursor:pointer;opacity:.85;
+}
+.memos-share-lightbox-actions {
+  position:static !important;left:auto !important;right:auto !important;bottom:auto !important;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  width:100%;margin-top:10px;padding:0;
+  background:transparent;
+  box-sizing:border-box;
+}
+.memos-share-lightbox-actions .memos-share-action {
+  min-height:44px;border-radius:10px;font-size:14px;
+}
+
+/* 合并分享：记录各自成章，底部信息条仍只有一份。 */
+.memos-share-entry-date { display:none; }
+.memos-share-card.is-multi-share .memos-share-card-body { display:block!important;padding-block:48px!important;padding-inline:var(--share-content-gutter)!important;overflow:visible!important; }
+/*
+ * 导出画布固定为 900px，因此每条记录都必须占用同一个 680px 内容槽。
+ * 不能让 section 按自身文字宽度 shrink-to-fit，否则短记录会单独居中，
+ * 日期和正文就会在不同记录之间左右跳动。
+ */
+.memos-share-card.is-multi-share .memos-share-entry {
+  display:block!important;
+  box-sizing:border-box!important;
+  width:var(--share-content-width)!important;
+  min-width:var(--share-content-width)!important;
+  max-width:var(--share-content-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding:26px 0!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+.memos-share-card.is-multi-share .memos-share-entry + .memos-share-entry { border:0!important; }
+.memos-share-card.is-multi-share .memos-share-entry-date {
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0 0 16px!important;
+  padding:0!important;
+  border:none!important;
+  border-width:0!important;
+  border-style:none!important;
+  border-color:transparent!important;
+  border-radius:0!important;
+  outline:none!important;
+  box-shadow:none!important;
+  background:none!important;
+  appearance:none!important;
+  text-align:left!important;
+  font-size:14px;
+  font-weight:650;
+  letter-spacing:.06em;
+  color:var(--share-muted);
+}
+.memos-share-card.is-multi-share .memos-share-entry-date::before,
+.memos-share-card.is-multi-share .memos-share-entry-date::after { content:none!important;display:none!important;border:0!important;outline:0!important;box-shadow:none!important; }
+.memos-share-card.is-multi-share .memos-share-card-content { display:block!important;width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important;text-align:left!important;columns:auto!important;column-count:auto!important; }
+.memos-share-card.is-multi-share .memos-share-card-content > *,
+.memos-share-card.is-multi-share .memos-share-card-content .markdown-preview-section,
+.memos-share-card.is-multi-share .memos-share-card-content .el-p { width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;text-align:left!important; }
+.memos-share-card.is-multi-share .memos-share-card-content > :first-child { margin-top:0!important; }
+.memos-share-card.is-multi-share .memos-share-card-content > :last-child { margin-bottom:0!important; }
+
+/* 多选分享选择器。 */
+.modal.memos-multi-share-picker-modal { width:min(760px,92vw); }
+.memos-multi-share-picker-header,.memos-multi-share-picker-footer,.memos-multi-share-picker-header-actions { display:flex;align-items:center;gap:8px; }
+.memos-multi-share-picker-header { justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px; }
+.memos-multi-share-picker-header h2 { margin:0;font-size:19px; }
+.memos-multi-share-picker-search { width:100%;box-sizing:border-box;margin:4px 0 8px;padding:8px 10px;border-radius:8px;border:1px solid var(--background-modifier-border);background:var(--background-primary);font-size:16px; }
+.memos-multi-share-load-more { width:100%;min-height:36px;margin-top:4px; }
+.memos-multi-share-picker-list { max-height:min(58vh,560px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;display:grid;gap:6px; }
+.memos-multi-share-picker-list::-webkit-scrollbar { display:none;width:0;height:0; }
+.memos-multi-share-picker-row { display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--background-modifier-border);border-radius:10px;cursor:pointer; }
+.memos-multi-share-picker-row.is-selected { border-color:var(--interactive-accent);background:color-mix(in srgb,var(--interactive-accent) 9%,transparent); }
+.memos-multi-share-picker-summary { min-width:0;display:grid;gap:3px; }
+.memos-multi-share-picker-date { font-size:12px;color:var(--text-muted); }
+.memos-multi-share-picker-copy { overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-normal); }
+.memos-multi-share-picker-footer { justify-content:space-between;margin-top:12px; }
+.memos-multi-share-picker-budget { display:grid;gap:2px; }
+.memos-multi-share-picker-budget-detail { font-size:11px;color:var(--text-muted); }
+.memos-multi-share-picker-budget-detail.is-over-budget { color:var(--text-error);font-weight:700; }
+.memos-share-generation-progress { width:min(100%,720px);margin:8px auto 0;display:grid;grid-template-columns:auto minmax(90px,1fr) auto;align-items:center;gap:8px;font-size:12px;color:var(--text-muted); }
+.memos-share-generation-progress[hidden] { display:none!important; }
+.memos-share-generation-progress progress { width:100%;height:6px; }
+.memos-share-generation-progress button { min-height:28px;padding:2px 10px; }
+@media (prefers-reduced-motion: reduce) {
+  .memos-share-generation-progress progress,
+  .memos-share-style-button,
+  .memos-share-card { animation:none !important; transition:none !important; }
+}
+.memos-share-copy-failure-actions { display:flex;justify-content:flex-end;gap:8px;margin-top:18px; }
