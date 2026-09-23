@@ -687,6 +687,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.19": [
+        "外观：设置页无痕滚动（隐藏滚动条，保留滑动）",
+    ],
     "4.1.18": [
         "恢复：天气保留 IP 库定位（ipwho / ipinfo / geolocation-db）与 wttr.in 降级",
     ],
@@ -1916,15 +1919,17 @@ function appendBcMobileTopSpacer(containerEl) {
 }
 
 function applyBcMobileSettingsLayout(containerEl, app) {
-  document.querySelectorAll(".bc-settings-mobile-host").forEach((el) => {
+  document.querySelectorAll(".bc-settings-mobile-host, .bc-settings-host").forEach((el) => {
     el.removeClass("bc-settings-mobile-host");
+    el.removeClass("bc-settings-host");
   });
-  const isMobile = app?.isMobile || Platform.isMobileApp;
-  if (!isMobile) return;
   injectBcSettingsCompactStyles();
   const host = containerEl.closest(".vertical-tab-content")
     || containerEl.closest(".vertical-tab-content-container")
     || containerEl.parentElement;
+  host?.addClass("bc-settings-host");
+  const isMobile = app?.isMobile || Platform.isMobileApp;
+  if (!isMobile) return;
   host?.addClass("bc-settings-mobile-host");
   appendBcMobileTopSpacer(containerEl);
 }
@@ -2241,7 +2246,7 @@ function bcPreferEssayPool(allQuotes, seed) {
 
 const { Plugin, ItemView, WorkspaceLeaf, Modal, Notice, Menu, debounce, PluginSettingTab, Setting, requestUrl, Platform, TFile, normalizePath, FuzzySuggestModal, setIcon } = require('obsidian');
 
-const PLUGIN_VERSION = "4.1.18";
+const PLUGIN_VERSION = "4.1.19";
 const PLUGIN_WEEKLY_PROFILE = "commercial";
 const PLUGIN_TRIAL_HOURS = 48;
 /** 构建时注入 docs/templates/文件墙.md；勿手写简易 dv.table 占位 */
@@ -6017,7 +6022,8 @@ class BrainCoreSettingsTab extends PluginSettingTab {
         if (this.app.isMobile || Platform.isMobileApp) containerEl.addClass("bc-settings-mobile");
         const isMobileSettings = this.app.isMobile || Platform.isMobileApp;
         injectBcSettingsCompactStyles();
-        if (isMobileSettings) applyBcMobileSettingsLayout(containerEl, this.app);
+        // 桌面也挂 host，设置页无痕滚动
+        applyBcMobileSettingsLayout(containerEl, this.app);
         
         if (!isMobileSettings) {
             containerEl.createEl('h2', {

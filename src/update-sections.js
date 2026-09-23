@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.19": [
+        "外观：设置页无痕滚动（隐藏滚动条，保留滑动）",
+    ],
     "4.1.18": [
         "恢复：天气保留 IP 库定位（ipwho / ipinfo / geolocation-db）与 wttr.in 降级",
     ],

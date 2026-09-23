@@ -990,3 +990,30 @@
   line-height: 28px;
   box-sizing: border-box;
 }
+
+/* ─── 无痕滚动：设置页 ─── */
+.bc-settings-host,
+.bc-settings-host.vertical-tab-content,
+.vertical-tab-content.bc-settings-host,
+.vertical-tab-content-container:has(.bc-settings-host),
+.modal.mod-settings .vertical-tab-content:has(.bc-settings-tab-bar),
+.modal.mod-settings .vertical-tab-content-container:has(.bc-settings-tab-bar),
+.bc-settings-panels,
+.bc-settings-panel,
+.bc-settings-compact {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.bc-settings-host::-webkit-scrollbar,
+.bc-settings-host.vertical-tab-content::-webkit-scrollbar,
+.vertical-tab-content.bc-settings-host::-webkit-scrollbar,
+.vertical-tab-content-container:has(.bc-settings-host)::-webkit-scrollbar,
+.modal.mod-settings .vertical-tab-content:has(.bc-settings-tab-bar)::-webkit-scrollbar,
+.modal.mod-settings .vertical-tab-content-container:has(.bc-settings-tab-bar)::-webkit-scrollbar,
+.bc-settings-panels::-webkit-scrollbar,
+.bc-settings-panel::-webkit-scrollbar,
+.bc-settings-compact::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}

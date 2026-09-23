@@ -3776,7 +3776,8 @@ class BrainCoreSettingsTab extends PluginSettingTab {
         if (this.app.isMobile || Platform.isMobileApp) containerEl.addClass("bc-settings-mobile");
         const isMobileSettings = this.app.isMobile || Platform.isMobileApp;
         injectBcSettingsCompactStyles();
-        if (isMobileSettings) applyBcMobileSettingsLayout(containerEl, this.app);
+        // 桌面也挂 host，设置页无痕滚动
+        applyBcMobileSettingsLayout(containerEl, this.app);
         
         if (!isMobileSettings) {
             containerEl.createEl('h2', {

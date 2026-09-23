@@ -40,15 +40,17 @@ function appendBcMobileTopSpacer(containerEl) {
 }
 
 function applyBcMobileSettingsLayout(containerEl, app) {
-  document.querySelectorAll(".bc-settings-mobile-host").forEach((el) => {
+  document.querySelectorAll(".bc-settings-mobile-host, .bc-settings-host").forEach((el) => {
     el.removeClass("bc-settings-mobile-host");
+    el.removeClass("bc-settings-host");
   });
-  const isMobile = app?.isMobile || Platform.isMobileApp;
-  if (!isMobile) return;
   injectBcSettingsCompactStyles();
   const host = containerEl.closest(".vertical-tab-content")
     || containerEl.closest(".vertical-tab-content-container")
     || containerEl.parentElement;
+  host?.addClass("bc-settings-host");
+  const isMobile = app?.isMobile || Platform.isMobileApp;
+  if (!isMobile) return;
   host?.addClass("bc-settings-mobile-host");
   appendBcMobileTopSpacer(containerEl);
 }
