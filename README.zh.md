@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.17 · 48 小时试用**
+当前公开版本：**4.1.18 · 48 小时试用**
 
 ## 界面预览
 
@@ -120,9 +120,16 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.17（当前）
+### 4.1.18（当前）
+
+- 恢复：天气保留 IP 库定位（ipwho / ipinfo / geolocation-db）与 wttr.in 降级
+
+<details>
+<summary>4.1.17</summary>
 
 - 审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure
+
+</details>
 
 <details>
 <summary>4.1.16</summary>
@@ -182,13 +189,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 <summary>4.1.9</summary>
 
 - 修复：Moments CSS 多余 `}`（社区 Scorecard Unexpected }）；公开仓补齐 docs/templates 等构建依赖，避免 Scorecard Build verification / readFile 失败
-
-</details>
-
-<details>
-<summary>4.1.8</summary>
-
-- 关于：所有作品互相介绍售价（PlainLedger ¥39.9 / 纪念日 ¥29.9 / BrainCore ¥49.9），未安装可跳转 GitHub
 
 </details>
 

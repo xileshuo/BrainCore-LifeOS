@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.18": [
+        "恢复：天气保留 IP 库定位（ipwho / ipinfo / geolocation-db）与 wttr.in 降级",
+    ],
     "4.1.17": [
         "审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure",
     ],
