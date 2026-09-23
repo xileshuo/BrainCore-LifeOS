@@ -507,6 +507,10 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.14": [
+        "审核：manifest 英文 description；minAppVersion 升至 1.7.2",
+        "审核：捕捉/仪表盘/素材弹窗样式迁入静态 styles.css，去掉大量运行时 style 注入",
+    ],
     "4.1.13": [
         "公开 README：中文在前、英文在后（市场介绍优先中文）",
     ],
@@ -650,6 +654,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.14": [
+        "样式改回静态 styles.css，减少运行时注入；minApp 升到 1.7.2。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.13": [
         "公开说明改为中文在前、英文在后。",
         "升级后会弹出这次更新；完整变更可在下方展开。",

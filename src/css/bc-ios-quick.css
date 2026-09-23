@@ -1,0 +1,355 @@
+/* extracted */
+.bc-ios-quick-modal .modal {
+                width: min(760px, 94vw) !important;
+                max-width: 94vw !important;
+                max-height: 88vh !important;
+                border-radius: 24px !important;
+            }
+            .bc-ios-quick-modal .modal-content {
+                padding: 0 !important;
+                overflow-y: auto !important;
+            }
+            .bcq-wrap {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 0 10px 10px;
+            }
+            .bcq-capture-shell {
+                border: 1px solid var(--background-modifier-border);
+                border-radius: 18px;
+                background: var(--background-primary);
+                overflow: hidden;
+            }
+            .bcq-capture-shell .bc-nav-row {
+                padding: 10px 12px 0 !important;
+            }
+            .bcq-capture-shell .bc-nav-links-wrapper {
+                gap: 6px !important;
+                overflow-x: auto !important;
+                white-space: nowrap !important;
+            }
+            .bcq-capture-shell .bc-nav-link {
+                padding: 4px 8px !important;
+                font-size: 12px !important;
+                max-width: 118px !important;
+                background: transparent !important;
+                border: none !important;
+            }
+            .bcq-capture-shell .bc-input-container {
+                margin: 8px 12px 8px !important;
+                min-height: 198px !important;
+                padding: 0 !important;
+                position: relative !important;
+            }
+            .bcq-capture-shell .bc-textarea {
+                min-height: 196px !important;
+                height: 196px !important;
+                padding: 18px 18px 64px 18px !important;
+                box-sizing: border-box !important;
+            }
+            .bcq-capture-shell .bc-source-indicator {
+                display: none !important;
+            }
+            .bcq-capture-shell .bc-editor-toolbar {
+                position: absolute !important;
+                left: 18px !important;
+                right: 18px !important;
+                bottom: 14px !important;
+                padding: 0 !important;
+                gap: 10px !important;
+                flex-wrap: nowrap !important;
+                align-items: center !important;
+                justify-content: center !important;
+                background: transparent !important;
+                border: none !important;
+            }
+            .bcq-capture-shell .bc-tool-btn {
+                padding: 4px !important;
+            }
+            .bcq-capture-shell .bc-tool-btn svg {
+                width: 18px !important;
+                height: 18px !important;
+            }
+            .bcq-capture-shell .bc-button-row {
+                padding: 2px 12px 10px !important;
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                column-gap: 6px !important;
+                row-gap: 6px !important;
+                align-items: stretch !important;
+                justify-items: stretch !important;
+            }
+            .bcq-capture-shell .bc-row-item {
+                min-width: 0 !important;
+                padding: 2px 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                background: transparent !important;
+                border-radius: 8px !important;
+                border: none !important;
+            }
+            .bcq-capture-shell .bc-row-item:hover {
+                background: transparent !important;
+                border-color: transparent !important;
+                opacity: 0.82 !important;
+            }
+            .bcq-capture-shell .bc-row-item.is-active {
+                background: var(--lifeos-accent-soft, rgba(180, 130, 70, 0.12)) !important;
+                opacity: 1 !important;
+            }
+            .bcq-capture-shell .bc-row-icon {
+                font-size: 16px !important;
+                margin-bottom: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                color: var(--text-normal) !important;
+            }
+            .bcq-capture-shell .bc-row-icon svg {
+                width: 18px !important;
+                height: 18px !important;
+                display: block !important;
+                stroke: currentColor !important;
+                fill: none !important;
+            }
+            .bcq-capture-shell .bc-row-item span {
+                font-size: 12px !important;
+                line-height: 1.15 !important;
+                margin-top: 2px !important;
+                font-weight: 700 !important;
+            }
+            .bcq-card {
+                border: 1px solid var(--background-modifier-border);
+                border-radius: 16px;
+                padding: 10px 12px;
+                background: var(--background-primary);
+            }
+            .bcq-title {
+                font-weight: 800;
+                font-size: 16px;
+                margin-bottom: 0;
+                color: var(--text-normal);
+            }
+            .bcq-title-row {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                margin-bottom: 6px;
+            }
+            .bcq-tip-icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                font-size: 11px;
+                font-weight: 800;
+                color: var(--text-muted);
+                background: color-mix(in srgb, var(--lifeos-accent, #b48246) 10%, transparent);
+                cursor: help;
+                flex-shrink: 0;
+            }
+            .bcq-muted {
+                font-size: 11px;
+                color: var(--text-muted);
+                margin-top: 6px;
+                line-height: 1.45;
+            }
+            .bcq-task {
+                display: flex;
+                gap: 8px;
+                align-items: flex-start;
+                padding: 6px 0;
+                border-bottom: none;
+            }
+            .bcq-task:last-child {
+                border-bottom: none;
+            }
+            .bcq-task input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                margin-top: 1px;
+            }
+            .bcq-task-text {
+                flex: 1;
+                line-height: 1.35;
+                font-size: 13px;
+            }
+            .bcq-task-children {
+                margin: 0 0 2px 0;
+                padding: 0 0 0 18px;
+                border-left: 1.5px solid color-mix(in srgb, var(--lifeos-accent, #b48246) 18%, transparent);
+            }
+            .bcq-task-children .bcq-task-text {
+                font-size: 12px;
+                opacity: 0.92;
+            }
+            .bcq-task-children .bcq-task-children .bcq-task-text {
+                font-size: 11px;
+                opacity: 0.88;
+            }
+            .bcq-habit-table {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .bcq-habit-row {
+                display: grid;
+                grid-template-columns: 64px minmax(170px, 1fr) 52px;
+                align-items: center;
+                gap: 8px;
+            }
+            .bcq-habit-label {
+                font-size: 13px;
+                font-weight: 800;
+                color: var(--text-normal);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .bcq-habit-grid {
+                display: grid;
+                grid-template-columns: repeat(5, 28px);
+                gap: 8px;
+                align-items: center;
+                justify-content: center;
+            }
+            .bcq-habit-day {
+                font-size: 12px;
+                color: var(--text-muted);
+                text-align: center;
+                font-weight: 800;
+            }
+            .bcq-habit-box {
+                width: 24px;
+                height: 24px;
+                border-radius: 7px;
+                border: 1px solid var(--background-modifier-border);
+                background: var(--background-secondary);
+                cursor: pointer;
+                box-sizing: border-box;
+                transition: transform .12s ease, background .12s ease;
+            }
+            .bcq-habit-box:active {
+                transform: scale(.94);
+            }
+            .bcq-habit-box.checked {
+                background: var(--interactive-accent);
+                border-color: var(--interactive-accent);
+            }
+            .bcq-habit-day.is-today {
+                color: #d67272;
+                font-weight: 900;
+            }
+            .bcq-habit-box.is-today {
+                border: 1.5px solid rgba(214,114,114,.55);
+                box-shadow: 0 0 0 1px rgba(214,114,114,.12);
+            }
+            .bcq-habit-box.is-today.checked {
+                border-color: var(--interactive-accent);
+                box-shadow: none;
+            }
+            .bcq-habit-streak {
+                font-size: 12px;
+                color: var(--text-muted);
+                font-weight: 800;
+                text-align: right;
+            }
+
+            @media (max-width: 520px) {
+                .bc-ios-quick-modal .modal {
+                    width: 94vw !important;
+                }
+                .bcq-wrap {
+                    padding: 0 6px 8px;
+                    gap: 8px;
+                }
+                .bcq-capture-shell .bc-nav-row {
+                    padding: 8px 10px 0 !important;
+                }
+                .bcq-capture-shell .bc-nav-label,
+                .bcq-capture-shell .bc-nav-link {
+                    font-size: 11px !important;
+                }
+                .bcq-capture-shell .bc-input-container {
+                    margin: 6px 8px 6px !important;
+                    min-height: 182px !important;
+                    padding: 0 !important;
+                    position: relative !important;
+                }
+                .bcq-capture-shell .bc-textarea {
+                    min-height: 176px !important;
+                    height: 176px !important;
+                    font-size: 16px !important;
+                    padding: 16px 16px 60px 16px !important;
+                }
+                .bcq-capture-shell .bc-editor-toolbar {
+                    left: 12px !important;
+                    right: 12px !important;
+                    bottom: 12px !important;
+                    gap: 8px !important;
+                    justify-content: center !important;
+                }
+                .bcq-capture-shell .bc-tool-btn svg {
+                    width: 17px !important;
+                    height: 17px !important;
+                }
+                .bcq-capture-shell .bc-button-row {
+                    padding: 2px 8px 8px !important;
+                    display: grid !important;
+                    grid-template-columns: repeat(4, 1fr);
+                    row-gap: 4px !important;
+                    column-gap: 4px !important;
+                }
+                .bcq-capture-shell .bc-row-item {
+                    padding: 2px 0 !important;
+                    border-radius: 10px !important;
+                }
+                .bcq-capture-shell .bc-row-icon {
+                    font-size: 16px !important;
+                    margin-bottom: 0 !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                .bcq-capture-shell .bc-row-icon svg {
+                    width: 18px !important;
+                    height: 18px !important;
+                    display: block !important;
+                }
+                .bcq-capture-shell .bc-row-item span {
+                    font-size: 11px !important;
+                }
+                .bcq-card {
+                    padding: 9px 10px;
+                    border-radius: 15px;
+                }
+                .bcq-title {
+                    font-size: 15px;
+                    margin-bottom: 5px;
+                }
+                .bcq-task-text {
+                    font-size: 12px;
+                }
+                .bcq-habit-row {
+                    grid-template-columns: 56px minmax(148px, 1fr) 34px;
+                    gap: 6px;
+                }
+                .bcq-habit-grid {
+                    grid-template-columns: repeat(5, 24px);
+                    gap: 7px;
+                    justify-content: center;
+                }
+                .bcq-habit-box {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 7px;
+                }
+                .bcq-habit-label, .bcq-habit-streak, .bcq-habit-day {
+                    font-size: 12px;
+                }
+            }

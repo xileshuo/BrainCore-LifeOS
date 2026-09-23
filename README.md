@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.13 · 48 小时试用**
+当前公开版本：**4.1.14 · 48 小时试用**
 
 ## 界面预览
 
@@ -120,9 +120,17 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.13（当前）
+### 4.1.14（当前）
+
+- 审核：manifest 英文 description；minAppVersion 升至 1.7.2
+- 审核：捕捉/仪表盘/素材弹窗样式迁入静态 styles.css，去掉大量运行时 style 注入
+
+<details>
+<summary>4.1.13</summary>
 
 - 公开 README：中文在前、英文在后（市场介绍优先中文）
+
+</details>
 
 <details>
 <summary>4.1.12</summary>
@@ -195,14 +203,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 - 文档：社区 README 改为英文说明在前、中文在后，便于目录语言检测通过
 - 发布：同步 4.1.4 公开包与 Release，便于社区后台重新审核
-
-</details>
-
-<details>
-<summary>4.1.3</summary>
-
-- Moments：无旧 Ideas/碎碎念 可迁时静默完成，不再每次启动弹「Folder already exists」
-- Moments：建目录兼容已存在文件夹；失败提示改为最多每周一次
 
 </details>
 

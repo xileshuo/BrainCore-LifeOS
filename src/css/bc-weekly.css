@@ -1,0 +1,116 @@
+/* BrainCore weekly note chrome — colors via CSS variables set at runtime */
+.braincore-weekly .metadata-container { display: none; }
+.braincore-weekly .metadata-content { display: none; }
+.braincore-weekly .cm-line.HyperMD-header-2,
+.braincore-weekly .cm-line.HyperMD-header-3 {
+  padding: 0.8em 10px 5px 10px;
+  border-radius: 4px;
+  margin-top: 0;
+  display: block;
+  color: var(--text-normal);
+  width: 100%;
+  box-sizing: border-box;
+}
+.braincore-weekly .cm-line.HyperMD-header-2 .cm-strong { font-weight: inherit; }
+.braincore-weekly .cm-line.HyperMD-header-2 .cm-em { font-style: normal; }
+.braincore-weekly .cm-line.HyperMD-header-2 {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+}
+.braincore-weekly .cm-line.HyperMD-header-2:not(:has(.cm-strong)):not(:has(.cm-em))::before {
+  content: "";
+  position: absolute;
+  top: 0.8em; left: 0; right: 0; bottom: 0;
+  background-color: var(--bc-weekly-todo);
+  border-radius: 4px;
+  z-index: -1;
+}
+.braincore-weekly .cm-line.HyperMD-header-2:has(.cm-strong):not(:has(.cm-em))::before {
+  content: "";
+  position: absolute;
+  top: 0.8em; left: 0; right: 0; bottom: 0;
+  background-color: var(--bc-weekly-meeting);
+  border-radius: 4px;
+  z-index: -1;
+}
+.braincore-weekly .cm-line.HyperMD-header-2:has(.cm-em):not(:has(.cm-strong))::before {
+  content: "";
+  position: absolute;
+  top: 0.8em; left: 0; right: 0; bottom: 0;
+  background-color: var(--bc-weekly-daily);
+  border-radius: 4px;
+  z-index: -1;
+}
+.braincore-weekly .cm-line.HyperMD-header-2:has(.cm-strong):has(.cm-em)::before {
+  content: "";
+  position: absolute;
+  top: 0.8em; left: 0; right: 0; bottom: 0;
+  background-color: var(--bc-weekly-weekly);
+  border-radius: 4px;
+  z-index: -1;
+}
+.braincore-weekly h2 {
+  padding: 5px 10px;
+  margin-top: 1em;
+  margin-bottom: .5em;
+  border-radius: 4px;
+  color: var(--text-normal);
+  width: 100%;
+  display: block;
+}
+.braincore-weekly h2 strong,
+.braincore-weekly h2 em { font-weight: inherit; font-style: normal; }
+.braincore-weekly h3[data-heading="周一"],
+.braincore-weekly h3[data-heading="周二"],
+.braincore-weekly h3[data-heading="周三"],
+.braincore-weekly h3[data-heading="周四"],
+.braincore-weekly h3[data-heading="周五"],
+.braincore-weekly h3[data-heading="周六"],
+.braincore-weekly h3[data-heading="周日"],
+.braincore-weekly .cm-line.HyperMD-header-3 {
+  background-color: transparent;
+  border-left: none;
+  padding-left: 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--text-normal);
+  padding-top: 0.8em;
+  margin-top: 0;
+}
+.braincore-weekly .bc-weekly-nav-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 18px 0 28px 0;
+  padding: 0;
+}
+.braincore-weekly .bc-weekly-nav-container {
+  border: none;
+  background: transparent;
+  width: 520px;
+  max-width: 90%;
+  min-height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  box-sizing: border-box;
+  padding: 10px 16px;
+  flex-wrap: nowrap;
+}
+@media (max-width: 700px) {
+  .braincore-weekly .bc-weekly-nav-container {
+    flex-wrap: wrap;
+    gap: 12px;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+/* Hide empty internal-link list items (was runtime :has inject) */
+.markdown-preview-view .custom-list-item:has(> a.internal-link:empty),
+.markdown-reading-view .custom-list-item:has(> a.internal-link:empty) {
+  display: none;
+}

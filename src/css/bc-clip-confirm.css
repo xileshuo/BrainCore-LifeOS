@@ -1,0 +1,30 @@
+/* extracted */
+.bc-clip-confirm-dialog .modal-content{overflow:visible!important}
+.bc-clip-confirm-modal{padding:22px 26px 28px;max-width:520px;box-sizing:border-box}
+.bc-clip-confirm-modal .bc-material-title{margin:0 0 8px;font-size:18px;line-height:1.35}
+.bc-clip-confirm-modal .bc-clip-intro{margin:0 0 18px;font-size:12px;line-height:1.55;color:var(--text-muted)}
+.bc-clip-confirm-modal .bc-clip-name-row{display:flex;align-items:center;gap:10px;margin:0}
+.bc-clip-confirm-modal .bc-material-ext-badge{font-size:11px;font-weight:700;color:var(--text-accent);background:var(--background-secondary);padding:2px 8px;border-radius:6px;flex-shrink:0}
+.bc-clip-confirm-modal .bc-material-name-input{flex:1;min-width:140px;padding:8px 10px;border-radius:8px;border:1px solid var(--background-modifier-border);background:var(--background-primary);box-sizing:border-box}
+.bc-clip-confirm-modal .bc-clip-path-hint{margin:8px 0 0;padding-left:46px;font-size:11px;line-height:1.4;color:var(--text-muted)}
+.bc-clip-confirm-modal .bc-clip-section{margin-top:22px}
+.bc-clip-confirm-modal .bc-clip-section-label{font-size:13px;font-weight:700;margin:0 0 6px;color:var(--text-normal)}
+.bc-clip-confirm-modal .bc-clip-section-desc{font-size:11px;color:var(--text-muted);margin:0 0 12px;line-height:1.5}
+.bc-clip-confirm-modal .bc-clip-cat-row,.bc-clip-confirm-modal .bc-clip-tag-row{display:flex;flex-wrap:wrap;gap:8px;margin:0;align-items:center}
+.bc-clip-cat-chip,.bc-clip-tag-add{border:1px solid var(--background-modifier-border);background:var(--background-secondary);color:var(--text-normal);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;line-height:1.2}
+.bc-clip-cat-chip.is-active{background:color-mix(in srgb,var(--lifeos-accent,#b48246) 36%,transparent);border-color:color-mix(in srgb,var(--lifeos-accent,#b48246) 55%,transparent);color:var(--text-accent)}
+.bc-clip-cat-add-wrap{display:flex;align-items:center;gap:12px;margin-top:12px;width:100%;box-sizing:border-box}
+.bc-clip-cat-add-input{flex:1;min-width:0;width:auto;padding:8px 12px;border-radius:10px;border:1px solid var(--background-modifier-border);background:var(--background-primary);font-size:13px;line-height:1.3;box-sizing:border-box}
+.bc-clip-cat-add-ok{flex-shrink:0;border:1px solid color-mix(in srgb,var(--lifeos-accent,#b48246) 45%,transparent);background:color-mix(in srgb,var(--lifeos-accent,#b48246) 18%,transparent);color:var(--text-accent);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;line-height:1.2}
+.bc-clip-tag-chip{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:999px;background:color-mix(in srgb,var(--lifeos-accent,#b48246) 14%,transparent);color:var(--text-accent);font-size:12px;font-weight:700;cursor:pointer}
+.bc-clip-confirm-modal .bc-clip-reflect{width:100%;min-height:96px;padding:12px;border-radius:10px;border:1px solid var(--background-modifier-border);background:var(--background-primary);resize:vertical;box-sizing:border-box;font-size:14px;line-height:1.55;margin:0}
+.bc-clip-confirm-modal .bc-material-foot{display:flex;justify-content:flex-end;gap:12px;margin-top:28px;padding-top:4px}
+.bc-clip-confirm-modal .bc-material-foot button{min-height:36px;padding:0 16px}
+@media (max-width:480px){
+.bc-clip-confirm-modal{padding:16px 16px 20px}
+.bc-clip-confirm-modal .bc-clip-path-hint{padding-left:0}
+.bc-clip-confirm-modal .bc-clip-section{margin-top:18px}
+.bc-clip-confirm-modal .bc-material-foot{margin-top:22px;gap:8px}
+.bc-clip-confirm-modal .bc-material-foot button{flex:1;min-height:40px}
+.bc-clip-cat-add-wrap{gap:10px}
+}

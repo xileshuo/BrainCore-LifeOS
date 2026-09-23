@@ -62,6 +62,13 @@ function writeStylesCss(momentsCssRaw) {
     read("src/css/bc-settings-tab-layout.css"),
     read("src/css/update-notice.css"),
     read("src/css/set-heading.css"),
+    read("src/css/bc-capture-modal.css"),
+    read("src/css/bc-dashboard.css"),
+    read("src/css/bc-weekly.css"),
+    read("src/css/bc-material-modal.css"),
+    read("src/css/bc-clip-confirm.css"),
+    read("src/css/bc-today-delta.css"),
+    read("src/css/bc-ios-quick.css"),
     "/* —— Moments —— */",
     momentsCssRaw,
   ];
