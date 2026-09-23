@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.16 · 48 小时试用**
+当前公开版本：**4.1.17 · 48 小时试用**
 
 ## 界面预览
 
@@ -120,9 +120,16 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.16（当前）
+### 4.1.17（当前）
+
+- 审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure
+
+<details>
+<summary>4.1.16</summary>
 
 - 审核：manifest.description 改以英文句号结尾（Scorecard 不认中文 。）
+
+</details>
 
 <details>
 <summary>4.1.15</summary>
@@ -182,18 +189,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 <summary>4.1.8</summary>
 
 - 关于：所有作品互相介绍售价（PlainLedger ¥39.9 / 纪念日 ¥29.9 / BrainCore ¥49.9），未安装可跳转 GitHub
-
-</details>
-
-<details>
-<summary>4.1.7</summary>
-
-- 文件墙：写入完整卡片看板；旧表格占位打开「文件」时自动升级；官方看板会同步四根路径并递归扫描子目录
-- 文件墙：仅升级已知简易占位，不覆盖用户自定义 DataviewJS；打开时检测 Dataview / DataviewJS
-- 附件：AM 根目录未对齐 Boxes 时捕捉改用内置四分类；侧栏教练条同时只显示一条且 AM 提示可关闭
-- 金句：空态改用 LifeOS 空态组件；读书笔记路径匹配改为目录前缀，避免误收
-- 文档：明确文件墙需要 DataviewJS；工作区说明与当前推荐版本对齐
-- 文档：Weread 配置写入完整笔记模板；去掉验收清单；「Hero」改为「控制台最上方」等白话
 
 </details>
 

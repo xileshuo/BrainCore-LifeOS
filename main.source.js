@@ -1903,56 +1903,31 @@ async function bcFetchWeatherAt(lat, lon) {
     const latN = Number(lat);
     const lonN = Number(lon);
     if (!Number.isFinite(latN) || !Number.isFinite(lonN)) throw new Error("invalid coords");
-    const errors = [];
-    try {
-        const data = await bcFetchJsonWithTimeout(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latN}&longitude=${lonN}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`,
-            6000
-        );
-        return bcFormatOpenMeteoWeather(data);
-    } catch (e) {
-        errors.push(`open-meteo: ${e.message || e}`);
-    }
-    try {
-        const data = await bcFetchJsonWithTimeout(`https://wttr.in/${latN},${lonN}?format=j1&lang=zh`, 8000);
-        return bcFormatWttrWeather(data);
-    } catch (e) {
-        errors.push(`wttr.in: ${e.message || e}`);
-    }
-    throw new Error(errors.join(" | "));
+    // 社区 Scorecard：只保留 open-meteo，去掉 wttr.in 等备用域名 Disclosure
+    const data = await bcFetchJsonWithTimeout(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latN}&longitude=${lonN}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`,
+        6000
+    );
+    return bcFormatOpenMeteoWeather(data);
 }
 
 async function bcFetchGeoCoords() {
-    const providers = [
-        async () => {
-            const d = await bcFetchJsonWithTimeout("https://ipwho.is/", 4000);
-            if (!d?.success || !Number.isFinite(d.latitude) || !Number.isFinite(d.longitude)) throw new Error("ipwho.is invalid");
-            return { lat: d.latitude, lon: d.longitude };
-        },
-        async () => {
-            const d = await bcFetchJsonWithTimeout("https://ipinfo.io/json", 4000);
-            const parts = String(d?.loc || "").split(",");
-            if (parts.length !== 2) throw new Error("ipinfo.io invalid");
-            const lat = parseFloat(parts[0]);
-            const lon = parseFloat(parts[1]);
-            if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new Error("ipinfo.io coords");
-            return { lat, lon };
-        },
-        async () => {
-            const d = await bcFetchJsonWithTimeout("https://geolocation-db.com/json/", 4000);
-            if (!Number.isFinite(d?.latitude) || !Number.isFinite(d?.longitude)) throw new Error("geolocation-db invalid");
-            return { lat: d.latitude, lon: d.longitude };
-        },
-    ];
-    const errors = [];
-    for (const run of providers) {
+    // 优先浏览器定位（不向第三方 IP 库发请求）；失败再提示手动填坐标
+    if (typeof navigator !== "undefined" && navigator.geolocation) {
         try {
-            return await run();
-        } catch (e) {
-            errors.push(e.message || String(e));
-        }
+            const pos = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, {
+                    enableHighAccuracy: false,
+                    timeout: 8000,
+                    maximumAge: 4 * 60 * 60 * 1000,
+                });
+            });
+            const lat = pos?.coords?.latitude;
+            const lon = pos?.coords?.longitude;
+            if (Number.isFinite(lat) && Number.isFinite(lon)) return { lat, lon };
+        } catch (_) { /* fall through */ }
     }
-    throw new Error(errors.join(" | "));
+    throw new Error("无法自动定位：请在设置中手动填写经纬度，或允许浏览器定位权限");
 }
 
 function escapeJsString(text) {
@@ -3975,7 +3950,7 @@ class BrainCoreSettingsTab extends PluginSettingTab {
         const weatherCard = gridWrapper.createDiv();
         weatherCard.className = "bc-settings-block";
         new Setting(weatherCard).setName('🌤️ 天气定位').setHeading();
-        weatherCard.createEl('p', { text: '天气按下方经纬度显示。默认不会用 IP 推测位置。若开启「自动网络定位」，每 4 小时会向第三方定位接口发送一次请求（ipwho.is / ipinfo.io / geolocation-db），用于填写坐标；你已手动改过经纬度时不会覆盖。天气接口 open-meteo 不可用时自动切换 wttr.in（中文）。', cls: 'setting-item-description' });
+        weatherCard.createEl('p', { text: '天气按下方经纬度显示。默认不会自动推测位置。若开启「自动网络定位」，会优先使用系统定位权限；失败请手动填写坐标。天气数据来自 open-meteo。', cls: 'setting-item-description' });
         
         const markWeatherCoordsCustom = async () => {
             this.plugin.settings.weatherCoordsCustom = true;

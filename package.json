@@ -1,6 +1,6 @@
 {
   "name": "braincore-lifeos",
-  "version": "4.1.16",
+  "version": "4.1.17",
   "description": "LifeOS sidebar console for time awareness, fast capture, workflows, habits, and knowledge review.",
   "main": "main.js",
   "directories": {

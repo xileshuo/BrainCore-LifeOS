@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.17": [
+        "审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure",
+    ],
     "4.1.16": [
         "审核：manifest.description 改以英文句号结尾（Scorecard 不认中文 。）",
     ],
@@ -660,6 +663,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.17": [
+        "减少外网接口披露：天气只用 open-meteo，定位走系统权限。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.16": [
         "manifest 介绍改以英文句号结尾，满足社区审核。",
         "升级后会弹出这次更新；完整变更可在下方展开。",
