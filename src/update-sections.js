@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.15": [
+        "设置：体验包激活后标题显示「公版」，不再写「体验版/48小时体验版」",
+    ],
     "4.1.14": [
         "审核：manifest 英文 description；minAppVersion 升至 1.7.2",
         "审核：捕捉/仪表盘/素材弹窗样式迁入静态 styles.css，去掉大量运行时 style 注入",
@@ -654,6 +657,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.15": [
+        "体验包激活后设置标题改为「公版」，不再写「体验版」。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.14": [
         "样式改回静态 styles.css，减少运行时注入；minApp 升到 1.7.2。",
         "升级后会弹出这次更新；完整变更可在下方展开。",

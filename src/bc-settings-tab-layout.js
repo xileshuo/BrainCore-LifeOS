@@ -4,12 +4,15 @@ const BC_SETTINGS_STYLE_ID = "bc-settings-compact-styles-v13";
 const BC_MOBILE_TOP_INSET_PX = 41;
 const BC_MOBILE_TOP_SPACER_CLASS = "bc-mobile-top-spacer";
 
-function getBcEditionLabel() {
+function getBcEditionLabel(settings) {
   if (typeof getEditionDisplayName === "function") {
-    const n = getEditionDisplayName();
+    const n = getEditionDisplayName(settings);
     if (n) return n;
   }
-  if (typeof isTrialEdition === "function" && isTrialEdition()) return "体验版";
+  if (typeof isTrialEdition === "function" && isTrialEdition()) {
+    if (settings && settings.licenseActivated) return "公版";
+    return "体验版";
+  }
   if (typeof PLUGIN_WEEKLY_PROFILE === "string" && PLUGIN_WEEKLY_PROFILE === "commercial") return "公版";
   if (typeof PLUGIN_EDITION === "string" && PLUGIN_EDITION === "public") return "公版";
   return "个人版";

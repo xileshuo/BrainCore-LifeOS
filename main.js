@@ -29,9 +29,13 @@ function getLifeOsReleaseLabel() {
   return LIFEOS_RELEASE;
 }
 
-function getLifeOsEditionDisplayName() {
+function getLifeOsEditionDisplayName(settings) {
   // 共享层专用；成品里以 main.source 的 getEditionDisplayName 为准，避免同名函数覆盖。
-  if (typeof isTrialEdition === "function" && isTrialEdition()) return "体验版";
+  if (typeof isTrialEdition === "function" && isTrialEdition()) {
+    if (settings && settings.licenseActivated) return "公版";
+    const h = typeof getTrialHoursLabel === "function" ? getTrialHoursLabel() : "";
+    return h ? `${h}体验版` : "体验版";
+  }
   if (typeof PLUGIN_WEEKLY_PROFILE === "string" && PLUGIN_WEEKLY_PROFILE === "commercial") return "公版";
   if (typeof PLUGIN_EDITION === "string" && PLUGIN_EDITION === "public") return "公版";
   if (typeof PLUGIN_WEEKLY_PROFILE === "string" && PLUGIN_WEEKLY_PROFILE === "personal") return "个人版";
@@ -683,6 +687,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.15": [
+        "设置：体验包激活后标题显示「公版」，不再写「体验版/48小时体验版」",
+    ],
     "4.1.14": [
         "审核：manifest 英文 description；minAppVersion 升至 1.7.2",
         "审核：捕捉/仪表盘/素材弹窗样式迁入静态 styles.css，去掉大量运行时 style 注入",
@@ -830,6 +837,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.15": [
+        "体验包激活后设置标题改为「公版」，不再写「体验版」。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.14": [
         "样式改回静态 styles.css，减少运行时注入；minApp 升到 1.7.2。",
         "升级后会弹出这次更新；完整变更可在下方展开。",
@@ -1852,12 +1863,15 @@ const BC_SETTINGS_STYLE_ID = "bc-settings-compact-styles-v13";
 const BC_MOBILE_TOP_INSET_PX = 41;
 const BC_MOBILE_TOP_SPACER_CLASS = "bc-mobile-top-spacer";
 
-function getBcEditionLabel() {
+function getBcEditionLabel(settings) {
   if (typeof getEditionDisplayName === "function") {
-    const n = getEditionDisplayName();
+    const n = getEditionDisplayName(settings);
     if (n) return n;
   }
-  if (typeof isTrialEdition === "function" && isTrialEdition()) return "体验版";
+  if (typeof isTrialEdition === "function" && isTrialEdition()) {
+    if (settings && settings.licenseActivated) return "公版";
+    return "体验版";
+  }
   if (typeof PLUGIN_WEEKLY_PROFILE === "string" && PLUGIN_WEEKLY_PROFILE === "commercial") return "公版";
   if (typeof PLUGIN_EDITION === "string" && PLUGIN_EDITION === "public") return "公版";
   return "个人版";
@@ -2210,7 +2224,7 @@ function bcPreferEssayPool(allQuotes, seed) {
 
 const { Plugin, ItemView, WorkspaceLeaf, Modal, Notice, Menu, debounce, PluginSettingTab, Setting, requestUrl, Platform, TFile, normalizePath, FuzzySuggestModal, setIcon } = require('obsidian');
 
-const PLUGIN_VERSION = "4.1.14";
+const PLUGIN_VERSION = "4.1.15";
 const PLUGIN_WEEKLY_PROFILE = "commercial";
 const PLUGIN_TRIAL_HOURS = 48;
 /** 构建时注入 docs/templates/文件墙.md；勿手写简易 dv.table 占位 */
@@ -2999,9 +3013,14 @@ function getTrialHoursLabel() {
     return h > 0 ? `${h} 小时` : "";
 }
 
-function getEditionDisplayName() {
+function getEditionDisplayName(settings) {
     // 界面三档：体验版 / 公版 / 个人版（公版含需激活与免激活，均按 commercial 显示）
-    if (isTrialEdition()) return "体验版";
+    // 体验包激活后按「公版」展示，避免标题仍写「体验版」造成歧义
+    if (isTrialEdition()) {
+        if (settings && settings.licenseActivated) return "公版";
+        const h = getTrialHoursLabel();
+        return h ? `${h}体验版` : "体验版";
+    }
     if (PLUGIN_WEEKLY_PROFILE === "commercial") return "公版";
     return "个人版";
 }
@@ -5986,8 +6005,8 @@ class BrainCoreSettingsTab extends PluginSettingTab {
         if (!isMobileSettings) {
             containerEl.createEl('h2', {
                 text: typeof formatPluginSettingsTitle === 'function'
-                    ? formatPluginSettingsTitle('BrainCore 配置', getEditionDisplayName())
-                    : `BrainCore 配置 · ${getEditionDisplayName()}`,
+                    ? formatPluginSettingsTitle('BrainCore 配置', getEditionDisplayName(this.plugin.settings))
+                    : `BrainCore 配置 · ${getEditionDisplayName(this.plugin.settings)}`,
                 cls: 'bc-settings-page-title',
             });
         }

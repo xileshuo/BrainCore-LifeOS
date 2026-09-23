@@ -29,9 +29,13 @@ function getLifeOsReleaseLabel() {
   return LIFEOS_RELEASE;
 }
 
-function getLifeOsEditionDisplayName() {
+function getLifeOsEditionDisplayName(settings) {
   // 共享层专用；成品里以 main.source 的 getEditionDisplayName 为准，避免同名函数覆盖。
-  if (typeof isTrialEdition === "function" && isTrialEdition()) return "体验版";
+  if (typeof isTrialEdition === "function" && isTrialEdition()) {
+    if (settings && settings.licenseActivated) return "公版";
+    const h = typeof getTrialHoursLabel === "function" ? getTrialHoursLabel() : "";
+    return h ? `${h}体验版` : "体验版";
+  }
   if (typeof PLUGIN_WEEKLY_PROFILE === "string" && PLUGIN_WEEKLY_PROFILE === "commercial") return "公版";
   if (typeof PLUGIN_EDITION === "string" && PLUGIN_EDITION === "public") return "公版";
   if (typeof PLUGIN_WEEKLY_PROFILE === "string" && PLUGIN_WEEKLY_PROFILE === "personal") return "个人版";

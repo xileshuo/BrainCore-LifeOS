@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.14 · 48 小时试用**
+当前公开版本：**4.1.15 · 48 小时试用**
 
 ## 界面预览
 
@@ -120,10 +120,17 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.14（当前）
+### 4.1.15（当前）
+
+- 设置：体验包激活后标题显示「公版」，不再写「体验版/48小时体验版」
+
+<details>
+<summary>4.1.14</summary>
 
 - 审核：manifest 英文 description；minAppVersion 升至 1.7.2
 - 审核：捕捉/仪表盘/素材弹窗样式迁入静态 styles.css，去掉大量运行时 style 注入
+
+</details>
 
 <details>
 <summary>4.1.13</summary>
@@ -195,14 +202,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 - 金句：修复「去设置读书笔记路径」点了无反应（异步刷新后监听丢失）；现打开设置 → 路径
 - 文档：补充 Weread（微信读书）安装与配置；金句空态增加安装入口；路径「读书笔记」注明需与 Weread 输出一致
 - 文档：重排使用说明——模块讲行为、十三讲配置；AM / Weread 各有总览、步骤、验收与 FAQ
-
-</details>
-
-<details>
-<summary>4.1.4</summary>
-
-- 文档：社区 README 改为英文说明在前、中文在后，便于目录语言检测通过
-- 发布：同步 4.1.4 公开包与 Release，便于社区后台重新审核
 
 </details>
 

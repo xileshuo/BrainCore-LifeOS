@@ -789,9 +789,14 @@ function getTrialHoursLabel() {
     return h > 0 ? `${h} 小时` : "";
 }
 
-function getEditionDisplayName() {
+function getEditionDisplayName(settings) {
     // 界面三档：体验版 / 公版 / 个人版（公版含需激活与免激活，均按 commercial 显示）
-    if (isTrialEdition()) return "体验版";
+    // 体验包激活后按「公版」展示，避免标题仍写「体验版」造成歧义
+    if (isTrialEdition()) {
+        if (settings && settings.licenseActivated) return "公版";
+        const h = getTrialHoursLabel();
+        return h ? `${h}体验版` : "体验版";
+    }
     if (PLUGIN_WEEKLY_PROFILE === "commercial") return "公版";
     return "个人版";
 }
@@ -3776,8 +3781,8 @@ class BrainCoreSettingsTab extends PluginSettingTab {
         if (!isMobileSettings) {
             containerEl.createEl('h2', {
                 text: typeof formatPluginSettingsTitle === 'function'
-                    ? formatPluginSettingsTitle('BrainCore 配置', getEditionDisplayName())
-                    : `BrainCore 配置 · ${getEditionDisplayName()}`,
+                    ? formatPluginSettingsTitle('BrainCore 配置', getEditionDisplayName(this.plugin.settings))
+                    : `BrainCore 配置 · ${getEditionDisplayName(this.plugin.settings)}`,
                 cls: 'bc-settings-page-title',
             });
         }
