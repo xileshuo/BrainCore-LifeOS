@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.16": [
+        "审核：manifest.description 改以英文句号结尾（Scorecard 不认中文 。）",
+    ],
     "4.1.15": [
         "设置：体验包激活后标题显示「公版」，不再写「体验版/48小时体验版」",
     ],
@@ -657,6 +660,10 @@ const PLUGIN_CHANGELOG = {
     ...LEGACY_PLUGIN_CHANGELOG,
 };
 const PLUGIN_CHANGELOG_HIGHLIGHTS = {
+    "4.1.16": [
+        "manifest 介绍改以英文句号结尾，满足社区审核。",
+        "升级后会弹出这次更新；完整变更可在下方展开。",
+    ],
     "4.1.15": [
         "体验包激活后设置标题改为「公版」，不再写「体验版」。",
         "升级后会弹出这次更新；完整变更可在下方展开。",
