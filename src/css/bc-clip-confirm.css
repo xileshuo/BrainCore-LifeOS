@@ -1,5 +1,5 @@
 /* extracted */
-.bc-clip-confirm-dialog .modal-content{overflow:visible!important}
+.bc-clip-confirm-dialog .modal-content{overflow:visible}
 .bc-clip-confirm-modal{padding:22px 26px 28px;max-width:520px;box-sizing:border-box}
 .bc-clip-confirm-modal .bc-material-title{margin:0 0 8px;font-size:18px;line-height:1.35}
 .bc-clip-confirm-modal .bc-clip-intro{margin:0 0 18px;font-size:12px;line-height:1.55;color:var(--text-muted)}

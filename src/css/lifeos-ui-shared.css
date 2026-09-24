@@ -117,32 +117,32 @@
 }
   .lifeos-act-input {
   font-size: 16px;
-  height: 36px !important;
-  min-height: 36px !important;
-  max-height: 36px !important;
-  line-height: 36px !important;
-  padding: 0 10px !important;
-  box-sizing: border-box !important;
+  height: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  line-height: 36px;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
   .lifeos-act-btn, .lifeos-act-nav-btn, .lifeos-empty-cta {
-  height: 36px !important;
-  min-height: 36px !important;
-  max-height: 36px !important;
-  line-height: 36px !important;
-  font-size: 12px !important;
-  padding: 0 14px !important;
-  box-sizing: border-box !important;
+  height: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  line-height: 36px;
+  font-size: 12px;
+  padding: 0 14px;
+  box-sizing: border-box;
 }
   .lifeos-about-link-row button,
   .lifeos-about-work-actions button {
-  min-height: 36px !important;
-  height: 36px !important;
-  max-height: 36px !important;
-  line-height: 36px !important;
-  font-size: 12px !important;
-  padding: 0 14px !important;
-  min-width: 64px !important;
-  box-sizing: border-box !important;
+  min-height: 36px;
+  height: 36px;
+  max-height: 36px;
+  line-height: 36px;
+  font-size: 12px;
+  padding: 0 14px;
+  min-width: 64px;
+  box-sizing: border-box;
 }
   .modal-container.bc-update-modal-host,
   .modal-container.lifeos-update-modal-host {
@@ -207,12 +207,12 @@
 .plg-settings-intro,
 .jnr-settings-intro,
 .bc-settings-intro {
-  margin: 0 0 6px !important;
-  padding: 0 0 0 12px !important;
+  margin: 0 0 6px;
+  padding: 0 0 0 12px;
   border-left: 2px solid var(--lifeos-accent, #b48246);
-  text-indent: 4em !important;
-  line-height: 1.35 !important;
-  font-size: 12px !important;
+  text-indent: 4em;
+  line-height: 1.35;
+  font-size: 12px;
 }
 .lifeos-act-btn,
 .lifeos-act-btn-primary,

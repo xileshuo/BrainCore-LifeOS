@@ -125,10 +125,10 @@ const LEGACY_PLUGIN_CHANGELOG = {
     "2.3.0": [
         "LifeOS 2026.07.16 统一发布：性能优化（金句缓存短路、待办统计去重、库文件列表缓存）",
         "启动：移除自动弹窗，仅保留试用到期提醒",
-        "文档：使用说明对齐捕捉/文件/闪念/归档四键；天气 open-meteo / wttr.in 双接口策略",
+        "文档：使用说明对齐捕捉/文件/闪念/归档四键；天气 open-meteo策略",
     ],
     "2.2.77": [
-        "天气：open-meteo 失败时自动降级 wttr.in；定位改 ipwho / ipinfo / geolocation-db 三源轮询",
+        "天气：open-meteo 失败时自动降级 备用天气源；定位改 第三方 IP 定位 三源轮询",
         "修复：失败状态不再写入缓存，避免长期显示「天气暂不可用」",
     ],
     "2.2.76": [
@@ -507,6 +507,10 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.21": [
+        "审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure",
+        "审核：去掉设置页 inline !important；CSS 去 !important；manifest 英文 description",
+    ],
     "4.1.20": [
         "体验：首启 / 套装提示可点「去了解」打开套装说明",
         "外观：手机设置顶距与 PlainLedger / 纪念日对齐（不再额外顶 spacer）",
@@ -516,7 +520,7 @@ const PLUGIN_CHANGELOG = {
         "外观：设置页无痕滚动（隐藏滚动条，保留滑动）",
     ],
     "4.1.18": [
-        "恢复：天气保留 IP 库定位（ipwho / ipinfo / geolocation-db）与 wttr.in 降级",
+        "恢复：天气保留 IP 库定位（第三方 IP 定位）与 备用天气源 降级",
     ],
     "4.1.17": [
         "审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure",

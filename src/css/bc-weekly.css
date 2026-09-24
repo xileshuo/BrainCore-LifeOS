@@ -18,38 +18,6 @@
   z-index: 1;
   background-color: transparent;
 }
-.braincore-weekly .cm-line.HyperMD-header-2:not(:has(.cm-strong)):not(:has(.cm-em))::before {
-  content: "";
-  position: absolute;
-  top: 0.8em; left: 0; right: 0; bottom: 0;
-  background-color: var(--bc-weekly-todo);
-  border-radius: 4px;
-  z-index: -1;
-}
-.braincore-weekly .cm-line.HyperMD-header-2:has(.cm-strong):not(:has(.cm-em))::before {
-  content: "";
-  position: absolute;
-  top: 0.8em; left: 0; right: 0; bottom: 0;
-  background-color: var(--bc-weekly-meeting);
-  border-radius: 4px;
-  z-index: -1;
-}
-.braincore-weekly .cm-line.HyperMD-header-2:has(.cm-em):not(:has(.cm-strong))::before {
-  content: "";
-  position: absolute;
-  top: 0.8em; left: 0; right: 0; bottom: 0;
-  background-color: var(--bc-weekly-daily);
-  border-radius: 4px;
-  z-index: -1;
-}
-.braincore-weekly .cm-line.HyperMD-header-2:has(.cm-strong):has(.cm-em)::before {
-  content: "";
-  position: absolute;
-  top: 0.8em; left: 0; right: 0; bottom: 0;
-  background-color: var(--bc-weekly-weekly);
-  border-radius: 4px;
-  z-index: -1;
-}
 .braincore-weekly h2 {
   padding: 5px 10px;
   margin-top: 1em;
@@ -107,10 +75,4 @@
     width: auto;
     max-width: 100%;
   }
-}
-
-/* Hide empty internal-link list items (was runtime :has inject) */
-.markdown-preview-view .custom-list-item:has(> a.internal-link:empty),
-.markdown-reading-view .custom-list-item:has(> a.internal-link:empty) {
-  display: none;
 }

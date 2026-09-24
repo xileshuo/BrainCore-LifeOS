@@ -13,50 +13,16 @@ const PLUGIN_PHILOSOPHY_SUBTITLE = "Obsidian 知识库的「核心呼吸机」�
 const LICENSE_FINGERPRINT_LABEL = "设备指纹";
 const LICENSE_FINGERPRINT_HINT = "基于 Obsidian appId；每台设备激活一次即可。手机与电脑的激活码都会保留，同步后互不覆盖（兼容旧版库名激活码）";
 
-/** 设置页顶部介绍：行距 + 首行缩进（inline !important，压过主题） */
+/** 设置页顶部介绍：版式改由 styles.css .bc-settings-intro（勿 inline !important，Scorecard Risk） */
 function applyLifeOsIntroStyle(el) {
     if (!el) return;
-    el.style.setProperty("margin", "0 0 6px", "important");
-    el.style.setProperty("padding", "0", "important");
-    el.style.setProperty("text-indent", "4em", "important");
-    el.style.setProperty("line-height", "1.35", "important");
-    el.style.setProperty("font-size", "12px", "important");
 }
 
-/** 路径类 Setting：标签固定列宽 + 输入等宽右对齐（手机端 CSS 常被 Obsidian 盖掉，必须 JS 强制） */
+/** 路径类 Setting：仅挂 class，布局由 styles.css .bc-settings-path-row 负责 */
 function lockPathSettingLayout(setting) {
     const row = setting?.settingEl;
     if (!row) return;
     row.addClass("bc-settings-path-row");
-    const info = row.querySelector(".setting-item-info");
-    const control = row.querySelector(".setting-item-control");
-    const input = row.querySelector('input[type="text"]');
-    if (info) {
-        info.style.setProperty("flex", "0 0 5.5em", "important");
-        info.style.setProperty("width", "5.5em", "important");
-        info.style.setProperty("min-width", "5.5em", "important");
-        info.style.setProperty("max-width", "5.5em", "important");
-        info.style.setProperty("padding-right", "0", "important");
-    }
-    if (control) {
-        control.style.setProperty("flex", "0 0 11em", "important");
-        control.style.setProperty("width", "11em", "important");
-        control.style.setProperty("min-width", "11em", "important");
-        control.style.setProperty("max-width", "11em", "important");
-        control.style.setProperty("margin-left", "auto", "important");
-        control.style.setProperty("justify-content", "flex-end", "important");
-    }
-    if (input) {
-        input.style.setProperty("width", "100%", "important");
-        input.style.setProperty("min-width", "0", "important");
-        input.style.setProperty("max-width", "100%", "important");
-        input.style.setProperty("box-sizing", "border-box", "important");
-    }
-    row.style.setProperty("display", "flex", "important");
-    row.style.setProperty("flex-direction", "row", "important");
-    row.style.setProperty("align-items", "center", "important");
-    row.style.setProperty("justify-content", "space-between", "important");
-    row.style.setProperty("gap", "12px", "important");
 }
 
 function getLifeOsVaultKey(app, suffix) {
@@ -1970,56 +1936,31 @@ async function bcFetchWeatherAt(lat, lon) {
     const latN = Number(lat);
     const lonN = Number(lon);
     if (!Number.isFinite(latN) || !Number.isFinite(lonN)) throw new Error("invalid coords");
-    const errors = [];
-    try {
-        const data = await bcFetchJsonWithTimeout(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latN}&longitude=${lonN}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`,
-            6000
-        );
-        return bcFormatOpenMeteoWeather(data);
-    } catch (e) {
-        errors.push(`open-meteo: ${e.message || e}`);
-    }
-    try {
-        const data = await bcFetchJsonWithTimeout(`https://wttr.in/${latN},${lonN}?format=j1&lang=zh`, 8000);
-        return bcFormatWttrWeather(data);
-    } catch (e) {
-        errors.push(`wttr.in: ${e.message || e}`);
-    }
-    throw new Error(errors.join(" | "));
+    // 社区审核：仅 open-meteo，不降级 备用天气源
+    const data = await bcFetchJsonWithTimeout(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latN}&longitude=${lonN}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`,
+        6000
+    );
+    return bcFormatOpenMeteoWeather(data);
 }
 
 async function bcFetchGeoCoords() {
-    const providers = [
-        async () => {
-            const d = await bcFetchJsonWithTimeout("https://ipwho.is/", 4000);
-            if (!d?.success || !Number.isFinite(d.latitude) || !Number.isFinite(d.longitude)) throw new Error("ipwho.is invalid");
-            return { lat: d.latitude, lon: d.longitude };
-        },
-        async () => {
-            const d = await bcFetchJsonWithTimeout("https://ipinfo.io/json", 4000);
-            const parts = String(d?.loc || "").split(",");
-            if (parts.length !== 2) throw new Error("ipinfo.io invalid");
-            const lat = parseFloat(parts[0]);
-            const lon = parseFloat(parts[1]);
-            if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new Error("ipinfo.io coords");
-            return { lat, lon };
-        },
-        async () => {
-            const d = await bcFetchJsonWithTimeout("https://geolocation-db.com/json/", 4000);
-            if (!Number.isFinite(d?.latitude) || !Number.isFinite(d?.longitude)) throw new Error("geolocation-db invalid");
-            return { lat: d.latitude, lon: d.longitude };
-        },
-    ];
-    const errors = [];
-    for (const run of providers) {
-        try {
-            return await run();
-        } catch (e) {
-            errors.push(e.message || String(e));
-        }
+    // 社区审核：不用 IP 定位库；仅系统定位（需用户授权）
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+        throw new Error("geolocation unavailable");
     }
-    throw new Error(errors.join(" | "));
+    return await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const lat = pos?.coords?.latitude;
+                const lon = pos?.coords?.longitude;
+                if (!Number.isFinite(lat) || !Number.isFinite(lon)) reject(new Error("geolocation invalid"));
+                else resolve({ lat, lon });
+            },
+            (err) => reject(err || new Error("geolocation denied")),
+            { enableHighAccuracy: false, timeout: 8000, maximumAge: 4 * 60 * 60 * 1000 }
+        );
+    });
 }
 
 function escapeJsString(text) {
@@ -3546,7 +3487,7 @@ class CaptureModal extends Modal {
             if (this.textArea) this.textArea.toggleClass("bc-capture-expanded", this.isExpanded);
             this.modalEl.toggleClass("bc-capture-expanded", this.isExpanded);
         } else {
-            this.modalEl.style.setProperty('width', this.isExpanded ? '900px' : '720px', 'important'); 
+            this.modalEl.style.setProperty('width', this.isExpanded ? '900px' : '720px'); 
             this.textArea.style.height = this.isExpanded ? "420px" : "220px"; 
         }
     }
@@ -3869,30 +3810,30 @@ function renderBrainCoreMomentsSettingsPanel(containerEl, plugin, tab) {
             const input = control?.querySelector('input[type="text"]');
             const buttons = control ? Array.from(control.querySelectorAll('button')) : [];
             if (control) {
-                control.style.setProperty('display', 'grid', 'important');
-                control.style.setProperty('grid-template-columns', 'repeat(3, minmax(0, 1fr))', 'important');
-                control.style.setProperty('gap', '8px', 'important');
-                control.style.setProperty('width', '100%', 'important');
-                control.style.setProperty('max-width', '100%', 'important');
-                control.style.setProperty('margin-left', '0', 'important');
+                control.style.setProperty('display', 'grid');
+                control.style.setProperty('grid-template-columns', 'repeat(3, minmax(0, 1fr))');
+                control.style.setProperty('gap', '8px');
+                control.style.setProperty('width', '100%');
+                control.style.setProperty('max-width', '100%');
+                control.style.setProperty('margin-left', '0');
             }
             if (input) {
-                input.style.setProperty('grid-column', '1 / -1', 'important');
-                input.style.setProperty('width', '100%', 'important');
-                input.style.setProperty('max-width', '100%', 'important');
-                input.style.setProperty('min-width', '0', 'important');
-                input.style.setProperty('box-sizing', 'border-box', 'important');
+                input.style.setProperty('grid-column', '1 / -1');
+                input.style.setProperty('width', '100%');
+                input.style.setProperty('max-width', '100%');
+                input.style.setProperty('min-width', '0');
+                input.style.setProperty('box-sizing', 'border-box');
             }
             buttons.forEach((btn) => {
-                btn.style.setProperty('width', '100%', 'important');
-                btn.style.setProperty('min-width', '0', 'important');
-                btn.style.setProperty('height', '36px', 'important');
-                btn.style.setProperty('margin', '0', 'important');
-                btn.style.setProperty('box-sizing', 'border-box', 'important');
+                btn.style.setProperty('width', '100%');
+                btn.style.setProperty('min-width', '0');
+                btn.style.setProperty('height', '36px');
+                btn.style.setProperty('margin', '0');
+                btn.style.setProperty('box-sizing', 'border-box');
             });
-            row.style.setProperty('display', 'flex', 'important');
-            row.style.setProperty('flex-direction', 'column', 'important');
-            row.style.setProperty('align-items', 'stretch', 'important');
+            row.style.setProperty('display', 'flex');
+            row.style.setProperty('flex-direction', 'column');
+            row.style.setProperty('align-items', 'stretch');
         }
     }, { defaultExpanded: false });
 
@@ -4137,7 +4078,7 @@ class BrainCoreSettingsTab extends PluginSettingTab {
         const weatherCard = gridWrapper.createDiv();
         weatherCard.className = "bc-settings-block";
         new Setting(weatherCard).setName('🌤️ 天气定位').setHeading();
-        weatherCard.createEl('p', { text: '天气按下方经纬度显示。默认不会用 IP 推测位置。若开启「自动网络定位」，每 4 小时会向第三方定位接口发送一次请求（ipwho.is / ipinfo.io / geolocation-db），用于填写坐标；你已手动改过经纬度时不会覆盖。天气接口 open-meteo 不可用时自动切换 wttr.in（中文）。', cls: 'setting-item-description' });
+        weatherCard.createEl('p', { text: '天气按下方经纬度显示。默认用设置里的经纬度。若开启「自动定位」，会请求系统定位权限填写坐标（不访问第三方 IP 库）；你已手动改过经纬度时不会覆盖。天气仅使用 open-meteo。', cls: 'setting-item-description' });
         
         const markWeatherCoordsCustom = async () => {
             this.plugin.settings.weatherCoordsCustom = true;
@@ -6256,8 +6197,8 @@ class BrainCoreIOSQuickModal extends Modal {
     toggleQuickSize() {
         this.isQuickExpanded = !this.isQuickExpanded;
         const h = this.isQuickExpanded ? "52vh" : (this.app.isMobile ? "130px" : "150px");
-        this.quickTextArea.style.setProperty("height", h, "important");
-        this.quickTextArea.style.setProperty("min-height", h, "important");
+        this.quickTextArea.style.setProperty("height", h);
+        this.quickTextArea.style.setProperty("min-height", h);
     }
 
     showPriorityMenu(e) {

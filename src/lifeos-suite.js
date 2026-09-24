@@ -258,16 +258,7 @@ function renderBrainCoreShortcutsSettingsPanel(panel, plugin, options = {}) {
   input.onclick = () => input.select();
   const btn = row.createEl("button", { cls: "lifeos-act-btn", text: "复制", type: "button" });
   btn.onclick = () => void copyShortcutUrl(quickUrl);
-  // 手机端强制输入与复制同高对齐
-  [input, btn].forEach((el) => {
-    el.style.setProperty("height", "36px", "important");
-    el.style.setProperty("min-height", "36px", "important");
-    el.style.setProperty("max-height", "36px", "important");
-    el.style.setProperty("line-height", "36px", "important");
-    el.style.setProperty("box-sizing", "border-box", "important");
-  });
-  input.style.setProperty("padding", "0 10px", "important");
-  row.style.setProperty("align-items", "center", "important");
+  // 版式由 styles.css .lifeos-act-row 负责，勿 inline !important
 }
 
 const LIFEOS_SUITE_INTRO_BASENAME = "BrainCore LifeOS三款插件介绍、使用说明";
@@ -516,13 +507,13 @@ function elevateLifeOsUpdateModal(modal) {
     const container = modal.modalEl.closest(".modal-container");
     if (!container) return;
     container.addClass("lifeos-update-modal-host");
-    container.style.setProperty("z-index", z, "important");
+    container.style.setProperty("--lifeos-update-z", z);
     const bg = container.querySelector(".modal-bg");
     if (bg) {
       bg.addClass("lifeos-update-modal-bg");
-      bg.style.setProperty("z-index", z, "important");
+      bg.style.setProperty("--lifeos-update-z", z);
     }
-    modal.modalEl.style.setProperty("z-index", z, "important");
+    modal.modalEl.style.setProperty("--lifeos-update-z", z);
   };
   requestAnimationFrame(() => {
     apply();

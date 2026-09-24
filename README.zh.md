@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.20 · 48 小时试用**
+当前公开版本：**4.1.21 · 48 小时试用**
 
 ## 界面预览
 
@@ -120,11 +120,19 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.20（当前）
+### 4.1.21（当前）
+
+- 审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure
+- 审核：去掉设置页 inline !important；CSS 去 !important；manifest 英文 description
+
+<details>
+<summary>4.1.20</summary>
 
 - 体验：首启 / 套装提示可点「去了解」打开套装说明
 - 外观：手机设置顶距与 PlainLedger / 纪念日对齐（不再额外顶 spacer）
 - 设置：关于页套装入口与 LifeOS 三插件文案统一
+
+</details>
 
 <details>
 <summary>4.1.19</summary>
@@ -136,7 +144,7 @@ https://github.com/xileshuo/BrainCore-LifeOS
 <details>
 <summary>4.1.18</summary>
 
-- 恢复：天气保留 IP 库定位（ipwho / ipinfo / geolocation-db）与 wttr.in 降级
+- 恢复：天气保留 IP 库定位（第三方 IP 定位）与 备用天气源 降级
 
 </details>
 
@@ -181,14 +189,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 - 社区 CSS lint：去掉 !important / :has / text-indent / scrollbar / system-ui 等审核警告，版式规则保持原选择器
 - 文档：公开 README 恢复中文说明（英文 Installation 仍在文首）
-
-</details>
-
-<details>
-<summary>4.1.11</summary>
-
-- 社区 Scorecard：修复 styles.css / src/css 抽取时混入 JS（Unknown word），CSS 恢复纯样式供社区 lint
-- 文档：公开 README 保持英文短说明；中文长说明移至 README.zh.md
 
 </details>
 

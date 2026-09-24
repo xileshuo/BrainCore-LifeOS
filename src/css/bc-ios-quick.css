@@ -1,13 +1,13 @@
 /* extracted */
 .bc-ios-quick-modal .modal {
-                width: min(760px, 94vw) !important;
-                max-width: 94vw !important;
-                max-height: 88vh !important;
-                border-radius: 24px !important;
+                width: min(760px, 94vw);
+                max-width: 94vw;
+                max-height: 88vh;
+                border-radius: 24px;
             }
             .bc-ios-quick-modal .modal-content {
-                padding: 0 !important;
-                overflow-y: auto !important;
+                padding: 0;
+                overflow-y: auto;
             }
             .bcq-wrap {
                 display: flex;
@@ -22,104 +22,104 @@
                 overflow: hidden;
             }
             .bcq-capture-shell .bc-nav-row {
-                padding: 10px 12px 0 !important;
+                padding: 10px 12px 0;
             }
             .bcq-capture-shell .bc-nav-links-wrapper {
-                gap: 6px !important;
-                overflow-x: auto !important;
-                white-space: nowrap !important;
+                gap: 6px;
+                overflow-x: auto;
+                white-space: nowrap;
             }
             .bcq-capture-shell .bc-nav-link {
-                padding: 4px 8px !important;
-                font-size: 12px !important;
-                max-width: 118px !important;
-                background: transparent !important;
-                border: none !important;
+                padding: 4px 8px;
+                font-size: 12px;
+                max-width: 118px;
+                background: transparent;
+                border: none;
             }
             .bcq-capture-shell .bc-input-container {
-                margin: 8px 12px 8px !important;
-                min-height: 198px !important;
-                padding: 0 !important;
-                position: relative !important;
+                margin: 8px 12px 8px;
+                min-height: 198px;
+                padding: 0;
+                position: relative;
             }
             .bcq-capture-shell .bc-textarea {
-                min-height: 196px !important;
-                height: 196px !important;
-                padding: 18px 18px 64px 18px !important;
-                box-sizing: border-box !important;
+                min-height: 196px;
+                height: 196px;
+                padding: 18px 18px 64px 18px;
+                box-sizing: border-box;
             }
             .bcq-capture-shell .bc-source-indicator {
-                display: none !important;
+                display: none;
             }
             .bcq-capture-shell .bc-editor-toolbar {
-                position: absolute !important;
-                left: 18px !important;
-                right: 18px !important;
-                bottom: 14px !important;
-                padding: 0 !important;
-                gap: 10px !important;
-                flex-wrap: nowrap !important;
-                align-items: center !important;
-                justify-content: center !important;
-                background: transparent !important;
-                border: none !important;
+                position: absolute;
+                left: 18px;
+                right: 18px;
+                bottom: 14px;
+                padding: 0;
+                gap: 10px;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: none;
             }
             .bcq-capture-shell .bc-tool-btn {
-                padding: 4px !important;
+                padding: 4px;
             }
             .bcq-capture-shell .bc-tool-btn svg {
-                width: 18px !important;
-                height: 18px !important;
+                width: 18px;
+                height: 18px;
             }
             .bcq-capture-shell .bc-button-row {
-                padding: 2px 12px 10px !important;
-                display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important;
-                column-gap: 6px !important;
-                row-gap: 6px !important;
-                align-items: stretch !important;
-                justify-items: stretch !important;
+                padding: 2px 12px 10px;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                column-gap: 6px;
+                row-gap: 6px;
+                align-items: stretch;
+                justify-items: stretch;
             }
             .bcq-capture-shell .bc-row-item {
-                min-width: 0 !important;
-                padding: 2px 0 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: center !important;
-                background: transparent !important;
-                border-radius: 8px !important;
-                border: none !important;
+                min-width: 0;
+                padding: 2px 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border-radius: 8px;
+                border: none;
             }
             .bcq-capture-shell .bc-row-item:hover {
-                background: transparent !important;
-                border-color: transparent !important;
-                opacity: 0.82 !important;
+                background: transparent;
+                border-color: transparent;
+                opacity: 0.82;
             }
             .bcq-capture-shell .bc-row-item.is-active {
-                background: var(--lifeos-accent-soft, rgba(180, 130, 70, 0.12)) !important;
-                opacity: 1 !important;
+                background: var(--lifeos-accent-soft, rgba(180, 130, 70, 0.12));
+                opacity: 1;
             }
             .bcq-capture-shell .bc-row-icon {
-                font-size: 16px !important;
-                margin-bottom: 0 !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                color: var(--text-normal) !important;
+                font-size: 16px;
+                margin-bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text-normal);
             }
             .bcq-capture-shell .bc-row-icon svg {
-                width: 18px !important;
-                height: 18px !important;
-                display: block !important;
-                stroke: currentColor !important;
-                fill: none !important;
+                width: 18px;
+                height: 18px;
+                display: block;
+                stroke: currentColor;
+                fill: none;
             }
             .bcq-capture-shell .bc-row-item span {
-                font-size: 12px !important;
-                line-height: 1.15 !important;
-                margin-top: 2px !important;
-                font-weight: 700 !important;
+                font-size: 12px;
+                line-height: 1.15;
+                margin-top: 2px;
+                font-weight: 700;
             }
             .bcq-card {
                 border: 1px solid var(--background-modifier-border);
@@ -262,67 +262,67 @@
 
             @media (max-width: 520px) {
                 .bc-ios-quick-modal .modal {
-                    width: 94vw !important;
+                    width: 94vw;
                 }
                 .bcq-wrap {
                     padding: 0 6px 8px;
                     gap: 8px;
                 }
                 .bcq-capture-shell .bc-nav-row {
-                    padding: 8px 10px 0 !important;
+                    padding: 8px 10px 0;
                 }
                 .bcq-capture-shell .bc-nav-label,
                 .bcq-capture-shell .bc-nav-link {
-                    font-size: 11px !important;
+                    font-size: 11px;
                 }
                 .bcq-capture-shell .bc-input-container {
-                    margin: 6px 8px 6px !important;
-                    min-height: 182px !important;
-                    padding: 0 !important;
-                    position: relative !important;
+                    margin: 6px 8px 6px;
+                    min-height: 182px;
+                    padding: 0;
+                    position: relative;
                 }
                 .bcq-capture-shell .bc-textarea {
-                    min-height: 176px !important;
-                    height: 176px !important;
-                    font-size: 16px !important;
-                    padding: 16px 16px 60px 16px !important;
+                    min-height: 176px;
+                    height: 176px;
+                    font-size: 16px;
+                    padding: 16px 16px 60px 16px;
                 }
                 .bcq-capture-shell .bc-editor-toolbar {
-                    left: 12px !important;
-                    right: 12px !important;
-                    bottom: 12px !important;
-                    gap: 8px !important;
-                    justify-content: center !important;
+                    left: 12px;
+                    right: 12px;
+                    bottom: 12px;
+                    gap: 8px;
+                    justify-content: center;
                 }
                 .bcq-capture-shell .bc-tool-btn svg {
-                    width: 17px !important;
-                    height: 17px !important;
+                    width: 17px;
+                    height: 17px;
                 }
                 .bcq-capture-shell .bc-button-row {
-                    padding: 2px 8px 8px !important;
-                    display: grid !important;
+                    padding: 2px 8px 8px;
+                    display: grid;
                     grid-template-columns: repeat(4, 1fr);
-                    row-gap: 4px !important;
-                    column-gap: 4px !important;
+                    row-gap: 4px;
+                    column-gap: 4px;
                 }
                 .bcq-capture-shell .bc-row-item {
-                    padding: 2px 0 !important;
-                    border-radius: 10px !important;
+                    padding: 2px 0;
+                    border-radius: 10px;
                 }
                 .bcq-capture-shell .bc-row-icon {
-                    font-size: 16px !important;
-                    margin-bottom: 0 !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
+                    font-size: 16px;
+                    margin-bottom: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
                 .bcq-capture-shell .bc-row-icon svg {
-                    width: 18px !important;
-                    height: 18px !important;
-                    display: block !important;
+                    width: 18px;
+                    height: 18px;
+                    display: block;
                 }
                 .bcq-capture-shell .bc-row-item span {
-                    font-size: 11px !important;
+                    font-size: 11px;
                 }
                 .bcq-card {
                     padding: 9px 10px;

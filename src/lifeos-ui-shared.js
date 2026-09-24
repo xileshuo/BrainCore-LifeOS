@@ -85,7 +85,10 @@ function renderLifeOsEmptyState(parent, options = {}) {
 function showLifeOsFirstRunCard(container, app, storageKey, options = {}) {
   injectLifeOsSharedStyles();
   try {
-    if (localStorage.getItem(storageKey) === "1") return null;
+    const seen = typeof app?.loadLocalStorage === "function"
+      ? app.loadLocalStorage(storageKey)
+      : localStorage.getItem(storageKey);
+    if (seen === "1") return null;
   } catch { /* ignore */ }
   const card = container.createDiv({ cls: "lifeos-first-run-card" });
   card.createEl("p", { cls: "lifeos-first-run-title", text: options.title || "欢迎使用 LifeOS" });
@@ -93,7 +96,10 @@ function showLifeOsFirstRunCard(container, app, storageKey, options = {}) {
   (options.bullets || []).forEach((line) => list.createEl("li", { text: line }));
   const actions = card.createDiv({ cls: "lifeos-first-run-actions" });
   const dismiss = () => {
-    try { localStorage.setItem(storageKey, "1"); } catch { /* ignore */ }
+    try {
+      if (typeof app?.saveLocalStorage === "function") app.saveLocalStorage(storageKey, "1");
+      else localStorage.setItem(storageKey, "1");
+    } catch { /* ignore */ }
     card.remove();
   };
   if (options.primaryLabel) {
