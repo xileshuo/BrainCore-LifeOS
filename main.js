@@ -694,6 +694,11 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.23": [
+        "修复：更新弹窗关掉也会记版本，重启不再反复弹出",
+        "修复：版本升级不再自动强开使用说明 MD（仅首次安装）",
+        "外观：侧栏四键去掉灰底；捕捉分类/输入框压过主题默认按钮样式",
+    ],
     "4.1.22": [
         "审核：首启卡改回浏览器 localStorage，去掉高于 minApp 的 App 存储 API",
     ],
@@ -1827,10 +1832,22 @@ function showUpdateNoticeModal(app, plugin, options = {}) {
     const foot = wrap.createDiv({ cls: "bc-update-foot" });
     const btn = foot.createEl("button", { text: "知道了，开始使用" });
     addClasses(btn, "lifeos-modal-primary", "bc-update-btn");
-    btn.onclick = () => {
+    let stamped = false;
+    const stampSeen = () => {
+      if (stamped) return;
+      stamped = true;
       plugin.settings.lastSeenVersion = versionSemver;
       void plugin.saveSettings();
+    };
+    btn.onclick = () => {
+      stampSeen();
       modal.close();
+    };
+    // X / Esc 关闭也要记版本，否则每次重启都会再弹
+    const prevClose = typeof modal.onClose === "function" ? modal.onClose.bind(modal) : null;
+    modal.onClose = () => {
+      stampSeen();
+      if (prevClose) prevClose();
       if (typeof options.onDismiss === "function") options.onDismiss();
     };
 
@@ -2324,7 +2341,7 @@ function bcPreferEssayPool(allQuotes, seed) {
 
 const { Plugin, ItemView, WorkspaceLeaf, Modal, Notice, Menu, debounce, PluginSettingTab, Setting, requestUrl, Platform, TFile, normalizePath, FuzzySuggestModal, setIcon } = require('obsidian');
 
-const PLUGIN_VERSION = "4.1.22";
+const PLUGIN_VERSION = "4.1.23";
 const PLUGIN_WEEKLY_PROFILE = "commercial";
 const PLUGIN_TRIAL_HOURS = 48;
 /** 构建时注入 docs/templates/文件墙.md；勿手写简易 dv.table 占位 */
@@ -9380,7 +9397,16 @@ class BrainCorePlugin extends Plugin {
         if (this.settings.usageGuideAutoShownForVersion === version) return;
 
         const seen = String(this.settings.lastSeenVersion || "").trim();
+        // 已经看过本版更新日志 → 只记使用说明戳，不再自动打开
         if (seen === version) {
+            this.settings.usageGuideAutoShownForVersion = version;
+            this.settings.welcomeGuideVersion = USAGE_GUIDE_VERSION;
+            await this.saveSettings();
+            return;
+        }
+
+        // 仅「首次安装」自动打开使用说明；版本升级只弹更新日志，不再每次升级强开说明 MD
+        if (!this.isFirstInstall()) {
             this.settings.usageGuideAutoShownForVersion = version;
             this.settings.welcomeGuideVersion = USAGE_GUIDE_VERSION;
             await this.saveSettings();

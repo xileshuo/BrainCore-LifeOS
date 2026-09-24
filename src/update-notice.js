@@ -190,10 +190,22 @@ function showUpdateNoticeModal(app, plugin, options = {}) {
     const foot = wrap.createDiv({ cls: "bc-update-foot" });
     const btn = foot.createEl("button", { text: "知道了，开始使用" });
     addClasses(btn, "lifeos-modal-primary", "bc-update-btn");
-    btn.onclick = () => {
+    let stamped = false;
+    const stampSeen = () => {
+      if (stamped) return;
+      stamped = true;
       plugin.settings.lastSeenVersion = versionSemver;
       void plugin.saveSettings();
+    };
+    btn.onclick = () => {
+      stampSeen();
       modal.close();
+    };
+    // X / Esc 关闭也要记版本，否则每次重启都会再弹
+    const prevClose = typeof modal.onClose === "function" ? modal.onClose.bind(modal) : null;
+    modal.onClose = () => {
+      stampSeen();
+      if (prevClose) prevClose();
       if (typeof options.onDismiss === "function") options.onDismiss();
     };
 

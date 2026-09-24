@@ -1,6 +1,6 @@
 const { Plugin, ItemView, WorkspaceLeaf, Modal, Notice, Menu, debounce, PluginSettingTab, Setting, requestUrl, Platform, TFile, normalizePath, FuzzySuggestModal, setIcon } = require('obsidian');
 
-const PLUGIN_VERSION = "4.0.7";
+const PLUGIN_VERSION = "4.1.23";
 const PLUGIN_WEEKLY_PROFILE = "personal";
 const PLUGIN_TRIAL_HOURS = 0;
 /** 构建时注入 docs/templates/文件墙.md；勿手写简易 dv.table 占位 */
@@ -7056,7 +7056,16 @@ class BrainCorePlugin extends Plugin {
         if (this.settings.usageGuideAutoShownForVersion === version) return;
 
         const seen = String(this.settings.lastSeenVersion || "").trim();
+        // 已经看过本版更新日志 → 只记使用说明戳，不再自动打开
         if (seen === version) {
+            this.settings.usageGuideAutoShownForVersion = version;
+            this.settings.welcomeGuideVersion = USAGE_GUIDE_VERSION;
+            await this.saveSettings();
+            return;
+        }
+
+        // 仅「首次安装」自动打开使用说明；版本升级只弹更新日志，不再每次升级强开说明 MD
+        if (!this.isFirstInstall()) {
             this.settings.usageGuideAutoShownForVersion = version;
             this.settings.welcomeGuideVersion = USAGE_GUIDE_VERSION;
             await this.saveSettings();

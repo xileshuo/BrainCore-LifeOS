@@ -507,6 +507,11 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.23": [
+        "修复：更新弹窗关掉也会记版本，重启不再反复弹出",
+        "修复：版本升级不再自动强开使用说明 MD（仅首次安装）",
+        "外观：侧栏四键去掉灰底；捕捉分类/输入框压过主题默认按钮样式",
+    ],
     "4.1.22": [
         "审核：首启卡改回浏览器 localStorage，去掉高于 minApp 的 App 存储 API",
     ],
