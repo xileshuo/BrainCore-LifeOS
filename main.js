@@ -85,10 +85,8 @@ function renderLifeOsEmptyState(parent, options = {}) {
 function showLifeOsFirstRunCard(container, app, storageKey, options = {}) {
   injectLifeOsSharedStyles();
   try {
-    const seen = typeof app?.loadLocalStorage === "function"
-      ? app.loadLocalStorage(storageKey)
-      : localStorage.getItem(storageKey);
-    if (seen === "1") return null;
+    // 首启标记用浏览器 localStorage（勿用高于 minApp 的 App 存储 API）
+    if (localStorage.getItem(storageKey) === "1") return null;
   } catch { /* ignore */ }
   const card = container.createDiv({ cls: "lifeos-first-run-card" });
   card.createEl("p", { cls: "lifeos-first-run-title", text: options.title || "欢迎使用 LifeOS" });
@@ -97,8 +95,7 @@ function showLifeOsFirstRunCard(container, app, storageKey, options = {}) {
   const actions = card.createDiv({ cls: "lifeos-first-run-actions" });
   const dismiss = () => {
     try {
-      if (typeof app?.saveLocalStorage === "function") app.saveLocalStorage(storageKey, "1");
-      else localStorage.setItem(storageKey, "1");
+      localStorage.setItem(storageKey, "1");
     } catch { /* ignore */ }
     card.remove();
   };
@@ -697,6 +694,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.22": [
+        "审核：首启卡改回浏览器 localStorage，去掉高于 minApp 的 App 存储 API",
+    ],
     "4.1.21": [
         "审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure",
         "审核：去掉设置页 inline !important；CSS 去 !important；manifest 英文 description",
@@ -2324,7 +2324,7 @@ function bcPreferEssayPool(allQuotes, seed) {
 
 const { Plugin, ItemView, WorkspaceLeaf, Modal, Notice, Menu, debounce, PluginSettingTab, Setting, requestUrl, Platform, TFile, normalizePath, FuzzySuggestModal, setIcon } = require('obsidian');
 
-const PLUGIN_VERSION = "4.1.21";
+const PLUGIN_VERSION = "4.1.22";
 const PLUGIN_WEEKLY_PROFILE = "commercial";
 const PLUGIN_TRIAL_HOURS = 48;
 /** 构建时注入 docs/templates/文件墙.md；勿手写简易 dv.table 占位 */

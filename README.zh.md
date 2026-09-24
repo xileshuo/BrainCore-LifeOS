@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.21 · 48 小时试用**
+当前公开版本：**4.1.22 · 48 小时试用**
 
 ## 界面预览
 
@@ -120,10 +120,17 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.21（当前）
+### 4.1.22（当前）
+
+- 审核：首启卡改回浏览器 localStorage，去掉高于 minApp 的 App 存储 API
+
+<details>
+<summary>4.1.21</summary>
 
 - 审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure
 - 审核：去掉设置页 inline !important；CSS 去 !important；manifest 英文 description
+
+</details>
 
 <details>
 <summary>4.1.20</summary>
@@ -181,14 +188,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 <summary>4.1.13</summary>
 
 - 公开 README：中文在前、英文在后（市场介绍优先中文）
-
-</details>
-
-<details>
-<summary>4.1.12</summary>
-
-- 社区 CSS lint：去掉 !important / :has / text-indent / scrollbar / system-ui 等审核警告，版式规则保持原选择器
-- 文档：公开 README 恢复中文说明（英文 Installation 仍在文首）
 
 </details>
 

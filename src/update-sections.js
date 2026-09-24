@@ -507,6 +507,9 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.22": [
+        "审核：首启卡改回浏览器 localStorage，去掉高于 minApp 的 App 存储 API",
+    ],
     "4.1.21": [
         "审核：天气仅 open-meteo；自动定位改系统定位，去掉 IP 库 / wttr Disclosure",
         "审核：去掉设置页 inline !important；CSS 去 !important；manifest 英文 description",
