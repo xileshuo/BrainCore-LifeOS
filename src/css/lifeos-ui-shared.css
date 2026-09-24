@@ -116,18 +116,33 @@
   height: var(--lifeos-hit-target);
 }
   .lifeos-act-input {
-  font-size:16px;
-  min-height:44px;
+  font-size: 16px;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  line-height: 36px !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
 }
   .lifeos-act-btn, .lifeos-act-nav-btn, .lifeos-empty-cta {
-  min-height:44px;
-  font-size:14px;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  line-height: 36px !important;
+  font-size: 12px !important;
+  padding: 0 14px !important;
+  box-sizing: border-box !important;
 }
   .lifeos-about-link-row button,
   .lifeos-about-work-actions button {
-  min-height:28px;
-  height:28px;
-  font-size:12px;
+  min-height: 36px !important;
+  height: 36px !important;
+  max-height: 36px !important;
+  line-height: 36px !important;
+  font-size: 12px !important;
+  padding: 0 14px !important;
+  min-width: 64px !important;
+  box-sizing: border-box !important;
 }
   .modal-container.bc-update-modal-host,
   .modal-container.lifeos-update-modal-host {
@@ -185,12 +200,48 @@
 }
 .lifeos-philosophy-intro,
 .plg-update-subtitle,
+.jnr-update-subtitle,
+.bc-update-subtitle {
+  padding-left: 2em;
+}
 .plg-settings-intro,
 .jnr-settings-intro,
-.jnr-update-subtitle,
-.bc-update-subtitle,
 .bc-settings-intro {
-  padding-left: 2em;
+  margin: 0 0 6px !important;
+  padding: 0 0 0 12px !important;
+  border-left: 2px solid var(--lifeos-accent, #b48246);
+  text-indent: 4em !important;
+  line-height: 1.35 !important;
+  font-size: 12px !important;
+}
+.lifeos-act-btn,
+.lifeos-act-btn-primary,
+.lifeos-first-run-actions button,
+.lifeos-empty-cta {
+  transition: transform 100ms ease, opacity 100ms ease;
+}
+.lifeos-act-btn:active,
+.lifeos-act-btn-primary:active,
+.lifeos-first-run-actions button:active,
+.lifeos-empty-cta:active {
+  transform: scale(0.97);
+}
+.lifeos-first-run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lifeos-first-run-actions button {
+  flex: 1 1 calc(33.333% - 6px);
+  min-width: 72px;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
 }
 .lifeos-error,
 .plg-activation-status.error,
@@ -314,10 +365,12 @@
 }
 .lifeos-first-run-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 .lifeos-first-run-actions button {
-  flex: 1;
+  flex: 1 1 calc(33.333% - 6px);
+  min-width: 72px;
   border-radius: 10px;
   padding: 8px 10px;
   font-size: 12px;
@@ -461,21 +514,24 @@
   padding-top: 10px;
   flex-wrap: wrap;
   align-items: center;
-  min-height: 28px;
+  justify-content: flex-end;
+  min-height: 36px;
 }
 .lifeos-about-work-actions button {
   border-radius: 8px;
-  padding: 5px 12px;
-  font-size: 11px;
+  padding: 0 14px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid var(--background-modifier-border);
   background: var(--background-modifier-hover);
   color: var(--text-muted);
-  min-height: 28px;
-  height: 28px;
-  line-height: 1;
+  min-width: 64px;
+  min-height: 36px;
+  height: 36px;
+  line-height: 36px;
   box-sizing: border-box;
+  text-align: center;
 }
 .lifeos-about-work-actions button.is-self {
   opacity: 0.55;

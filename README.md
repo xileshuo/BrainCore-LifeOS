@@ -4,7 +4,7 @@
 
 知识库侧边栏控制台（LifeOS）——捕捉、待办、周工作、习惯、统计与知识内化。
 
-当前公开版本：**4.1.19 · 48 小时试用**
+当前公开版本：**4.1.20 · 48 小时试用**
 
 ## 界面预览
 
@@ -120,9 +120,18 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 ## 更新日志
 
-### 4.1.19（当前）
+### 4.1.20（当前）
+
+- 体验：首启 / 套装提示可点「去了解」打开套装说明
+- 外观：手机设置顶距与 PlainLedger / 纪念日对齐（不再额外顶 spacer）
+- 设置：关于页套装入口与 LifeOS 三插件文案统一
+
+<details>
+<summary>4.1.19</summary>
 
 - 外观：设置页无痕滚动（隐藏滚动条，保留滑动）
+
+</details>
 
 <details>
 <summary>4.1.18</summary>
@@ -180,15 +189,6 @@ https://github.com/xileshuo/BrainCore-LifeOS
 
 - 社区 Scorecard：修复 styles.css / src/css 抽取时混入 JS（Unknown word），CSS 恢复纯样式供社区 lint
 - 文档：公开 README 保持英文短说明；中文长说明移至 README.zh.md
-
-</details>
-
-<details>
-<summary>4.1.10</summary>
-
-- 社区 Scorecard：README 英文 Installation/Usage 置顶；`npm run build` 固定 trial48h，与 Release main.js 字节一致
-- 社区审核：LifeOS / Moments / 设置样式迁入 styles.css，去掉运行时 createElement("style")
-- 社区审核：设置页与关于/授权/快捷指令区块统一 Setting.setHeading()
 
 </details>
 

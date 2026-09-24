@@ -118,18 +118,33 @@
   height: var(--lifeos-hit-target);
 }
   .lifeos-act-input {
-  font-size:16px;
-  min-height:44px;
+  font-size: 16px;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  line-height: 36px !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
 }
   .lifeos-act-btn, .lifeos-act-nav-btn, .lifeos-empty-cta {
-  min-height:44px;
-  font-size:14px;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  line-height: 36px !important;
+  font-size: 12px !important;
+  padding: 0 14px !important;
+  box-sizing: border-box !important;
 }
   .lifeos-about-link-row button,
   .lifeos-about-work-actions button {
-  min-height:28px;
-  height:28px;
-  font-size:12px;
+  min-height: 36px !important;
+  height: 36px !important;
+  max-height: 36px !important;
+  line-height: 36px !important;
+  font-size: 12px !important;
+  padding: 0 14px !important;
+  min-width: 64px !important;
+  box-sizing: border-box !important;
 }
   .modal-container.bc-update-modal-host,
   .modal-container.lifeos-update-modal-host {
@@ -187,12 +202,48 @@
 }
 .lifeos-philosophy-intro,
 .plg-update-subtitle,
+.jnr-update-subtitle,
+.bc-update-subtitle {
+  padding-left: 2em;
+}
 .plg-settings-intro,
 .jnr-settings-intro,
-.jnr-update-subtitle,
-.bc-update-subtitle,
 .bc-settings-intro {
-  padding-left: 2em;
+  margin: 0 0 6px !important;
+  padding: 0 0 0 12px !important;
+  border-left: 2px solid var(--lifeos-accent, #b48246);
+  text-indent: 4em !important;
+  line-height: 1.35 !important;
+  font-size: 12px !important;
+}
+.lifeos-act-btn,
+.lifeos-act-btn-primary,
+.lifeos-first-run-actions button,
+.lifeos-empty-cta {
+  transition: transform 100ms ease, opacity 100ms ease;
+}
+.lifeos-act-btn:active,
+.lifeos-act-btn-primary:active,
+.lifeos-first-run-actions button:active,
+.lifeos-empty-cta:active {
+  transform: scale(0.97);
+}
+.lifeos-first-run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lifeos-first-run-actions button {
+  flex: 1 1 calc(33.333% - 6px);
+  min-width: 72px;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
 }
 .lifeos-error,
 .plg-activation-status.error,
@@ -364,10 +415,12 @@
 }
 .lifeos-first-run-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 .lifeos-first-run-actions button {
-  flex: 1;
+  flex: 1 1 calc(33.333% - 6px);
+  min-width: 72px;
   border-radius: 10px;
   padding: 8px 10px;
   font-size: 12px;
@@ -511,21 +564,24 @@
   padding-top: 10px;
   flex-wrap: wrap;
   align-items: center;
-  min-height: 28px;
+  justify-content: flex-end;
+  min-height: 36px;
 }
 .lifeos-about-work-actions button {
   border-radius: 8px;
-  padding: 5px 12px;
-  font-size: 11px;
+  padding: 0 14px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid var(--background-modifier-border);
   background: var(--background-modifier-hover);
   color: var(--text-muted);
-  min-height: 28px;
-  height: 28px;
-  line-height: 1;
+  min-width: 64px;
+  min-height: 36px;
+  height: 36px;
+  line-height: 36px;
   box-sizing: border-box;
+  text-align: center;
 }
 .lifeos-about-work-actions button.is-self {
   opacity: 0.55;
@@ -634,9 +690,10 @@
   width: 100%;
 }
 .lifeos-act-title {
-  margin: 0;
+  margin: 0 0 8px;
+  padding: 0;
   text-align: center;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
   line-height: 1.3;
   color: var(--text-normal);
@@ -670,20 +727,23 @@
 }
 .lifeos-act-row {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: 6px;
   width: 100%;
 }
 .lifeos-act-input {
   flex: 1 1 auto;
   min-width: 0;
+  height: 36px;
   box-sizing: border-box;
-  padding: 8px 10px;
+  padding: 0 10px;
   border-radius: 8px;
   font-size: 16px;
+  line-height: 36px;
   background: var(--background-primary);
   border: 1px solid var(--background-modifier-border);
   color: var(--text-normal);
+  text-align: center;
 }
 .lifeos-act-input.lifeos-act-fp {
   font-family: SFMono-Regular, Menlo, monospace;
@@ -694,18 +754,26 @@
 }
 .lifeos-act-input.lifeos-act-key {
   font-weight: 500;
+  text-align: center;
 }
 .lifeos-act-btn {
   flex: 0 0 auto;
+  align-self: center;
+  min-width: 52px;
+  min-height: 36px;
+  height: 36px;
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 0 14px;
   font-size: 12px;
   font-weight: 700;
+  line-height: 36px;
   white-space: nowrap;
   cursor: pointer;
   border: 1px solid var(--background-modifier-border);
   background: var(--background-modifier-hover);
   color: var(--text-normal);
+  box-sizing: border-box;
+  text-align: center;
 }
 .lifeos-act-btn-primary {
   background: var(--lifeos-accent, var(--interactive-accent));
@@ -800,10 +868,15 @@
   margin-bottom: 0;
 }
 .lifeos-license-status {
-  margin: 8px 0 0;
+  display: block;
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 0;
   font-size: 12px;
   font-weight: 600;
+  line-height: 1.45;
   color: var(--lifeos-accent, var(--text-accent));
+  text-align: center;
 }
 .lifeos-license-trial-hint {
   margin: 0 0 8px;
@@ -833,13 +906,16 @@
 }
 .lifeos-about-link-row button {
   flex-shrink: 0;
+  min-width: 64px;
   padding: 0 14px;
   font-size: 12px;
+  font-weight: 700;
   border-radius: 8px;
-  min-height: 28px;
-  height: 28px;
-  line-height: 28px;
+  min-height: 36px;
+  height: 36px;
+  line-height: 36px;
   box-sizing: border-box;
+  text-align: center;
 }
 .lifeos-about-meta {
   margin: 0 0 6px;
@@ -872,7 +948,7 @@
 .lifeos-about-work-intro {
   margin: 0 0 2px;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.35;
   color: var(--text-muted);
 }
 .lifeos-about-work-price {
@@ -883,9 +959,16 @@
   color: var(--text-accent, var(--interactive-accent));
 }
 .lifeos-about-work-philosophy {
-  margin: 0;
+  margin: 2px 0 0;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.35;
+  color: var(--text-muted);
+  text-indent: 4em;
+}
+.lifeos-about-work-intro {
+  margin: 0 0 2px;
+  font-size: 12px;
+  line-height: 1.35;
   color: var(--text-muted);
 }
 .lifeos-about-home-row {
@@ -916,13 +999,13 @@
   display: none;
 }
 .bc-settings-intro {
-  margin: 0 0 12px;
-  padding: 0;
-  font-size: 12px;
-  line-height: 1.55;
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
   color: var(--text-muted);
   opacity: 1;
-  padding-left: 2em;
+  text-indent: 4em !important;
 }
 .bc-settings-compact .bc-settings-block h3 {
   margin: 0 0 4px;
@@ -1336,8 +1419,9 @@
   flex: 1 1 auto;
   width: 100%;
   min-width: 0;
-  min-height: 72px;
-  padding: 8px 10px;
+  min-height: 36px;
+  height: 36px;
+  padding: 0 12px;
   box-sizing: border-box;
   background: var(--background-secondary);
   border: 1px solid var(--background-modifier-border);
@@ -1345,8 +1429,9 @@
   box-shadow: none;
   color: var(--text-normal);
   font-size: 14px;
-  line-height: 1.45;
+  line-height: 36px;
   resize: vertical;
+  text-align: left;
 }
 .bc-settings-compact .bc-settings-textarea-row {
   align-items: center;
@@ -1389,11 +1474,13 @@
   pointer-events: none;
 }
 .bc-settings-mobile .bc-mobile-top-spacer {
+  /* 默认块；设置页最终由下方 !important 规则收掉，与 PL/JNR 对齐 */
   margin-bottom: 0;
 }
 .is-mobile .vertical-tab-content.bc-settings-mobile-host,
 .is-mobile .vertical-tab-content-container.bc-settings-mobile-host {
-  padding-top: env(safe-area-inset-top, 0px);
+  /* 设置浮层已有标题栏，顶距交给内容流；勿再叠 spacer / safe-area */
+  padding-top: 0;
   box-sizing: border-box;
 }
 .bc-settings-mobile .bc-settings-tab-bar {
@@ -1462,53 +1549,63 @@
   display: none;
 }
 .bc-settings-compact .setting-item.bc-settings-avatar-row {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  justify-content: flex-start;
-  gap: 8px;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
 }
 .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-info {
-  flex: 0 0 auto;
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-  padding-right: 0;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  padding-right: 0 !important;
 }
 .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control,
-.bc-settings-mobile .setting-item.bc-settings-avatar-row .setting-item-control {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  row-gap: 8px;
-  width: 100%;
-  max-width: none;
-  min-width: 0;
-  flex: 0 0 auto;
-  margin-left: 0;
-  justify-content: stretch;
-  padding-top: 0;
+.bc-settings-mobile .setting-item.bc-settings-avatar-row .setting-item-control,
+.is-phone .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control,
+.is-mobile .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  row-gap: 8px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  flex: 0 0 auto !important;
+  margin-left: 0 !important;
+  justify-content: stretch !important;
+  padding-top: 0 !important;
 }
-.bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control input {
-  grid-column: 1 / -1;
-  width: 100%;
-  min-width: 0;
+.bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control input,
+.bc-settings-mobile .setting-item.bc-settings-avatar-row .setting-item-control input,
+.is-phone .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control input,
+.is-mobile .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control input {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
-.bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control button {
-  width: 100%;
-  min-width: 0;
-  height: 36px;
-  min-height: 36px;
-  max-height: 36px;
-  margin: 0;
-  padding: 0 6px;
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  white-space: nowrap;
+.bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control button,
+.bc-settings-mobile .setting-item.bc-settings-avatar-row .setting-item-control button,
+.is-phone .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control button,
+.is-mobile .bc-settings-compact .setting-item.bc-settings-avatar-row .setting-item-control button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  margin: 0 !important;
+  padding: 0 6px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
 }
 .bc-settings-compact .bc-settings-block-collapsible .bc-settings-block-body {
   padding: 0 16px 14px;
@@ -1597,8 +1694,10 @@
   display: block;
 }
 .bc-settings-compact .bc-habit-icon-input {
-  width: 70px;
-  min-width: 70px;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  flex: 0 0 48px;
   box-sizing: border-box;
   text-align: center;
   font-size: 14px;
@@ -1609,12 +1708,17 @@
   padding: 6px 4px;
 }
 .bc-settings-compact .bc-habit-name-input {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
+  flex: 1 1 auto;
+  min-width: 4em;
+  width: auto;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: var(--background-secondary);
+  padding: 6px 10px;
   font-size: 14px;
   font-weight: 500;
+  color: var(--text-normal);
+  box-sizing: border-box;
 }
 .bc-settings-compact .bc-habit-del-btn {
   cursor: pointer;
@@ -1813,6 +1917,100 @@
   margin-left: auto;
   min-width: 0;
 }
+
+/* 手机端强制标签+输入同行（压过 Obsidian is-phone 纵排） */
+.is-phone .bc-settings-compact .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row),
+.is-mobile .bc-settings-compact .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row),
+.bc-settings-mobile .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row) {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+.is-phone .bc-settings-compact .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row) .setting-item-info,
+.is-mobile .bc-settings-compact .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row) .setting-item-info,
+.bc-settings-mobile .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row) .setting-item-info {
+  flex: 0 1 auto !important;
+  width: auto !important;
+  min-width: 3.5em !important;
+  max-width: 38% !important;
+  align-self: center !important;
+  padding-right: 0 !important;
+}
+.is-phone .bc-settings-compact .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row) .setting-item-control,
+.is-mobile .bc-settings-compact .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row) .setting-item-control,
+.bc-settings-mobile .setting-item:not(.setting-item-heading):not(.bc-settings-avatar-row) .setting-item-control {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  justify-content: flex-end !important;
+  align-self: center !important;
+}
+.is-phone .bc-settings-compact .setting-item:not(.setting-item-heading) .setting-item-control input[type="text"],
+.is-phone .bc-settings-compact .setting-item:not(.setting-item-heading) .setting-item-control input[type="number"],
+.is-mobile .bc-settings-compact .setting-item:not(.setting-item-heading) .setting-item-control input[type="text"],
+.is-mobile .bc-settings-compact .setting-item:not(.setting-item-heading) .setting-item-control input[type="number"],
+.bc-settings-mobile .setting-item:not(.setting-item-heading) .setting-item-control input[type="text"],
+.bc-settings-mobile .setting-item:not(.setting-item-heading) .setting-item-control input[type="number"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* 区块/子标题全宽，避免窄列截断与大空隙 */
+.bc-settings-compact .setting-item.setting-item-heading,
+.bc-settings-compact .bc-settings-block > .setting-item.setting-item-heading,
+.bc-settings-compact .setting-item.setting-item-heading.bc-settings-subgroup {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 2px !important;
+  width: 100% !important;
+  padding: 8px 0 4px !important;
+  border-bottom: none !important;
+}
+.bc-settings-compact .setting-item.setting-item-heading .setting-item-info,
+.bc-settings-compact .setting-item.setting-item-heading.bc-settings-subgroup .setting-item-info {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  padding-right: 0 !important;
+}
+.bc-settings-compact .setting-item.setting-item-heading .setting-item-name,
+.bc-settings-compact .setting-item.setting-item-heading .setting-item-description {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  width: 100% !important;
+}
+.bc-settings-compact .setting-item.setting-item-heading .setting-item-control {
+  display: none !important;
+}
+.bc-settings-compact .setting-item.setting-item-heading.bc-settings-subgroup {
+  margin: 4px 0 2px !important;
+  padding: 10px 0 2px !important;
+}
+.bc-settings-compact .bc-settings-block > p.setting-item-description {
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+  line-height: 1.45 !important;
+}
+
+/* 覆盖 rich-block 手机端 control 48% 限制（路径输入需要更宽） */
+.bc-settings-mobile .bc-settings-rich-block .setting-item-control,
+.is-phone .bc-settings-compact .bc-settings-rich-block .setting-item:not(.setting-item-heading) .setting-item-control,
+.is-mobile .bc-settings-compact .bc-settings-rich-block .setting-item:not(.setting-item-heading) .setting-item-control {
+  max-width: none !important;
+  width: auto !important;
+  flex: 1 1 auto !important;
+}
 .bc-settings-mobile .bc-settings-action-only .setting-item-info {
   flex: 1 1 auto;
   width: auto;
@@ -1848,14 +2046,24 @@
   font-size: 16px;
   min-height: 44px;
 }
+.bc-settings-mobile .bc-settings-textarea-row .setting-item-control textarea {
+  height: 44px;
+  line-height: 44px;
+  padding: 0 12px;
+}
 .bc-settings-mobile .bc-habit-icon-input {
-  width: 48px;
-  min-width: 48px;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  flex: 0 0 48px !important;
   min-height: 32px;
   height: 32px;
   font-size: 13px;
 }
 .bc-settings-mobile .bc-habit-name-input {
+  flex: 1 1 auto !important;
+  min-width: 4em !important;
+  width: auto !important;
   font-size: 16px;
   min-height: 32px;
   height: 32px;
@@ -1922,6 +2130,231 @@
   display: none;
   width: 0;
   height: 0;
+}
+
+/* 介绍紧凑 + 首行缩进；设置页手机顶 spacer 收掉（与 PL/JNR 一致：Obsidian 已有标题栏） */
+.bc-settings-mobile .bc-settings-intro,
+.bc-settings-compact .bc-settings-intro,
+body.is-phone .bc-settings-intro,
+body.is-mobile .bc-settings-intro {
+  margin: 0 0 6px !important;
+  padding: 0 0 0 12px !important;
+  border-left: 2px solid var(--lifeos-accent, #b48246);
+  text-indent: 4em !important;
+  line-height: 1.35 !important;
+  font-size: 12px !important;
+}
+.bc-settings-mobile .bc-mobile-top-spacer {
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  display: none !important;
+}
+.bc-settings-mobile .bc-settings-tab-bar.is-many-tabs button {
+  flex: 1 1 calc(33.333% - 6px) !important;
+  min-width: 0 !important;
+  max-width: calc(33.333% - 4px);
+  box-sizing: border-box !important;
+}
+
+/* 路径 / 周工作：固定标签列 + 等宽输入右对齐（不受 2/3/4 字标签影响） */
+.bc-settings-compact .setting-item.bc-settings-path-row,
+.bc-settings-mobile .setting-item.bc-settings-path-row,
+.is-phone .bc-settings-compact .setting-item.bc-settings-path-row,
+.is-mobile .bc-settings-compact .setting-item.bc-settings-path-row,
+.bc-settings-compact .setting-item.bc-settings-weekly-row,
+.bc-settings-mobile .setting-item.bc-settings-weekly-row {
+  display: grid !important;
+  grid-template-columns: 5.5em minmax(0, 1fr) !important;
+  column-gap: 12px !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+}
+.bc-settings-compact .setting-item.bc-settings-path-row .setting-item-info,
+.bc-settings-mobile .setting-item.bc-settings-path-row .setting-item-info,
+.is-phone .bc-settings-compact .setting-item.bc-settings-path-row .setting-item-info,
+.is-mobile .bc-settings-compact .setting-item.bc-settings-path-row .setting-item-info,
+.bc-settings-compact .setting-item.bc-settings-weekly-row .setting-item-info,
+.bc-settings-mobile .setting-item.bc-settings-weekly-row .setting-item-info {
+  grid-column: 1 !important;
+  flex: none !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding-right: 0 !important;
+}
+.bc-settings-compact .setting-item.bc-settings-path-row .setting-item-name,
+.bc-settings-mobile .setting-item.bc-settings-path-row .setting-item-name,
+.bc-settings-compact .setting-item.bc-settings-weekly-row .setting-item-name,
+.bc-settings-mobile .setting-item.bc-settings-weekly-row .setting-item-name {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.bc-settings-compact .setting-item.bc-settings-path-row .setting-item-description,
+.bc-settings-mobile .setting-item.bc-settings-path-row .setting-item-description {
+  display: none !important;
+}
+.bc-settings-compact .setting-item.bc-settings-path-row .setting-item-control,
+.bc-settings-mobile .setting-item.bc-settings-path-row .setting-item-control,
+.is-phone .bc-settings-compact .setting-item.bc-settings-path-row .setting-item-control,
+.is-mobile .bc-settings-compact .setting-item.bc-settings-path-row .setting-item-control {
+  grid-column: 2 !important;
+  justify-self: end !important;
+  justify-content: flex-end !important;
+  width: 11em !important;
+  max-width: 11em !important;
+  min-width: 11em !important;
+  flex: none !important;
+  margin-left: 0 !important;
+}
+.bc-settings-compact .setting-item.bc-settings-path-row .setting-item-control input[type="text"],
+.bc-settings-mobile .setting-item.bc-settings-path-row .setting-item-control input[type="text"],
+.is-phone .bc-settings-compact .setting-item.bc-settings-path-row .setting-item-control input[type="text"],
+.is-mobile .bc-settings-compact .setting-item.bc-settings-path-row .setting-item-control input[type="text"] {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  flex: 1 1 auto !important;
+  box-sizing: border-box !important;
+}
+.bc-settings-compact .setting-item.bc-settings-weekly-row .setting-item-control,
+.bc-settings-mobile .setting-item.bc-settings-weekly-row .setting-item-control {
+  grid-column: 2 !important;
+  justify-self: end !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  display: inline-flex !important;
+  gap: 8px !important;
+  margin-left: 0 !important;
+}
+.bc-settings-compact .setting-item.bc-settings-weekly-row .setting-item-control input[type="text"],
+.bc-settings-mobile .setting-item.bc-settings-weekly-row .setting-item-control input[type="text"] {
+  width: 9em !important;
+  min-width: 9em !important;
+  max-width: 9em !important;
+  flex: 0 0 9em !important;
+}
+
+/* 剪藏分类：多行展示 + 恢复默认加高收窄 */
+.bc-settings-compact .bc-settings-textarea-row .setting-item-control,
+.bc-settings-mobile .bc-settings-textarea-row .setting-item-control {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 auto !important;
+}
+.bc-settings-compact .bc-settings-textarea-row .setting-item-control textarea,
+.bc-settings-mobile .bc-settings-textarea-row .setting-item-control textarea {
+  width: 100% !important;
+  min-height: 72px !important;
+  height: auto !important;
+  line-height: 1.45 !important;
+  padding: 10px 12px !important;
+  white-space: pre-wrap !important;
+  resize: vertical;
+}
+.bc-settings-compact .bc-clip-cat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+.bc-settings-compact .bc-clip-cat-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-normal);
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+}
+.bc-settings-compact .bc-settings-action-only {
+  justify-content: flex-end !important;
+}
+.bc-settings-compact .bc-settings-action-only .setting-item-control {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  margin-left: auto !important;
+}
+.bc-settings-compact .bc-settings-action-only .setting-item-control button,
+.bc-settings-mobile .bc-settings-action-only .setting-item-control button {
+  min-height: 40px !important;
+  height: 40px !important;
+  min-width: 96px !important;
+  padding: 0 18px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  line-height: 40px !important;
+  width: auto !important;
+}
+
+/* 操作行：文件名左、按钮右贴齐，与快捷指令「打开」同尺寸 */
+.bc-settings-compact .bc-settings-action-row,
+.bc-settings-mobile .bc-settings-action-row,
+.is-phone .bc-settings-compact .bc-settings-action-row,
+.is-mobile .bc-settings-compact .bc-settings-action-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+.bc-settings-compact .bc-settings-action-row .setting-item-info,
+.bc-settings-mobile .bc-settings-action-row .setting-item-info,
+.is-phone .bc-settings-compact .bc-settings-action-row .setting-item-info,
+.is-mobile .bc-settings-compact .bc-settings-action-row .setting-item-info {
+  flex: 1 1 auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+.bc-settings-compact .bc-settings-action-row .setting-item-control,
+.bc-settings-mobile .bc-settings-action-row .setting-item-control,
+.is-phone .bc-settings-compact .bc-settings-action-row .setting-item-control,
+.is-mobile .bc-settings-compact .bc-settings-action-row .setting-item-control {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  margin-left: 12px !important;
+}
+.bc-settings-compact .bc-settings-action-row .setting-item-control > button,
+.bc-settings-mobile .bc-settings-action-row .setting-item-control > button,
+.is-phone .bc-settings-compact .bc-settings-action-row .setting-item-control > button,
+.is-mobile .bc-settings-compact .bc-settings-action-row .setting-item-control > button,
+.bc-settings-compact .lifeos-about-link-row button,
+.bc-settings-mobile .lifeos-about-link-row button {
+  min-width: 64px !important;
+  width: auto !important;
+  max-width: 88px !important;
+  min-height: 36px !important;
+  height: 36px !important;
+  padding: 0 14px !important;
+  flex: 0 0 auto !important;
+  line-height: 36px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  box-sizing: border-box !important;
+}
+
+.bc-settings-mobile .bc-habit-icon-input {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  flex: 0 0 48px !important;
+  min-height: 32px;
+  height: 32px;
+  font-size: 13px;
+}
+.bc-settings-mobile .bc-habit-name-input {
+  flex: 1 1 auto !important;
+  min-width: 4em !important;
+  width: auto !important;
+  font-size: 16px;
+  min-height: 32px;
+  height: 32px;
 }
 
 .modal-container.bc-update-modal-host,

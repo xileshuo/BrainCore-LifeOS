@@ -4,18 +4,24 @@ const LIFEOS_PLUGIN_CATALOG = [
     name: "PlainLedger",
     intro: "专为 Obsidian 开发的记账软件",
     philosophy: "记账不必离开笔记——PlainLedger 把账单、分类、订阅规则保存在 Obsidian 库内，随 iCloud / Git 同步，和日记、复盘同屏共存",
+    price: "¥39.9",
+    repoUrl: "https://github.com/xileshuo/plain-ledger-obsidian",
   },
   {
     id: "jinianri",
     name: "纪念日",
     intro: "专为 Obsidian 开发的纪念日管理软件",
     philosophy: "记录生日、恋爱、婚姻等重要日期，自动计算「已过时长」与「距离下次还有几天」，支持三档提醒与 iCal 导出",
+    price: "¥29.9",
+    repoUrl: "https://github.com/xileshuo/jinianri",
   },
   {
     id: "braincore-lifeos",
     name: "BrainCore LifeOS",
     intro: "专为 Obsidian 开发的生活管理控制台",
     philosophy: "Obsidian 知识库的「核心呼吸机」，它由 7 大模块组成，涵盖了时间感知、极速收集、工作流转、习惯养成与知识内化。一切信息从这里输入，最终也会在这里沉淀",
+    price: "¥49.9",
+    repoUrl: "https://github.com/xileshuo/BrainCore-LifeOS",
   },
 ];
 
@@ -31,14 +37,23 @@ function getLifeOsVaultKey(app, suffix) {
 function getEnabledLifeOsPlugins(app) {
   const plugins = app.plugins?.plugins || {};
   return LIFEOS_PLUGIN_CATALOG.filter((p) => {
-    const inst = plugins[p.id];
+    const inst =
+      plugins[p.id] ||
+      (p.id === "braincore-lifeos"
+        ? plugins["braincore-lifeos-personal"] || plugins["braincore-dashboard"]
+        : null);
     return inst && inst._loaded !== false;
   });
 }
 
 function getLifeOsPeerNames(app, selfId) {
+  const braincoreFamily = new Set(["braincore-lifeos", "braincore-lifeos-personal", "braincore-dashboard"]);
   return getEnabledLifeOsPlugins(app)
-    .filter((p) => p.id !== selfId)
+    .filter((p) => {
+      if (p.id === selfId) return false;
+      if (braincoreFamily.has(selfId) && p.id === "braincore-lifeos") return false;
+      return true;
+    })
     .map((p) => p.name);
 }
 
@@ -51,8 +66,29 @@ function maybeShowLifeOsSuitePrompt(app, selfId, selfName) {
   } catch { /* ignore */ }
   const peerText = peers.join("、");
   window.setTimeout(() => {
-    new Notice(`${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`, 8000);
-    try { localStorage.setItem(storageKey, "1"); } catch { /* ignore */ }
+    try {
+      if (localStorage.getItem(storageKey) === "1") return;
+    } catch { /* ignore */ }
+    const markSeen = () => {
+      try { localStorage.setItem(storageKey, "1"); } catch { /* ignore */ }
+    };
+    try {
+      const modal = new Modal(app);
+      modal.setTitle("LifeOS 套装");
+      modal.contentEl.createEl("p", {
+        text: `${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`,
+      });
+      const row = modal.contentEl.createDiv({ cls: "modal-button-container" });
+      const btn = row.createEl("button", { text: "知道了", cls: "mod-cta", type: "button" });
+      btn.onclick = () => {
+        markSeen();
+        modal.close();
+      };
+      modal.open();
+    } catch (_) {
+      new Notice(`${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`, 8000);
+      markSeen();
+    }
   }, 2200);
 }
 
@@ -62,6 +98,7 @@ function openLifeOsExternalUrl(url) {
     window.open(url, "_blank");
   } catch (err) {
     console.warn("[LifeOS] open external url", err);
+    try { new Notice("无法打开链接"); } catch { /* ignore */ }
   }
 }
 
@@ -195,7 +232,7 @@ function renderBrainCoreShortcutsSettingsPanel(panel, plugin, options = {}) {
   const helpRows = block.createDiv();
   const guideRow = helpRows.createDiv({ cls: "lifeos-about-link-row" });
   guideRow.createSpan({ text: "快捷指令使用说明" });
-  const guideBtn = guideRow.createEl("button", { text: "打开", type: "button" });
+  const guideBtn = guideRow.createEl("button", { cls: "lifeos-act-btn", text: "打开", type: "button" });
   guideBtn.onclick = () => {
     if (typeof options.openShortcutsGuide === "function") void options.openShortcutsGuide();
   };
@@ -221,6 +258,16 @@ function renderBrainCoreShortcutsSettingsPanel(panel, plugin, options = {}) {
   input.onclick = () => input.select();
   const btn = row.createEl("button", { cls: "lifeos-act-btn", text: "复制", type: "button" });
   btn.onclick = () => void copyShortcutUrl(quickUrl);
+  // 手机端强制输入与复制同高对齐
+  [input, btn].forEach((el) => {
+    el.style.setProperty("height", "36px", "important");
+    el.style.setProperty("min-height", "36px", "important");
+    el.style.setProperty("max-height", "36px", "important");
+    el.style.setProperty("line-height", "36px", "important");
+    el.style.setProperty("box-sizing", "border-box", "important");
+  });
+  input.style.setProperty("padding", "0 10px", "important");
+  row.style.setProperty("align-items", "center", "important");
 }
 
 const LIFEOS_SUITE_INTRO_BASENAME = "BrainCore LifeOS三款插件介绍、使用说明";
@@ -309,23 +356,44 @@ function renderLifeOsAboutPanel(panel, plugin, options = {}) {
     text: `LifeOS 套装已安装 ${enabled.length}/3`,
   });
   const works = worksBlock.createDiv({ cls: "lifeos-about-works" });
+  const braincoreFamily = new Set(["braincore-lifeos", "braincore-lifeos-personal", "braincore-dashboard"]);
   LIFEOS_PLUGIN_CATALOG.forEach((item) => {
     const itemEl = works.createDiv({ cls: "lifeos-about-work-item" });
     itemEl.createEl("p", { cls: "lifeos-about-work-name", text: item.name });
     itemEl.createEl("p", { cls: "lifeos-about-work-intro", text: item.intro });
+    if (item.price) {
+      itemEl.createEl("p", {
+        cls: "lifeos-about-work-price",
+        text: `48 小时试用 · ${item.price} 永久激活`,
+      });
+    }
     if (item.philosophy) {
       itemEl.createEl("p", { cls: "lifeos-about-work-philosophy", text: item.philosophy });
     }
     const actions = itemEl.createDiv({ cls: "lifeos-about-work-actions" });
-    const installed = !!plugin.app?.plugins?.plugins?.[item.id];
-    if (item.id === selfId) {
+    const plugins = plugin.app?.plugins?.plugins || {};
+    const installed = !!(
+      plugins[item.id] ||
+      (item.id === "braincore-lifeos" &&
+        (plugins["braincore-lifeos-personal"] || plugins["braincore-dashboard"]))
+    );
+    const isSelf =
+      item.id === selfId || (braincoreFamily.has(selfId) && item.id === "braincore-lifeos");
+    if (isSelf) {
       actions.createEl("button", { text: "当前插件", type: "button", cls: "is-self" });
     } else if (installed) {
+      const targetId =
+        item.id === "braincore-lifeos" && plugins["braincore-lifeos-personal"]
+          ? "braincore-lifeos-personal"
+          : item.id;
       const btn = actions.createEl("button", { text: "打开设置", type: "button" });
-      btn.onclick = () => openLifeOsPluginSettings(plugin.app, item.id);
+      btn.onclick = () => openLifeOsPluginSettings(plugin.app, targetId);
     } else {
-      const btn = actions.createEl("button", { text: "未安装", type: "button", cls: "is-self" });
-      btn.onclick = () => new Notice(`请先在 Obsidian 设置 → 第三方插件 中启用 ${item.name}`);
+      const btn = actions.createEl("button", { text: "去了解", type: "button" });
+      btn.onclick = () => {
+        if (item.repoUrl) openLifeOsExternalUrl(item.repoUrl);
+        else new Notice(`请先在 Obsidian 设置 → 第三方插件 中启用 ${item.name}`);
+      };
     }
   });
 }

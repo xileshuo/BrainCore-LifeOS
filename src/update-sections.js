@@ -507,6 +507,11 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.20": [
+        "体验：首启 / 套装提示可点「去了解」打开套装说明",
+        "外观：手机设置顶距与 PlainLedger / 纪念日对齐（不再额外顶 spacer）",
+        "设置：关于页套装入口与 LifeOS 三插件文案统一",
+    ],
     "4.1.19": [
         "外观：设置页无痕滚动（隐藏滚动条，保留滑动）",
     ],

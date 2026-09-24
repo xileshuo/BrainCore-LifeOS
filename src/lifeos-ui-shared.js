@@ -108,7 +108,11 @@ function showLifeOsFirstRunCard(container, app, storageKey, options = {}) {
     };
   }
   if (options.secondaryLabel) {
-    const secondary = actions.createEl("button", { text: options.secondaryLabel, type: "button" });
+    const secondary = actions.createEl("button", {
+      cls: "lifeos-first-run-secondary",
+      text: options.secondaryLabel,
+      type: "button",
+    });
     secondary.onclick = () => {
       dismiss();
       if (typeof options.onSecondary === "function") void options.onSecondary();

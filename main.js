@@ -108,7 +108,11 @@ function showLifeOsFirstRunCard(container, app, storageKey, options = {}) {
     };
   }
   if (options.secondaryLabel) {
-    const secondary = actions.createEl("button", { text: options.secondaryLabel, type: "button" });
+    const secondary = actions.createEl("button", {
+      cls: "lifeos-first-run-secondary",
+      text: options.secondaryLabel,
+      type: "button",
+    });
     secondary.onclick = () => {
       dismiss();
       if (typeof options.onSecondary === "function") void options.onSecondary();
@@ -687,6 +691,11 @@ const LEGACY_PLUGIN_CHANGELOG = {
     ]
 };
 const PLUGIN_CHANGELOG = {
+    "4.1.20": [
+        "体验：首启 / 套装提示可点「去了解」打开套装说明",
+        "外观：手机设置顶距与 PlainLedger / 纪念日对齐（不再额外顶 spacer）",
+        "设置：关于页套装入口与 LifeOS 三插件文案统一",
+    ],
     "4.1.19": [
         "外观：设置页无痕滚动（隐藏滚动条，保留滑动）",
     ],
@@ -1097,18 +1106,24 @@ const LIFEOS_PLUGIN_CATALOG = [
     name: "PlainLedger",
     intro: "专为 Obsidian 开发的记账软件",
     philosophy: "记账不必离开笔记——PlainLedger 把账单、分类、订阅规则保存在 Obsidian 库内，随 iCloud / Git 同步，和日记、复盘同屏共存",
+    price: "¥39.9",
+    repoUrl: "https://github.com/xileshuo/plain-ledger-obsidian",
   },
   {
     id: "jinianri",
     name: "纪念日",
     intro: "专为 Obsidian 开发的纪念日管理软件",
     philosophy: "记录生日、恋爱、婚姻等重要日期，自动计算「已过时长」与「距离下次还有几天」，支持三档提醒与 iCal 导出",
+    price: "¥29.9",
+    repoUrl: "https://github.com/xileshuo/jinianri",
   },
   {
     id: "braincore-lifeos",
     name: "BrainCore LifeOS",
     intro: "专为 Obsidian 开发的生活管理控制台",
     philosophy: "Obsidian 知识库的「核心呼吸机」，它由 7 大模块组成，涵盖了时间感知、极速收集、工作流转、习惯养成与知识内化。一切信息从这里输入，最终也会在这里沉淀",
+    price: "¥49.9",
+    repoUrl: "https://github.com/xileshuo/BrainCore-LifeOS",
   },
 ];
 
@@ -1124,14 +1139,23 @@ function getLifeOsVaultKey(app, suffix) {
 function getEnabledLifeOsPlugins(app) {
   const plugins = app.plugins?.plugins || {};
   return LIFEOS_PLUGIN_CATALOG.filter((p) => {
-    const inst = plugins[p.id];
+    const inst =
+      plugins[p.id] ||
+      (p.id === "braincore-lifeos"
+        ? plugins["braincore-lifeos-personal"] || plugins["braincore-dashboard"]
+        : null);
     return inst && inst._loaded !== false;
   });
 }
 
 function getLifeOsPeerNames(app, selfId) {
+  const braincoreFamily = new Set(["braincore-lifeos", "braincore-lifeos-personal", "braincore-dashboard"]);
   return getEnabledLifeOsPlugins(app)
-    .filter((p) => p.id !== selfId)
+    .filter((p) => {
+      if (p.id === selfId) return false;
+      if (braincoreFamily.has(selfId) && p.id === "braincore-lifeos") return false;
+      return true;
+    })
     .map((p) => p.name);
 }
 
@@ -1144,8 +1168,29 @@ function maybeShowLifeOsSuitePrompt(app, selfId, selfName) {
   } catch { /* ignore */ }
   const peerText = peers.join("、");
   window.setTimeout(() => {
-    new Notice(`${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`, 8000);
-    try { localStorage.setItem(storageKey, "1"); } catch { /* ignore */ }
+    try {
+      if (localStorage.getItem(storageKey) === "1") return;
+    } catch { /* ignore */ }
+    const markSeen = () => {
+      try { localStorage.setItem(storageKey, "1"); } catch { /* ignore */ }
+    };
+    try {
+      const modal = new Modal(app);
+      modal.setTitle("LifeOS 套装");
+      modal.contentEl.createEl("p", {
+        text: `${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`,
+      });
+      const row = modal.contentEl.createDiv({ cls: "modal-button-container" });
+      const btn = row.createEl("button", { text: "知道了", cls: "mod-cta", type: "button" });
+      btn.onclick = () => {
+        markSeen();
+        modal.close();
+      };
+      modal.open();
+    } catch (_) {
+      new Notice(`${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`, 8000);
+      markSeen();
+    }
   }, 2200);
 }
 
@@ -1155,6 +1200,7 @@ function openLifeOsExternalUrl(url) {
     window.open(url, "_blank");
   } catch (err) {
     console.warn("[LifeOS] open external url", err);
+    try { new Notice("无法打开链接"); } catch { /* ignore */ }
   }
 }
 
@@ -1288,7 +1334,7 @@ function renderBrainCoreShortcutsSettingsPanel(panel, plugin, options = {}) {
   const helpRows = block.createDiv();
   const guideRow = helpRows.createDiv({ cls: "lifeos-about-link-row" });
   guideRow.createSpan({ text: "快捷指令使用说明" });
-  const guideBtn = guideRow.createEl("button", { text: "打开", type: "button" });
+  const guideBtn = guideRow.createEl("button", { cls: "lifeos-act-btn", text: "打开", type: "button" });
   guideBtn.onclick = () => {
     if (typeof options.openShortcutsGuide === "function") void options.openShortcutsGuide();
   };
@@ -1314,6 +1360,16 @@ function renderBrainCoreShortcutsSettingsPanel(panel, plugin, options = {}) {
   input.onclick = () => input.select();
   const btn = row.createEl("button", { cls: "lifeos-act-btn", text: "复制", type: "button" });
   btn.onclick = () => void copyShortcutUrl(quickUrl);
+  // 手机端强制输入与复制同高对齐
+  [input, btn].forEach((el) => {
+    el.style.setProperty("height", "36px", "important");
+    el.style.setProperty("min-height", "36px", "important");
+    el.style.setProperty("max-height", "36px", "important");
+    el.style.setProperty("line-height", "36px", "important");
+    el.style.setProperty("box-sizing", "border-box", "important");
+  });
+  input.style.setProperty("padding", "0 10px", "important");
+  row.style.setProperty("align-items", "center", "important");
 }
 
 const LIFEOS_SUITE_INTRO_BASENAME = "BrainCore LifeOS三款插件介绍、使用说明";
@@ -1402,23 +1458,44 @@ function renderLifeOsAboutPanel(panel, plugin, options = {}) {
     text: `LifeOS 套装已安装 ${enabled.length}/3`,
   });
   const works = worksBlock.createDiv({ cls: "lifeos-about-works" });
+  const braincoreFamily = new Set(["braincore-lifeos", "braincore-lifeos-personal", "braincore-dashboard"]);
   LIFEOS_PLUGIN_CATALOG.forEach((item) => {
     const itemEl = works.createDiv({ cls: "lifeos-about-work-item" });
     itemEl.createEl("p", { cls: "lifeos-about-work-name", text: item.name });
     itemEl.createEl("p", { cls: "lifeos-about-work-intro", text: item.intro });
+    if (item.price) {
+      itemEl.createEl("p", {
+        cls: "lifeos-about-work-price",
+        text: `48 小时试用 · ${item.price} 永久激活`,
+      });
+    }
     if (item.philosophy) {
       itemEl.createEl("p", { cls: "lifeos-about-work-philosophy", text: item.philosophy });
     }
     const actions = itemEl.createDiv({ cls: "lifeos-about-work-actions" });
-    const installed = !!plugin.app?.plugins?.plugins?.[item.id];
-    if (item.id === selfId) {
+    const plugins = plugin.app?.plugins?.plugins || {};
+    const installed = !!(
+      plugins[item.id] ||
+      (item.id === "braincore-lifeos" &&
+        (plugins["braincore-lifeos-personal"] || plugins["braincore-dashboard"]))
+    );
+    const isSelf =
+      item.id === selfId || (braincoreFamily.has(selfId) && item.id === "braincore-lifeos");
+    if (isSelf) {
       actions.createEl("button", { text: "当前插件", type: "button", cls: "is-self" });
     } else if (installed) {
+      const targetId =
+        item.id === "braincore-lifeos" && plugins["braincore-lifeos-personal"]
+          ? "braincore-lifeos-personal"
+          : item.id;
       const btn = actions.createEl("button", { text: "打开设置", type: "button" });
-      btn.onclick = () => openLifeOsPluginSettings(plugin.app, item.id);
+      btn.onclick = () => openLifeOsPluginSettings(plugin.app, targetId);
     } else {
-      const btn = actions.createEl("button", { text: "未安装", type: "button", cls: "is-self" });
-      btn.onclick = () => new Notice(`请先在 Obsidian 设置 → 第三方插件 中启用 ${item.name}`);
+      const btn = actions.createEl("button", { text: "去了解", type: "button" });
+      btn.onclick = () => {
+        if (item.repoUrl) openLifeOsExternalUrl(item.repoUrl);
+        else new Notice(`请先在 Obsidian 设置 → 第三方插件 中启用 ${item.name}`);
+      };
     }
   });
 }
@@ -2246,7 +2323,7 @@ function bcPreferEssayPool(allQuotes, seed) {
 
 const { Plugin, ItemView, WorkspaceLeaf, Modal, Notice, Menu, debounce, PluginSettingTab, Setting, requestUrl, Platform, TFile, normalizePath, FuzzySuggestModal, setIcon } = require('obsidian');
 
-const PLUGIN_VERSION = "4.1.19";
+const PLUGIN_VERSION = "4.1.20";
 const PLUGIN_WEEKLY_PROFILE = "commercial";
 const PLUGIN_TRIAL_HOURS = 48;
 /** 构建时注入 docs/templates/文件墙.md；勿手写简易 dv.table 占位 */
@@ -2258,6 +2335,53 @@ const PLUGIN_INTRO = "这是一个专为 Obsidian 开发的生活管理控制台
 const PLUGIN_PHILOSOPHY_SUBTITLE = "Obsidian 知识库的「核心呼吸机」，它由 7 大模块组成，涵盖了时间感知、极速收集、工作流转、习惯养成与知识内化。一切信息从这里输入，最终也会在这里沉淀。";
 const LICENSE_FINGERPRINT_LABEL = "设备指纹";
 const LICENSE_FINGERPRINT_HINT = "基于 Obsidian appId；每台设备激活一次即可。手机与电脑的激活码都会保留，同步后互不覆盖（兼容旧版库名激活码）";
+
+/** 设置页顶部介绍：行距 + 首行缩进（inline !important，压过主题） */
+function applyLifeOsIntroStyle(el) {
+    if (!el) return;
+    el.style.setProperty("margin", "0 0 6px", "important");
+    el.style.setProperty("padding", "0", "important");
+    el.style.setProperty("text-indent", "4em", "important");
+    el.style.setProperty("line-height", "1.35", "important");
+    el.style.setProperty("font-size", "12px", "important");
+}
+
+/** 路径类 Setting：标签固定列宽 + 输入等宽右对齐（手机端 CSS 常被 Obsidian 盖掉，必须 JS 强制） */
+function lockPathSettingLayout(setting) {
+    const row = setting?.settingEl;
+    if (!row) return;
+    row.addClass("bc-settings-path-row");
+    const info = row.querySelector(".setting-item-info");
+    const control = row.querySelector(".setting-item-control");
+    const input = row.querySelector('input[type="text"]');
+    if (info) {
+        info.style.setProperty("flex", "0 0 5.5em", "important");
+        info.style.setProperty("width", "5.5em", "important");
+        info.style.setProperty("min-width", "5.5em", "important");
+        info.style.setProperty("max-width", "5.5em", "important");
+        info.style.setProperty("padding-right", "0", "important");
+    }
+    if (control) {
+        control.style.setProperty("flex", "0 0 11em", "important");
+        control.style.setProperty("width", "11em", "important");
+        control.style.setProperty("min-width", "11em", "important");
+        control.style.setProperty("max-width", "11em", "important");
+        control.style.setProperty("margin-left", "auto", "important");
+        control.style.setProperty("justify-content", "flex-end", "important");
+    }
+    if (input) {
+        input.style.setProperty("width", "100%", "important");
+        input.style.setProperty("min-width", "0", "important");
+        input.style.setProperty("max-width", "100%", "important");
+        input.style.setProperty("box-sizing", "border-box", "important");
+    }
+    row.style.setProperty("display", "flex", "important");
+    row.style.setProperty("flex-direction", "row", "important");
+    row.style.setProperty("align-items", "center", "important");
+    row.style.setProperty("justify-content", "space-between", "important");
+    row.style.setProperty("gap", "12px", "important");
+}
+
 function getLifeOsVaultKey(app, suffix) {
     const vaultName = app.vault?.getName?.() || "UnknownVault";
     return `lifeos:${vaultName}:${suffix}`;
@@ -2279,9 +2403,29 @@ function maybeShowLifeOsSuitePrompt(app, selfId, selfName) {
     if (!peers.length) return;
     const storageKey = getLifeOsVaultKey(app, "suitePromptSeen");
     try { if (localStorage.getItem(storageKey) === "1") return; } catch (e) { /* ignore */ }
+    const peerText = peers.join("、");
     window.setTimeout(() => {
-        new Notice(`${selfName} 可与 ${peers.join("、")} 并排使用，数据均保存在同一 Obsidian 库内。`, 8000);
-        try { localStorage.setItem(storageKey, "1"); } catch (e) { /* ignore */ }
+        try { if (localStorage.getItem(storageKey) === "1") return; } catch (e) { /* ignore */ }
+        const markSeen = () => {
+            try { localStorage.setItem(storageKey, "1"); } catch (e) { /* ignore */ }
+        };
+        try {
+            const modal = new Modal(app);
+            modal.setTitle("LifeOS 套装");
+            modal.contentEl.createEl("p", {
+                text: `${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`,
+            });
+            const row = modal.contentEl.createDiv({ cls: "modal-button-container" });
+            const btn = row.createEl("button", { text: "知道了", cls: "mod-cta", type: "button" });
+            btn.onclick = () => {
+                markSeen();
+                modal.close();
+            };
+            modal.open();
+        } catch (_) {
+            new Notice(`${selfName} 可与 ${peerText} 并排使用，数据均保存在同一 Obsidian 库内。`, 8000);
+            markSeen();
+        }
     }, 2200);
 }
 
@@ -5750,6 +5894,43 @@ class CaptureModal extends Modal {
     }
 }
 
+/** 打开库内 / 插件目录 JSON：优先在 Obsidian 编辑器打开，其次系统默认应用，最后提示路径。 */
+async function openVaultOrConfigFile(app, vaultPath) {
+    const path = String(vaultPath || "").replace(/\\/g, "/");
+    if (!path) return false;
+    let file = app?.vault?.getAbstractFileByPath?.(path);
+    if (file && typeof file.extension === "string") {
+        await app.workspace.getLeaf(false).openFile(file);
+        return true;
+    }
+    const adapter = app?.vault?.adapter;
+    if (adapter && typeof adapter.exists === "function") {
+        try {
+            if (!(await adapter.exists(path))) {
+                bcNoticeInfo(`文件不存在：${path}`);
+                return false;
+            }
+        } catch (_) { /* continue */ }
+    }
+    if (typeof app?.openWithDefaultApp === "function") {
+        try {
+            await app.openWithDefaultApp(path);
+            return true;
+        } catch (_) { /* continue */ }
+    }
+    if (adapter && typeof adapter.getFullPath === "function" && typeof window.require === "function") {
+        try {
+            const full = adapter.getFullPath(path);
+            if (full) {
+                window.require("electron").shell.openPath(full);
+                return true;
+            }
+        } catch (_) { /* continue */ }
+    }
+    bcNoticeInfo(`请用文件管理器打开：${path}`);
+    return false;
+}
+
 /** 在系统文件管理器里定位库内文件；移动端或非 Electron 环境退化成提示路径。 */
 function revealVaultFileInFileManager(app, vaultPath) {
     const adapter = app?.vault?.adapter;
@@ -5932,14 +6113,18 @@ function renderBrainCoreMomentsSettingsPanel(containerEl, plugin, tab) {
             }
             await plugin.saveSettings();
         };
-        new Setting(body).setName('作者名称').setDesc('水印右侧显示，如「囍樂」').addText(t => t
+        const nameSetting = new Setting(body).setName('作者名称').setDesc('水印右侧显示，如「囍樂」').addText(t => t
             .setPlaceholder('你的名字')
             .setValue(msShare.shareAuthorName || "")
             .onChange(async v => { msShare.shareAuthorName = v; await syncMomentsShare(); }));
-        new Setting(body).setName('附加文案').setDesc('分享未填标题时，显示在水印左侧').addText(t => t
+        nameSetting.settingEl.addClass('bc-settings-path-row');
+        lockPathSettingLayout(nameSetting);
+        const bioSetting = new Setting(body).setName('附加文案').setDesc('分享未填标题时，显示在水印左侧').addText(t => t
             .setPlaceholder('可选，如签名 / 一句话')
             .setValue(msShare.shareAuthorBio || "")
             .onChange(async v => { msShare.shareAuthorBio = v; await syncMomentsShare(); }));
+        bioSetting.settingEl.addClass('bc-settings-path-row');
+        lockPathSettingLayout(bioSetting);
         const avatarSetting = new Setting(body).setName('头像').setDesc('可从仓库选，或从本地/相册导入到 Boxes/图片');
         avatarSetting.settingEl.addClass('bc-settings-avatar-row');
         avatarSetting.addText(t => {
@@ -6000,6 +6185,38 @@ function renderBrainCoreMomentsSettingsPanel(containerEl, plugin, tab) {
             if (tab._momentsAvatarInput) tab._momentsAvatarInput.setValue("");
             await syncMomentsShare();
         }));
+        // 头像：输入全宽 + 三钮等距一行（JS 强制，防手机端 CSS 被盖）
+        {
+            const row = avatarSetting.settingEl;
+            const control = row.querySelector('.setting-item-control');
+            const input = control?.querySelector('input[type="text"]');
+            const buttons = control ? Array.from(control.querySelectorAll('button')) : [];
+            if (control) {
+                control.style.setProperty('display', 'grid', 'important');
+                control.style.setProperty('grid-template-columns', 'repeat(3, minmax(0, 1fr))', 'important');
+                control.style.setProperty('gap', '8px', 'important');
+                control.style.setProperty('width', '100%', 'important');
+                control.style.setProperty('max-width', '100%', 'important');
+                control.style.setProperty('margin-left', '0', 'important');
+            }
+            if (input) {
+                input.style.setProperty('grid-column', '1 / -1', 'important');
+                input.style.setProperty('width', '100%', 'important');
+                input.style.setProperty('max-width', '100%', 'important');
+                input.style.setProperty('min-width', '0', 'important');
+                input.style.setProperty('box-sizing', 'border-box', 'important');
+            }
+            buttons.forEach((btn) => {
+                btn.style.setProperty('width', '100%', 'important');
+                btn.style.setProperty('min-width', '0', 'important');
+                btn.style.setProperty('height', '36px', 'important');
+                btn.style.setProperty('margin', '0', 'important');
+                btn.style.setProperty('box-sizing', 'border-box', 'important');
+            });
+            row.style.setProperty('display', 'flex', 'important');
+            row.style.setProperty('flex-direction', 'column', 'important');
+            row.style.setProperty('align-items', 'stretch', 'important');
+        }
     }, { defaultExpanded: false });
 
     const footCard = grid.createDiv({ cls: "bc-settings-block" });
@@ -6034,6 +6251,7 @@ class BrainCoreSettingsTab extends PluginSettingTab {
             });
         }
         containerEl.createEl('p', { text: PLUGIN_PHILOSOPHY_SUBTITLE, cls: 'bc-settings-intro' });
+        applyLifeOsIntroStyle(containerEl.querySelector('.bc-settings-intro'));
         const locked = isLicenseRequired() && !this.plugin.settings.licenseActivated;
         if (locked) {
             containerEl.createEl('p', {
@@ -6145,26 +6363,41 @@ class BrainCoreSettingsTab extends PluginSettingTab {
         pathsCard.createEl('p', { text: '决定捕捉、待办、金句等内容读写位置。', cls: 'setting-item-description' });
         new Setting(pathsCard).setName('输入路径').setHeading().setClass('bc-settings-subgroup');
         
-        new Setting(pathsCard).setName('工作').addText(t => t.setValue(this.plugin.settings.pathWork).onChange(v => { this.plugin.settings.pathWork = v; this.plugin.saveSettings(); }));
-        new Setting(pathsCard).setName('生活').addText(t => t.setValue(this.plugin.settings.pathTasks).onChange(v => { this.plugin.settings.pathTasks = v; this.plugin.saveSettings(); }));
+        const pathWork = new Setting(pathsCard).setName('工作').setClass('bc-settings-path-row').addText(t => t.setValue(this.plugin.settings.pathWork).onChange(v => { this.plugin.settings.pathWork = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathWork);
+        const pathLife = new Setting(pathsCard).setName('生活').setClass('bc-settings-path-row').addText(t => t.setValue(this.plugin.settings.pathTasks).onChange(v => { this.plugin.settings.pathTasks = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathLife);
         pathsCard.createEl('p', { text: 'Moments 年文件目录与分享水印在「Moments」Tab 里设置。', cls: 'setting-item-description' });
-        new Setting(pathsCard).setName('随笔').addText(t => t.setValue(this.plugin.settings.pathEssays).onChange(v => { this.plugin.settings.pathEssays = v; this.plugin.saveSettings(); }));
-        new Setting(pathsCard).setName('剪藏').addText(t => t.setValue(this.plugin.settings.pathClippings).onChange(v => { this.plugin.settings.pathClippings = v; this.plugin.saveSettings(); }));
-        new Setting(pathsCard).setName('剪藏感悟').setDesc('填写感悟时另存的目录；与剪藏笔记双向链接').addText(t => t.setValue(this.plugin.settings.pathClipReflections || "读&写/剪藏感悟").onChange(v => { this.plugin.settings.pathClipReflections = v; this.plugin.saveSettings(); }));
-        new Setting(pathsCard).setName('草稿').addText(t => t.setValue(this.plugin.settings.pathDrafts).onChange(v => { this.plugin.settings.pathDrafts = v; this.plugin.saveSettings(); }));
+        const pathEssays = new Setting(pathsCard).setName('随笔').setClass('bc-settings-path-row').addText(t => t.setValue(this.plugin.settings.pathEssays).onChange(v => { this.plugin.settings.pathEssays = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathEssays);
+        const pathClip = new Setting(pathsCard).setName('剪藏').setClass('bc-settings-path-row').addText(t => t.setValue(this.plugin.settings.pathClippings).onChange(v => { this.plugin.settings.pathClippings = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathClip);
+        const pathClipRef = new Setting(pathsCard).setName('剪藏感悟').setClass('bc-settings-path-row').setDesc('填写感悟时另存的目录；与剪藏笔记双向链接').addText(t => t.setValue(this.plugin.settings.pathClipReflections || "读&写/剪藏感悟").onChange(v => { this.plugin.settings.pathClipReflections = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathClipRef);
+        const pathDraft = new Setting(pathsCard).setName('草稿').setClass('bc-settings-path-row').addText(t => t.setValue(this.plugin.settings.pathDrafts).onChange(v => { this.plugin.settings.pathDrafts = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathDraft);
         new Setting(pathsCard).setName('剪藏分类').setHeading().setClass('bc-settings-subgroup');
-        pathsCard.createEl('p', { text: '确认剪藏时可点选；输入框添加的分类会写入下方列表。用英文逗号或换行分隔。', cls: 'setting-item-description' });
+        pathsCard.createEl('p', { text: '确认剪藏时可点选；用英文逗号或换行分隔。下方标签为当前分类预览。', cls: 'setting-item-description' });
+        const clipChips = pathsCard.createDiv({ cls: 'bc-clip-cat-chips' });
+        const refreshClipChips = () => {
+            clipChips.empty();
+            getClipCategories(this.plugin.settings).forEach((name) => {
+                clipChips.createSpan({ cls: 'bc-clip-cat-chip', text: name });
+            });
+        };
+        refreshClipChips();
         const clipCatsSetting = new Setting(pathsCard).setName('分类列表');
         clipCatsSetting.settingEl.addClass('bc-settings-textarea-row');
         clipCatsSetting.addTextArea(t => {
             t.setPlaceholder(DEFAULT_CLIP_CATEGORIES.join("，"));
             t.setValue(getClipCategories(this.plugin.settings).join("，"));
             t.inputEl.rows = 3;
-            t.inputEl.setCssStyles({ width: "100%" });
+            t.inputEl.setCssStyles({ width: "100%", textAlign: "left" });
             t.onChange(v => {
                 const parts = String(v || "").split(/[,，\n]/).map(sanitizeClipCategoryName).filter(Boolean);
                 this.plugin.settings.clipCategories = parts.length ? [...new Set(parts)] : [...DEFAULT_CLIP_CATEGORIES];
                 this.plugin.saveSettings();
+                refreshClipChips();
             });
         });
         new Setting(pathsCard)
@@ -6176,10 +6409,14 @@ class BrainCoreSettingsTab extends PluginSettingTab {
             this.display();
         }));
         new Setting(pathsCard).setName('附件与索引').setHeading().setClass('bc-settings-subgroup');
-        new Setting(pathsCard).setName('附件根目录').setDesc('未装 AM 时：图片→同级「图片」、PDF→「PDF」、音视频→「音视频」，其余进此目录。已装并配置 AM 后，捕捉也严格跟 AM。').addText(t => t.setValue(this.plugin.settings.pathAttachments || "Boxes/附件").onChange(v => { this.plugin.settings.pathAttachments = v; this.plugin.saveSettings(); }));
-        new Setting(pathsCard).setName('文件墙').setDesc('打开文件墙的路径（纯展示看板，素材不会写入此文件）').addText(t => t.setValue(this.plugin.settings.pathMaterials || "Boxes/文件墙.md").onChange(v => { this.plugin.settings.pathMaterials = v; this.plugin.saveSettings(); }));
-        new Setting(pathsCard).setName('素材日志').setDesc('可选备注写入此文件；留空标题则不写日志').addText(t => t.setValue(this.plugin.settings.pathMaterialLog || "Boxes/素材日志.md").onChange(v => { this.plugin.settings.pathMaterialLog = v; this.plugin.saveSettings(); }));
-        new Setting(pathsCard).setName('读书笔记').setDesc('金句轮播从此目录读取（默认 Weread）。建议安装社区插件 Weread 同步微信读书划线，路径需与插件输出目录一致。').addText(t => t.setValue(this.plugin.settings.pathQuotes).onChange(v => { this.plugin.settings.pathQuotes = v; this.plugin.saveSettings(); }));
+        const pathAtt = new Setting(pathsCard).setName('附件根目录').setClass('bc-settings-path-row').setDesc('未装 AM 时：图片→同级「图片」、PDF→「PDF」、音视频→「音视频」，其余进此目录。已装并配置 AM 后，捕捉也严格跟 AM。').addText(t => t.setValue(this.plugin.settings.pathAttachments || "Boxes/附件").onChange(v => { this.plugin.settings.pathAttachments = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathAtt);
+        const pathWall = new Setting(pathsCard).setName('文件墙').setClass('bc-settings-path-row').setDesc('打开文件墙的路径（纯展示看板，素材不会写入此文件）').addText(t => t.setValue(this.plugin.settings.pathMaterials || "Boxes/文件墙.md").onChange(v => { this.plugin.settings.pathMaterials = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathWall);
+        const pathMatLog = new Setting(pathsCard).setName('素材日志').setClass('bc-settings-path-row').setDesc('可选备注写入此文件；留空标题则不写日志').addText(t => t.setValue(this.plugin.settings.pathMaterialLog || "Boxes/素材日志.md").onChange(v => { this.plugin.settings.pathMaterialLog = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathMatLog);
+        const pathQuotes = new Setting(pathsCard).setName('读书笔记').setClass('bc-settings-path-row').setDesc('金句轮播从此目录读取（默认 Weread）。建议安装社区插件 Weread 同步微信读书划线，路径需与插件输出目录一致。').addText(t => t.setValue(this.plugin.settings.pathQuotes).onChange(v => { this.plugin.settings.pathQuotes = v; this.plugin.saveSettings(); }));
+        lockPathSettingLayout(pathQuotes);
         new Setting(pathsCard).setName('第三方联动（可选）').setHeading().setClass('bc-settings-subgroup');
         pathsCard.createEl('p', { text: '未安装 AM：捕捉用内置四分类。已安装且 AM 有配置：捕捉严格跟随 AM（与全库附件规则一致，避免两套目录冲突）。', cls: 'bc-am-section-hint setting-item-description' });
         new Setting(pathsCard).setName('跟随 Attachment Management').setDesc('开：仅当 AM 根目录对齐 Boxes 四栏时跟随；未对齐则用内置四分类。关：捕捉始终用内置四分类。').addToggle(t => t.setValue(this.plugin.settings.followAttachmentManagement !== false).onChange(v => { this.plugin.settings.followAttachmentManagement = v; this.plugin.saveSettings(); }));
@@ -6205,6 +6442,7 @@ class BrainCoreSettingsTab extends PluginSettingTab {
             const sec = getWeeklySectionNames(this.plugin.settings);
             const setting = new Setting(weeklyCard)
                 .setName(sec[slot])
+                .setClass("bc-settings-weekly-row")
                 .addText(t => t.setPlaceholder(defs[slot]).setValue(this.plugin.settings[nameKey] || "").onChange(async v => {
                     this.plugin.settings[nameKey] = v.trim();
                     await this.plugin.saveSettings();
@@ -6540,12 +6778,16 @@ class BrainCoreSettingsTab extends PluginSettingTab {
             renderBrainCoreStorageTable(dataCard, dataPath);
             new Setting(dataCard)
                 .setName("data.json")
-                .setDesc(dataPath)
+                .setClass("bc-settings-action-row")
                 .addButton((btn) =>
                     btn.setButtonText("打开").onClick(() => {
-                        revealVaultFileInFileManager(this.app, dataPath);
+                        void openVaultOrConfigFile(this.app, dataPath);
                     })
                 );
+            dataCard.createEl("p", {
+                cls: "setting-item-description",
+                text: `打卡数据、插件设置与 Moments 设置。\n${dataPath}`,
+            });
         }
         if (!locked) renderBrainCoreMomentsSettingsPanel(panels.moments, this.plugin, this);
         renderBrainCoreShortcutsSettingsPanel(panels.shortcuts, this.plugin, {
