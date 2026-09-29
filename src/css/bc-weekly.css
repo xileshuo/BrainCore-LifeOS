@@ -1,6 +1,14 @@
 /* BrainCore weekly note chrome — colors via CSS variables set at runtime */
-.braincore-weekly .metadata-container { display: none; }
-.braincore-weekly .metadata-content { display: none; }
+/* 笔记属性（frontmatter cssclasses）在阅读/编辑视图都藏掉 */
+.markdown-preview-view.braincore-weekly .metadata-container,
+.markdown-reading-view.braincore-weekly .metadata-container,
+.markdown-source-view.braincore-weekly .metadata-container,
+.braincore-weekly .metadata-container,
+.braincore-weekly .metadata-content,
+.braincore-weekly .metadata-properties,
+.braincore-weekly .metadata-properties-heading {
+  display: none !important;
+}
 .braincore-weekly .cm-line.HyperMD-header-2,
 .braincore-weekly .cm-line.HyperMD-header-3 {
   padding: 0.8em 10px 5px 10px;
@@ -13,11 +21,15 @@
 }
 .braincore-weekly .cm-line.HyperMD-header-2 .cm-strong { font-weight: inherit; }
 .braincore-weekly .cm-line.HyperMD-header-2 .cm-em { font-style: normal; }
+/* 编辑 / 实时预览按区块标题文字上色（去掉加粗、斜体也不丢色） */
 .braincore-weekly .cm-line.HyperMD-header-2 {
   position: relative;
   z-index: 1;
-  background-color: transparent;
 }
+.cm-line.bc-weekly-h-todo { background-color: var(--bc-weekly-todo, #FAF9DE) !important; }
+.cm-line.bc-weekly-h-meeting { background-color: var(--bc-weekly-meeting, #E3EDCD) !important; }
+.cm-line.bc-weekly-h-weekly { background-color: var(--bc-weekly-weekly, #DCE2F1) !important; }
+.cm-line.bc-weekly-h-daily { background-color: var(--bc-weekly-daily, #FDE6E0) !important; }
 .braincore-weekly h2 {
   padding: 5px 10px;
   margin-top: 1em;

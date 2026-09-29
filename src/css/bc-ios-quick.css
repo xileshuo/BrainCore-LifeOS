@@ -353,3 +353,15 @@
                     font-size: 12px;
                 }
             }
+
+.bcq-capture-shell .bcq-capture-hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0 12px 4px;
+    line-height: 1.35;
+}
+.bcq-capture-shell .bc-capture-send {
+    width: calc(100% - 24px);
+    margin: 4px auto 12px;
+}

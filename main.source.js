@@ -1,6 +1,6 @@
 const { Plugin, ItemView, WorkspaceLeaf, Modal, Notice, Menu, debounce, PluginSettingTab, Setting, requestUrl, Platform, TFile, normalizePath, FuzzySuggestModal, setIcon } = require('obsidian');
 
-const PLUGIN_VERSION = "4.1.23";
+const PLUGIN_VERSION = "4.1.24";
 const PLUGIN_WEEKLY_PROFILE = "personal";
 const PLUGIN_TRIAL_HOURS = 0;
 /** 构建时注入 docs/templates/文件墙.md；勿手写简易 dv.table 占位 */
@@ -375,6 +375,87 @@ function buildWeeklyTemplateStyleBlock(colors, sections) {
         .braincore-weekly ${weeklySelector} { background-color: var(--bc-weekly-weekly); }
         .braincore-weekly ${dailySelector} { background-color: var(--bc-weekly-daily); }
     `;
+}
+
+function plainWeeklyHeadingText(line) {
+    const matched = String(line || "").match(/^##\s+(.+)$/);
+    if (!matched) return "";
+    return matched[1].replace(/[*_`~]/g, "").replace(/\s+/g, " ").trim();
+}
+
+function weeklyHeadingKind(text, sections) {
+    const plain = String(text || "").trim();
+    if (!plain) return "";
+    const ranked = [
+        ["weekly", sections?.weekly],
+        ["meeting", sections?.meeting],
+        ["daily", sections?.daily],
+        ["todo", sections?.todo],
+    ].filter(([, name]) => name).sort((a, b) => b[1].length - a[1].length);
+    for (const [kind, name] of ranked) {
+        if (plain === name || plain.includes(name)) return kind;
+    }
+    return "";
+}
+
+function installWeeklyHeadingColorExtension(plugin) {
+    let viewMod;
+    let stateMod;
+    try {
+        viewMod = require("@codemirror/view");
+        stateMod = require("@codemirror/state");
+    } catch (err) {
+        console.warn("[BrainCore] 周工作标题着色不可用:", err);
+        return;
+    }
+    const { ViewPlugin, Decoration } = viewMod || {};
+    const { RangeSetBuilder } = stateMod || {};
+    if (!ViewPlugin || !Decoration?.line || !RangeSetBuilder) return;
+    const lineDecos = {
+        todo: Decoration.line({ class: "bc-weekly-h-todo" }),
+        meeting: Decoration.line({ class: "bc-weekly-h-meeting" }),
+        weekly: Decoration.line({ class: "bc-weekly-h-weekly" }),
+        daily: Decoration.line({ class: "bc-weekly-h-daily" }),
+    };
+    const ext = ViewPlugin.fromClass(class {
+        constructor(view) {
+            this._gen = plugin._weeklyColorGen || 0;
+            this.decorations = this.build(view);
+        }
+        update(update) {
+            const gen = plugin._weeklyColorGen || 0;
+            if (update.docChanged || update.viewportChanged || gen !== this._gen) {
+                this._gen = gen;
+                this.decorations = this.build(update.view);
+            }
+        }
+        build(view) {
+            const builder = new RangeSetBuilder();
+            const doc = view.state.doc;
+            const head = doc.sliceString(0, Math.min(doc.length, 1600));
+            const fm = head.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+            if (!fm || !fm[1].includes("braincore-weekly")) return builder.finish();
+            const sections = getWeeklySectionNames(plugin.settings);
+            let line = doc.lineAt(view.viewport.from);
+            while (line.from <= view.viewport.to) {
+                const kind = weeklyHeadingKind(plainWeeklyHeadingText(line.text), sections);
+                if (kind && lineDecos[kind]) builder.add(line.from, line.from, lineDecos[kind]);
+                if (line.to >= doc.length) break;
+                line = doc.line(line.number + 1);
+            }
+            return builder.finish();
+        }
+    }, { decorations: (value) => value.decorations });
+    plugin.registerEditorExtension(ext);
+}
+
+function refreshWeeklyHeadingColors(plugin) {
+    plugin._weeklyColorGen = (plugin._weeklyColorGen || 0) + 1;
+    plugin.app?.workspace?.iterateAllLeaves?.((leaf) => {
+        const cm = leaf?.view?.editor?.cm;
+        if (typeof cm?.dispatch !== "function") return;
+        try { cm.dispatch({}); } catch (_) { /* ignore */ }
+    });
 }
 /** 从微信读书导出文件的高亮/读书笔记章节中提取有效引用。 */
 function extractQuotesFromWereadContent(content, basename, cleanQuoteText, shouldKeepQuote) {
@@ -903,6 +984,25 @@ function bcNoticeSuccess(msg, duration = 4000) {
     new Notice(String(msg || ""), duration);
 }
 
+function bcNoticeSavedTo(app, filePath) {
+    const path = String(filePath || "").replace(/\\/g, "/").trim();
+    if (!path) {
+        bcNoticeSuccess("已保存");
+        return;
+    }
+    const notice = new Notice("", 8000);
+    const row = notice.noticeEl.createDiv();
+    row.createSpan({ text: `已写入 ${path}` });
+    const open = row.createEl("a", { text: "打开", href: "#" });
+    open.style.marginLeft = "10px";
+    open.addEventListener("click", (e) => {
+        e.preventDefault();
+        const file = app.vault.getAbstractFileByPath(path);
+        if (file) void app.workspace.getLeaf(false).openFile(file);
+        notice.hide();
+    });
+}
+
 function bcNoticeWarn(msg, duration = 5000) {
     new Notice(String(msg || ""), duration);
 }
@@ -1316,9 +1416,70 @@ async function collectPendingTasks(app, settings, workFile) {
     return tasks;
 }
 
+function parentFolderOfVaultPath(path) {
+    const norm = String(path || "").replace(/\\/g, "/").replace(/\/+$/, "");
+    if (!norm) return "";
+    const base = norm.split("/").pop() || "";
+    if (/\.[a-z0-9]{1,8}$/i.test(base)) {
+        return norm.includes("/") ? norm.slice(0, norm.lastIndexOf("/")) : "";
+    }
+    return norm;
+}
+
+async function ensureVaultNote(vault, filePath, content = "") {
+    const path = String(filePath || "").replace(/\\/g, "/").replace(/^\/+/, "");
+    if (!path) return null;
+    await ensureFolderByPath(vault, path);
+    let file = vault.getAbstractFileByPath(path);
+    if (!file) file = await vault.create(path, content);
+    return file;
+}
+
+/** 捕捉各路径：空则回填默认值并写入设置，缺目录/文件则创建 */
+async function ensureCaptureDestinations(plugin) {
+    const s = plugin?.settings;
+    const vault = plugin?.app?.vault;
+    if (!s || !vault) return;
+    const defaults = {
+        pathEssays: "读&写/随笔.md",
+        pathTasks: "Inbox/Tasks.md",
+        pathDrafts: "Inbox/草稿.md",
+        pathMoments: "读&写/Moments",
+        pathWork: "Work",
+        pathClippings: "Inbox/Clippings",
+        pathClipReflections: "读&写/剪藏感悟",
+        pathMaterials: "Boxes/文件墙.md",
+        pathAttachments: "Boxes/附件",
+    };
+    let changed = false;
+    for (const [key, fallback] of Object.entries(defaults)) {
+        if (!String(s[key] || "").trim()) {
+            s[key] = fallback;
+            changed = true;
+        }
+    }
+    const folders = [
+        s.pathMoments, s.pathWork, s.pathClippings, s.pathClipReflections, s.pathAttachments,
+        parentFolderOfVaultPath(s.pathEssays),
+        parentFolderOfVaultPath(s.pathTasks),
+        parentFolderOfVaultPath(s.pathDrafts),
+        parentFolderOfVaultPath(s.pathMaterials),
+    ];
+    for (const folder of folders) {
+        if (folder) await ensureFolderByPath(vault, folder);
+    }
+    await ensureVaultNote(vault, s.pathEssays, "## 📝 随笔\n\n");
+    await ensureVaultNote(vault, s.pathTasks, "## ✅ 待办\n\n");
+    await ensureVaultNote(vault, s.pathDrafts, "## ✍️ 随手草稿\n\n");
+    if (s.pathMaterials && !vault.getAbstractFileByPath(s.pathMaterials)) {
+        await ensureVaultNote(vault, s.pathMaterials, typeof getFileWallNoteContent === "function" ? getFileWallNoteContent(s) : "");
+    }
+    if (changed) await plugin.saveSettings();
+}
+
 async function ensureFolderByPath(vault, path) {
     if (!path) return;
-    const folderPath = path.includes(".") ? path.substring(0, path.lastIndexOf("/")) : path;
+    const folderPath = parentFolderOfVaultPath(path);
     if (!folderPath) return;
     let current = "";
     for (const part of folderPath.split("/").filter(Boolean)) {
@@ -1468,10 +1629,9 @@ async function saveWithYearMonth(app, filePath, titleHeader, bodyText, now, suff
 }
 
 async function saveEssayEntry(app, plugin, body, now, sourceSuffix = "") {
+    if (!String(plugin.settings.pathEssays || "").trim()) plugin.settings.pathEssays = "读&写/随笔.md";
     const filePath = plugin.settings.pathEssays;
-    await ensureFolderByPath(app.vault, filePath);
-    let file = app.vault.getAbstractFileByPath(filePath);
-    if (!file) file = await app.vault.create(filePath, "");
+    let file = await ensureVaultNote(app.vault, filePath, "## 📝 随笔\n\n");
     let lines = (await app.vault.read(file)).split("\n");
 
     const yearH = `# ${now.format("YYYY年")}`;
@@ -1480,7 +1640,7 @@ async function saveEssayEntry(app, plugin, body, now, sourceSuffix = "") {
     const weekEnd = now.clone().endOf("isoWeek").format("MM月DD日");
     const weekH = `### 第${now.isoWeek()}周 (${weekStart}-${weekEnd})`;
     const calloutBody = body.split("\n").map(line => `> ${line}`).join("\n");
-    const formatted = `> [!NOTE] ${now.format("HH:mm")}\n${calloutBody}${sourceSuffix ? "\n> " + sourceSuffix : ""}\n\n`;
+    const formatted = `> [!NOTE] ${now.format("YYYY.MM.DD HH:mm:ss")}\n${calloutBody}${sourceSuffix ? "\n> " + sourceSuffix : ""}\n\n`;
 
     let yIdx = lines.findIndex(l => l.trim() === yearH);
     if (yIdx === -1) {
@@ -1544,6 +1704,7 @@ async function saveWorkTaskEntry(app, plugin, body, now, sourceSuffix = "") {
         }
     }
     await app.vault.modify(workFile, lines.join('\n'));
+    return workFile.path;
 }
 
 function countHabitTotal(habitData, habitId) {
@@ -2882,7 +3043,7 @@ function mountCaptureCategoryRow(container, btnRow, items, options = {}) {
         btn.createSpan({ text: item.label });
         btn.addEventListener("click", () => {
             setActive(key);
-            onCategoryClick(item);
+            if (!options.selectOnly && typeof onCategoryClick === "function") onCategoryClick(item);
         });
         if (withTipMenu && app) {
             const showTipMenu = (e) => {
@@ -3106,7 +3267,7 @@ class CaptureModal extends Modal {
             this.hintEl = contentEl.createDiv({ cls: "bc-capture-hint" });
             this.hintEl.style.cssText = "font-size:11px;color:var(--text-muted);text-align:center;margin:0 0 4px;opacity:0.85;";
         } else {
-            const mobileHint = contentEl.createDiv({ cls: "bc-capture-mobile-hint", text: "素材仅文件 · 剪藏需 URL · 长按分类看说明" });
+            const mobileHint = contentEl.createDiv({ cls: "bc-capture-mobile-hint", text: "点分类即保存。素材仅文件 · 剪藏需 URL · 长按分类看说明" });
             mobileHint.style.cssText = "font-size:11px;color:var(--text-muted);text-align:center;margin:0 8px 6px;opacity:0.9;line-height:1.4;";
             if (!this.plugin.settings.captureCategoryHintSeen) {
                 this.plugin.settings.captureCategoryHintSeen = true;
@@ -3160,10 +3321,10 @@ class CaptureModal extends Modal {
     }
 
     syncCaptureHint() {
-        if (!this.hintEl) return;
         const item = this.categoryRow?.getItem?.();
         const label = item?.label || "Moments";
-        this.hintEl.setText(`⌘/Ctrl+Enter 提交到「${label}」（点分类可换） · ⌘/Ctrl+Shift+Enter 存草稿`);
+        if (!this.hintEl) return;
+        this.hintEl.setText(`⌘/Ctrl+Enter 提交到「${label}」 · ⌘/Ctrl+Shift+Enter 存草稿`);
     }
 
     async submitActiveCategory() {
@@ -3204,6 +3365,7 @@ class CaptureModal extends Modal {
     async processSave(item) {
         if (this._saving) return false;
         if (!this.plugin.requireLicense()) return false;
+        await ensureCaptureDestinations(this.plugin);
         let body = this.textArea.value.trim();
         if (!body && !(this.pendingImages && this.pendingImages.length)) {
             new Notice("请输入内容或上传文件");
@@ -3221,6 +3383,7 @@ class CaptureModal extends Modal {
         this._saving = true;
         this.plugin._suppressDashboardRefresh = true;
         let success = true;
+        let savedPath = "";
         try {
             const savedAssetPaths = [];
             const renamedNotices = [];
@@ -3284,26 +3447,31 @@ class CaptureModal extends Modal {
                     const pathHint = savedAssetPaths.length === 1
                         ? savedAssetPaths[0]
                         : `${savedAssetPaths[0]} 等 ${savedAssetPaths.length} 个`;
-                    new Notice(`已保存至 ${pathHint}`, 6000);
+                    bcNoticeSavedTo(this.app, savedAssetPaths[0]);
+                    if (savedAssetPaths.length > 1) new Notice(`另有 ${savedAssetPaths.length - 1} 个文件：${pathHint}`, 6000);
                 } else {
                     bcNoticeWarn("未能保存任何素材文件");
                     success = false;
                 }
             } else if (item.isEssay) {
                 await saveEssayEntry(this.app, this.plugin, body, now, s);
+                savedPath = this.plugin.settings.pathEssays;
             } else if (item.isIdea) {
                 const momentBody = s ? `${body}${s}` : body;
-                await createMomentEntry(this.app, this.plugin, { body: momentBody });
+                const momentFile = await createMomentEntry(this.app, this.plugin, { body: momentBody });
+                savedPath = momentFile?.path || `${this.plugin.settings.pathMoments || "读&写/Moments"}/${now.format("YYYY")}.md`;
             } else if (item.isDraft) {
                 await saveWithYearMonth(this.app, this.plugin.settings.pathDrafts || "Inbox/草稿.md", "## ✍️ 随手草稿", formatAsOrderedList(body), now, s);
+                savedPath = this.plugin.settings.pathDrafts || "Inbox/草稿.md";
             } else if (item.isLife) {
                 await saveWithYearMonth(this.app, this.plugin.settings.pathTasks, "", formatAsTask(body), now, s);
+                savedPath = this.plugin.settings.pathTasks;
             } else if (item.isWork) {
-                await saveWorkTaskEntry(this.app, this.plugin, body, now, s);
+                savedPath = await saveWorkTaskEntry(this.app, this.plugin, body, now, s);
             } else if (item.isClipper || (!item.isMaterial && body.includes("![["))) {
                 if (item.isClipper) {
                     const clipPath = await this.plugin.saveClipping(body, s);
-                    if (clipPath) new Notice(`剪藏已保存至 ${clipPath}`, 6000);
+                    if (clipPath) savedPath = clipPath;
                     else success = false;
                 } else {
                     const imgFolder = getAttachmentFolder(this.plugin.settings);
@@ -3311,10 +3479,17 @@ class CaptureModal extends Modal {
                     let file = this.app.vault.getAbstractFileByPath(filePath) || await this.app.vault.create(filePath, "## 🖼️ 图片库\n\n");
                     const content = await this.app.vault.read(file);
                     await this.app.vault.modify(file, content + `\n### ${timeTag}\n${body}${s}\n`);
+                    savedPath = filePath;
                 }
             }
             if (!success) return false;
-            if (!item.isMaterial) bcNoticeSuccess("已保存");
+            if (item.isMaterial) {
+                /* 素材提示已在上面给出 */
+            } else if (savedPath) {
+                bcNoticeSavedTo(this.app, savedPath);
+            } else {
+                bcNoticeSuccess("已保存");
+            }
             await this.plugin.ensureBasicStructureDeferred();
             this.pendingImages = [];
             if (this.textArea) this.textArea.value = "";
@@ -6782,6 +6957,7 @@ class BrainCorePlugin extends Plugin {
         if (this.settings.pathWork === "Work/房车") { this.settings.pathWork = "Work"; await this.saveSettings(); }
 
         this.addSettingTab(new BrainCoreSettingsTab(this.app, this));
+        void ensureCaptureDestinations(this).catch((e) => console.warn("[BrainCore] 捕捉目录初始化失败:", e));
 
         // iOS 快捷指令入口：obsidian://braincore?action=quick
         this.addCommand({
@@ -6889,6 +7065,7 @@ class BrainCorePlugin extends Plugin {
             setTimeout(async () => { if (!this.app.vault.getAbstractFileByPath(file.path)) return; const content = await this.app.vault.read(file); if (content.trim() === "") await this.populateWeeklyFile(file); }, 500);
         }));
 
+        installWeeklyHeadingColorExtension(this);
         this.injectDashboardStyles();
         this.addRibbonIcon('cloud', '打开 BrainCore', () => { this.activateView(); });
 
@@ -8637,6 +8814,7 @@ return this.app.vault.getFiles().find(f =>
             { colorTodo, colorMeeting, colorWeekly, colorDaily },
             getWeeklySectionNames(this.settings)
         );
+        refreshWeeklyHeadingColors(this);
 
         // Remove legacy injected blobs if present
         ["bc-styles-min", "bc-dashboard-content-guard"].forEach((id) => {

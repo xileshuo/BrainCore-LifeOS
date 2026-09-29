@@ -152,6 +152,9 @@ test("capture submits to the highlighted category and keeps drafts on a separate
   assert.match(source, /submitActiveCategory/);
   assert.match(source, /if \(e\.shiftKey\) \{ void this\.processSave\(\{ isDraft: true \}\); return; \}/);
   assert.match(source, /⌘\/Ctrl\+Shift\+Enter 存草稿/);
+  assert.match(source, /function bcNoticeSavedTo/);
+  assert.match(source, /bc-weekly-h-todo/);
+  assert.equal(read("src/css/bc-weekly.css").includes(":has(.cm-strong)"), false);
   assert.match(source, /lastCaptureCategory/);
   assert.match(source, /row\.createEl\("button", \{\s*cls: "bc-row-item"/s);
   assert.match(source, /"aria-pressed"/);
